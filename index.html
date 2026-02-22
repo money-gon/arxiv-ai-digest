@@ -12,22 +12,52 @@
     body {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       margin: 0;
-      padding: 20px 16px 40px;
+      padding: 20px 16px 60px;
       background: #f5f5f5;
       color: #222;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      transition: background 0.2s, color 0.2s;
     }
-    .wrap {
-      max-width: 680px;
-      margin: 0 auto;
+    body.dark {
+      background: #1a1a1a;
+      color: #e0e0e0;
     }
-    h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin: 0 0 24px;
-      color: #1a1a1a;
+    body.dark .paper { background: #2d2d2d; border-color: #444; }
+    body.dark .paper .title { color: #fff; }
+    body.dark .meta { color: #aaa; }
+    body.dark .summary { color: #ccc; }
+    body.dark .summary .section-head { color: #64b5f6; }
+    body.dark .settings-panel { background: #2d2d2d; border-color: #444; }
+    body.dark .settings-panel h2 { color: #fff; }
+    body.dark .settings-panel p { color: #aaa; }
+    body.dark .settings-panel input { background: #1a1a1a; border-color: #555; color: #e0e0e0; }
+    body.dark .filter-bar button { background: #2d2d2d; border-color: #555; color: #e0e0e0; }
+    body.dark .filter-bar button:hover:not(.active) { background: #3d3d3d; }
+    body.dark .filter-bar button.active { background: #1565c0; border-color: #1565c0; color: #fff; }
+    body.dark .tag.agent { background: #1b5e20; color: #a5d6a7; }
+    body.dark .tag.robotics { background: #e65100; color: #ffcc80; }
+    body.dark .tag.hand { background: #4a148c; color: #ce93d8; }
+    body.dark .btn-save { background: #555; color: #fff; }
+    body.dark .btn-save.saved { background: #2e7d32; }
+    body.dark h1 { color: #fff; }
+    body.dark .last-update { color: #888; }
+    body.dark .settings-toggle { color: #64b5f6; }
+    body.dark #papers.empty { color: #888; }
+    .wrap { max-width: 680px; margin: 0 auto; }
+    .header-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    h1 { font-size: 1.5rem; font-weight: 700; margin: 0; color: #1a1a1a; }
+    .last-update { font-size: 0.85rem; color: #666; }
+    .header-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .btn-icon {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+      font-size: 0.9rem;
     }
+    body.dark .btn-icon { background: #2d2d2d; border-color: #555; color: #e0e0e0; }
     .paper {
       background: #fff;
       border-radius: 12px;
@@ -36,30 +66,10 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
       border: 1px solid #e8e8e8;
     }
-    .paper .title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      line-height: 1.45;
-      margin: 0 0 8px;
-      color: #111;
-    }
-    .meta {
-      font-size: 0.85rem;
-      color: #666;
-      margin-bottom: 14px;
-    }
-    .summary {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin: 0 0 16px;
-      color: #333;
-    }
-    .summary .section-head {
-      font-weight: 700;
-      color: #0d47a1;
-      margin-top: 12px;
-      display: inline-block;
-    }
+    .paper .title { font-size: 1.1rem; font-weight: 700; line-height: 1.45; margin: 0 0 8px; color: #111; }
+    .meta { font-size: 0.85rem; color: #666; margin-bottom: 14px; }
+    .summary { font-size: 0.95rem; line-height: 1.7; margin: 0 0 16px; color: #333; }
+    .summary .section-head { font-weight: 700; color: #0d47a1; margin-top: 12px; display: inline-block; }
     .summary .section-head:first-child { margin-top: 0; }
     .paper a.arxiv {
       display: inline-block;
@@ -72,13 +82,7 @@
       font-weight: 600;
     }
     .paper a.arxiv:hover { background: #0d47a1; }
-    .saved {
-      color: #2e7d32;
-      font-weight: 600;
-      font-size: 0.9rem;
-      margin-top: 8px;
-      display: inline-block;
-    }
+    .saved { color: #2e7d32; font-weight: 600; font-size: 0.9rem; margin-top: 8px; display: inline-block; }
     .tags-row { margin-bottom: 10px; }
     .tag {
       display: inline-block;
@@ -105,30 +109,52 @@
     }
     .btn-save.saved { background: #2e7d32; color: #fff; }
     .btn-save:hover { opacity: 0.9; }
-    .filter-bar {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
+    .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 20px; }
+    .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; }
     .filter-bar button {
-      padding: 10px 18px;
+      padding: 8px 14px;
       border-radius: 8px;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
       border: 1px solid #ccc;
       background: #fff;
       color: #333;
       cursor: pointer;
     }
-    .filter-bar button.active {
-      background: #1565c0;
-      color: #fff;
-      border-color: #1565c0;
-    }
+    .filter-bar button.active { background: #1565c0; color: #fff; border-color: #1565c0; }
     .filter-bar button:hover:not(.active) { background: #f5f5f5; }
+    .sort-wrap { display: flex; align-items: center; gap: 6px; }
+    .sort-wrap label { font-size: 0.9rem; color: #666; }
+    body.dark .sort-wrap label { color: #aaa; }
+    .sort-wrap select { padding: 8px 10px; border-radius: 8px; border: 1px solid #ccc; background: #fff; font-size: 0.9rem; }
+    body.dark .sort-wrap select { background: #2d2d2d; border-color: #555; color: #e0e0e0; }
     #papers.loading { color: #666; font-size: 1rem; }
     #papers.empty { color: #666; }
+    .skeleton { padding: 20px; margin-bottom: 20px; border-radius: 12px; background: #e8e8e8; }
+    body.dark .skeleton { background: #333; }
+    .skeleton-line { height: 14px; margin-bottom: 10px; border-radius: 4px; background: #ddd; max-width: 90%; }
+    body.dark .skeleton-line { background: #444; }
+    .skeleton-line.title { height: 18px; max-width: 70%; }
+    .skeleton-line.short { max-width: 40%; }
+    .back-to-top {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #1565c0;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+    .back-to-top.visible { opacity: 1; visibility: visible; }
+    .back-to-top:hover { background: #0d47a1; }
     .settings-panel {
       margin-bottom: 20px;
       padding: 16px;
@@ -152,12 +178,24 @@
     .settings-panel button.secondary { background: #fff; color: #333; border-color: #ccc; }
     .settings-toggle { font-size: 0.9rem; color: #1565c0; cursor: pointer; margin-bottom: 12px; display: inline-block; }
     .sync-hint { font-size: 0.85rem; color: #666; margin-top: 8px; }
+    .sync-hint.error { color: #c62828; }
+    .error-msg { padding: 16px; border-radius: 12px; background: #ffebee; color: #c62828; margin-bottom: 20px; }
+    body.dark .error-msg { background: #4a1a1a; color: #ef9a9a; }
   </style>
 </head>
 <body>
+  <button type="button" class="back-to-top" id="backToTop" aria-label="上へ戻る">↑</button>
   <div class="wrap">
-    <h1>arXiv AI & Robotics Digest</h1>
-    <p class="settings-toggle" id="settingsToggle">⚙️ 設定（別端末で保存を共有）</p>
+    <div class="header-row">
+      <div>
+        <h1>arXiv AI & Robotics Digest</h1>
+        <p class="last-update" id="lastUpdate"></p>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="btn-icon" id="darkModeBtn" aria-label="ダークモード">🌙</button>
+        <p class="settings-toggle" id="settingsToggle">⚙️ 設定</p>
+      </div>
+    </div>
     <div class="settings-panel" id="settingsPanel" style="display:none;">
       <h2>GitHub で保存を共有</h2>
       <p>リポジトリとトークンを設定すると、保存した論文一覧を別端末・別ブラウザでも同じ内容で見られます。</p>
@@ -169,11 +207,29 @@
       <button type="button" class="secondary" id="btnClearSettings">クリア</button>
       <p class="sync-hint" id="syncHint"></p>
     </div>
-    <div class="filter-bar" id="filterBar" style="display:none;">
-      <button type="button" id="filterAll" class="active">すべて</button>
-      <button type="button" id="filterSaved">Saved のみ</button>
+    <div id="errorBanner"></div>
+    <div class="toolbar" id="toolbar" style="display:none;">
+      <div class="filter-bar">
+        <button type="button" id="filterAll" class="active">すべて</button>
+        <button type="button" id="filterSaved">Saved のみ</button>
+        <button type="button" id="filterTagAgent">AIエージェント</button>
+        <button type="button" id="filterTagRobotics">Robotics</button>
+        <button type="button" id="filterTagHand">ハンド模倣学習</button>
+      </div>
+      <div class="sort-wrap">
+        <label for="sortSelect">並び順:</label>
+        <select id="sortSelect">
+          <option value="newest">新しい順</option>
+          <option value="oldest">古い順</option>
+          <option value="savedFirst">保存済みを上に</option>
+        </select>
+      </div>
     </div>
-    <div id="papers" class="loading">Loading…</div>
+    <div id="papers" class="loading">
+      <div class="skeleton"><div class="skeleton-line title"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+      <div class="skeleton"><div class="skeleton-line title"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+      <div class="skeleton"><div class="skeleton-line title"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
+    </div>
   </div>
 
 <script>
@@ -238,7 +294,13 @@
         });
       })
       .then(function(r) {
-        if (!r.ok) return r.json().then(function(e) { throw new Error(e.message || 'API error'); });
+        if (!r.ok) {
+          return r.json().then(function(e) {
+            var err = new Error(e.message || 'API error');
+            err.status = r.status;
+            throw err;
+          });
+        }
         if (cb) cb(null);
       })
       .catch(function(e) {
@@ -307,13 +369,35 @@
     return div;
   }
 
-  function renderPapers(container, data, filterSaved, savedIds) {
+  function applySort(list, sortValue, savedIds) {
+    var arr = list.slice();
+    if (sortValue === 'newest') {
+      arr.sort(function(a, b) { return (b.published || '').localeCompare(a.published || ''); });
+    } else if (sortValue === 'oldest') {
+      arr.sort(function(a, b) { return (a.published || '').localeCompare(b.published || ''); });
+    } else if (sortValue === 'savedFirst') {
+      arr.sort(function(a, b) {
+        var aSaved = savedIds.indexOf(a.id) >= 0 ? 1 : 0;
+        var bSaved = savedIds.indexOf(b.id) >= 0 ? 1 : 0;
+        if (bSaved !== aSaved) return bSaved - aSaved;
+        return (b.published || '').localeCompare(a.published || '');
+      });
+    }
+    return arr;
+  }
+
+  function renderPapers(container, data, filterMode, sortValue, savedIds) {
     container.innerHTML = '';
     var list = data;
-    if (filterSaved) list = list.filter(function(p) { return savedIds.indexOf(p.id) >= 0; });
+    if (filterMode === 'saved') {
+      list = list.filter(function(p) { return savedIds.indexOf(p.id) >= 0; });
+    } else if (filterMode === 'AIエージェント' || filterMode === 'Robotics' || filterMode === 'ハンド模倣学習') {
+      list = list.filter(function(p) { return p.tags && p.tags.indexOf(filterMode) >= 0; });
+    }
+    list = applySort(list, sortValue, savedIds);
     if (list.length === 0) {
       container.classList.add('empty');
-      container.textContent = filterSaved ? 'Saved の論文はありません。' : 'No papers yet.';
+      container.textContent = filterMode === 'saved' ? 'Saved の論文はありません。' : (filterMode ? '該当する論文はありません。' : 'No papers yet.');
       return;
     }
     container.classList.remove('empty');
@@ -331,10 +415,13 @@
         if (i >= 0) newIds.splice(i, 1); else newIds.push(id);
         setSavedIds(newIds, function(err) {
           if (err) {
-            if (hintEl) hintEl.textContent = '保存の同期に失敗しました: ' + (err.message || err);
+            if (hintEl) {
+              hintEl.textContent = (err.status === 401 || err.status === 403) ? '保存の同期に失敗しました。トークンの有効期限切れの可能性があります。設定でトークンを確認してください。' : ('保存の同期に失敗しました: ' + (err.message || err));
+              hintEl.classList.add('error');
+            }
             return;
           }
-          if (hintEl) hintEl.textContent = '';
+          if (hintEl) { hintEl.textContent = ''; hintEl.classList.remove('error'); }
           savedIds.length = 0;
           savedIds.push.apply(savedIds, newIds);
           btn.textContent = newIds.indexOf(id) >= 0 ? '★ Saved' : '☆ Save';
@@ -371,43 +458,89 @@
     document.getElementById('syncHint').textContent = '設定をクリアしました。保存はこの端末のみになります。';
   });
 
+  var DARK_KEY = 'arxiv-digest-dark';
+  function initDarkMode() {
+    var dark = localStorage.getItem(DARK_KEY) === '1';
+    document.body.classList.toggle('dark', dark);
+    document.getElementById('darkModeBtn').textContent = dark ? '☀️' : '🌙';
+  }
+  document.getElementById('darkModeBtn').addEventListener('click', function() {
+    var dark = document.body.classList.toggle('dark');
+    localStorage.setItem(DARK_KEY, dark ? '1' : '0');
+    this.textContent = dark ? '☀️' : '🌙';
+  });
+  initDarkMode();
+
+  function showError(msg) {
+    var el = document.getElementById('errorBanner');
+    el.innerHTML = '<div class="error-msg">' + escapeHtml(msg) + '</div>';
+  }
+  function clearError() {
+    document.getElementById('errorBanner').innerHTML = '';
+  }
+
+  var backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', function() {
+    backToTop.classList.toggle('visible', window.scrollY > 300);
+  });
+  backToTop.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
   fetch('papers_db.json?v=' + Date.now(), { cache: 'no-store' })
-    .then(function(res) { if (!res.ok) throw new Error('Failed to load papers'); return res.json(); })
+    .then(function(res) {
+      if (!res.ok) throw new Error('論文データの取得に失敗しました。ネットワークまたは papers_db.json を確認してください。');
+      return res.json();
+    })
     .then(function(data) {
       var container = document.getElementById('papers');
-      var filterBar = document.getElementById('filterBar');
+      var toolbar = document.getElementById('toolbar');
       container.classList.remove('loading');
+      clearError();
       if (!Array.isArray(data) || data.length === 0) {
         container.classList.add('empty');
-        container.innerHTML = 'No papers yet.<br><small style="color:#888;">If the repo has papers, try hard refresh (Ctrl+Shift+R).</small>';
+        container.innerHTML = 'No papers yet.<br><small style="color:#888;">リポジトリに論文がある場合はスーパーリロード (Ctrl+Shift+R) を試してください。</small>';
+        document.getElementById('lastUpdate').textContent = '';
         return;
       }
       data = data.slice().reverse();
+      var lastDate = '';
+      data.forEach(function(p) {
+        if (p.created_at && (!lastDate || p.created_at > lastDate)) lastDate = p.created_at;
+      });
+      if (lastDate) document.getElementById('lastUpdate').textContent = '最終更新: ' + lastDate;
       getSavedIds(function(ids) {
+        try { if (!Array.isArray(ids)) ids = []; } catch (_) { ids = []; }
         currentSavedIds = ids;
-        filterBar.style.display = 'flex';
-        var filterSaved = false;
-        function update() {
-          renderPapers(container, data, filterSaved, currentSavedIds);
+        toolbar.style.display = 'flex';
+        var filterMode = 'all';
+        var sortValue = 'newest';
+        function setFilterActive() {
+          ['filterAll', 'filterSaved', 'filterTagAgent', 'filterTagRobotics', 'filterTagHand'].forEach(function(id) {
+            var btn = document.getElementById(id);
+            var isAll = id === 'filterAll' && filterMode === 'all';
+            var isSaved = id === 'filterSaved' && filterMode === 'saved';
+            var isTag = (id === 'filterTagAgent' && filterMode === 'AIエージェント') || (id === 'filterTagRobotics' && filterMode === 'Robotics') || (id === 'filterTagHand' && filterMode === 'ハンド模倣学習');
+            btn.classList.toggle('active', isAll || isSaved || isTag);
+          });
         }
-        document.getElementById('filterAll').onclick = function() {
-          filterSaved = false;
-          document.getElementById('filterAll').classList.add('active');
-          document.getElementById('filterSaved').classList.remove('active');
-          update();
-        };
-        document.getElementById('filterSaved').onclick = function() {
-          filterSaved = true;
-          document.getElementById('filterSaved').classList.add('active');
-          document.getElementById('filterAll').classList.remove('active');
-          update();
-        };
+        function update() {
+          renderPapers(container, data, filterMode, sortValue, currentSavedIds);
+        }
+        document.getElementById('filterAll').onclick = function() { filterMode = 'all'; setFilterActive(); update(); };
+        document.getElementById('filterSaved').onclick = function() { filterMode = 'saved'; setFilterActive(); update(); };
+        document.getElementById('filterTagAgent').onclick = function() { filterMode = 'AIエージェント'; setFilterActive(); update(); };
+        document.getElementById('filterTagRobotics').onclick = function() { filterMode = 'Robotics'; setFilterActive(); update(); };
+        document.getElementById('filterTagHand').onclick = function() { filterMode = 'ハンド模倣学習'; setFilterActive(); update(); };
+        document.getElementById('sortSelect').onchange = function() { sortValue = this.value; update(); };
+        setFilterActive();
         update();
       });
     })
-    .catch(function() {
+    .catch(function(e) {
       document.getElementById('papers').classList.remove('loading');
-      document.getElementById('papers').textContent = 'Could not load papers. Check that papers_db.json is available.';
+      document.getElementById('papers').innerHTML = '';
+      showError(e.message || '論文データを読み込めませんでした。papers_db.json が利用可能か、ネットワークを確認してください。');
     });
 </script>
 </body>
