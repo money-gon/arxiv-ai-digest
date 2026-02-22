@@ -34,7 +34,7 @@ def summarize_to_japanese(text):
         "Authorization": f"Bearer {HF_TOKEN}",
         "Content-Type": "application/json",
     }
-    prompt = f"""以下の論文アブストラクトを日本語で要約してください。研究背景・提案手法・実験結果・実用的意義を8〜12行で説明してください。
+    prompt = f"""以下の論文を日本語で要約してください。研究背景・提案手法・実験結果・実用的意義を8〜12行で説明してください。
 
 {text}
 """
@@ -87,15 +87,13 @@ def main():
     existing_ids = {paper["id"] for paper in db}
 
     papers = fetch_latest_papers()
-
     new_entries = []
 
     for paper in papers:
         if paper["id"] in existing_ids:
             continue
 
-        print(f"Generating Japanese summary for: {paper['title']}")
-
+        print(f"Summarizing: {paper['title']}")
         summary_ja = summarize_to_japanese(paper["summary_en"])
 
         entry = {
@@ -107,14 +105,12 @@ def main():
 
         new_entries.append(entry)
 
-    if not new_entries:
+    if new_entries:
+        db.extend(new_entries)
+        save_db(db)
+        print(f"Added {len(new_entries)} new papers to DB.")
+    else:
         print("No new papers.")
-        return
-
-    db.extend(new_entries)
-    save_db(db)
-
-    print(f"Added {len(new_entries)} new papers to DB.")
 
 
 if __name__ == "__main__":
