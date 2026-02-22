@@ -1,1 +1,85 @@
-[]
+[
+  {
+    "id": "http://arxiv.org/abs/2602.17659v1",
+    "title": "When Vision Overrides Language: Evaluating and Mitigating Counterfactual Failures in VLAs",
+    "summary_en": "Vision-Language-Action models (VLAs) promise to ground language instructions in robot control, yet in practice often fail to faithfully follow language. When presented with instructions that lack strong scene-specific supervision, VLAs suffer from counterfactual failures: they act based on vision shortcuts induced by dataset biases, repeatedly executing well-learned behaviors and selecting objects frequently seen during training regardless of language intent. To systematically study it, we introduce LIBERO-CF, the first counterfactual benchmark for VLAs that evaluates language following capability by assigning alternative instructions under visually plausible LIBERO layouts. Our evaluation reveals that counterfactual failures are prevalent yet underexplored across state-of-the-art VLAs. We propose Counterfactual Action Guidance (CAG), a simple yet effective dual-branch inference scheme that explicitly regularizes language conditioning in VLAs. CAG combines a standard VLA policy with a language-unconditioned Vision-Action (VA) module, enabling counterfactual comparison during action selection. This design reduces reliance on visual shortcuts, improves robustness on under-observed tasks, and requires neither additional demonstrations nor modifications to existing architectures or pretrained models. Extensive experiments demonstrate its plug-and-play integration across diverse VLAs and consistent improvements. For example, on LIBERO-CF, CAG improves $π_{0.5}$ by 9.7% in language following accuracy and 3.6% in task success on under-observed tasks using a training-free strategy, with further gains of 15.5% and 8.5%, respectively, when paired with a VA model. In real-world evaluations, CAG reduces counterfactual failures of 9.4% and improves task success by 17.2% on average.",
+    "published": "2026-02-19T18:59:20Z",
+    "link": "https://arxiv.org/abs/2602.17659v1",
+    "summary_ja": "【背景】\n Vision-Language-Action（VLA）モデルは、言語指示をロボット制御に結びつけることで、自然言語理解と物理的操作を統合しようとする手法である。\n しかし、実際の応用では、言語指示に対する**忠実性（指示通りに動作する能力）**が低下することが多く、特に**シーン固有の強い監督信号（正解データの明示的なフィードバック）**が欠如する場合に問題が発生する。\n これは、**カウンターファクチュアル失敗（Counterfactual Failures）**と呼ばれる現象で、データセットのバイアス（偏り）によって誘導された**視覚的ショートカット（Vision Shortcuts）**に依存し、訓練時に頻出する行動や物体を選択する傾向がある。\n この問題は、言語意図と実際の動作が乖離する原因となり、実用性を制限する。\n\n---\n\n【提案】\n 本論文では、VLAモデルの**カウンターファクチュアル失敗**を体系的に評価するためのベンチマーク「**LIBERO-CF**」を初めて導入する。\n これは、**視覚的に妥当なLIBEROレイアウト（LIBEROの物体配置を模したシーン）**において、代替的な言語指示を与え、モデルの言語忠実性を測定する手法である。\n また、**カウンターファクチュアルアクションガイダンス（Counterfactual Action Guidance, CAG）**と呼ばれる**双方向推論スキーム（Dual-Branch Inference Scheme）**を提案する。\n CAGは、従来のVLAポリシー（Policy）と**言語非条件化のVision-Action（VA）モジュール**を組み合わせ、アクション選択時にカウンターファクチュアル比較を行うことで、視覚的ショートカットへの依存を減らす。\n この設計は、**追加のデモデータ（示例動作）やアーキテクチャ修正、事前学習モデルの変更を必要としない**ため、実装が容易である。\n\n---\n\n【結果】\n LIBERO-CFを用いた評価では、現行のVLAモデルにおいて**カウンターファクチュアル失敗が広範に存在しながら、十分に研究されていない**ことが明らかになった。\n CAGを適用することで、**言語忠実性（$π_{0.5}$）が9.7%**向上し、**未観測タスク（訓練時に見られなかったタスク）**の成功率が3.6%**改善した。\n また、VAモデルと組み合わせることで、さらに**言語忠実性が15.5%**向上し、**タスク成功率が8.5%**改善した。\n 実世界での評価では、CAGが**カウンターファクチュアル失敗を9.4%**削減し、**タスク成功率を平均17.2%**向上させた。\n\n---\n【ポイント】\n VLAモデルの**言語忠実性を向上させるための、簡素で効果的な手法**を提案し、実装の容易さと汎用性を実証した。\n\n---",
+    "tags": [
+      "AIエージェント"
+    ],
+    "saved": false,
+    "created_at": "2026-02-23"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.17641v1",
+    "title": "FAMOSE: A ReAct Approach to Automated Feature Discovery",
+    "summary_en": "Feature engineering remains a critical yet challenging bottleneck in machine learning, particularly for tabular data, as identifying optimal features from an exponentially large feature space traditionally demands substantial domain expertise. To address this challenge, we introduce FAMOSE (Feature AugMentation and Optimal Selection agEnt), a novel framework that leverages the ReAct paradigm to autonomously explore, generate, and refine features while integrating feature selection and evaluation tools within an agent architecture. To our knowledge, FAMOSE represents the first application of an agentic ReAct framework to automated feature engineering, especially for both regression and classification tasks. Extensive experiments demonstrate that FAMOSE is at or near the state-of-the-art on classification tasks (especially tasks with more than 10K instances, where ROC-AUC increases 0.23% on average), and achieves the state-of-the-art for regression tasks by reducing RMSE by 2.0% on average, while remaining more robust to errors than other algorithms. We hypothesize that FAMOSE's strong performance is because ReAct allows the LLM context window to record (via iterative feature discovery and evaluation steps) what features did or did not work. This is similar to a few-shot prompt and guides the LLM to invent better, more innovative features. Our work offers evidence that AI agents are remarkably effective in solving problems that require highly inventive solutions, such as feature engineering.",
+    "published": "2026-02-19T18:53:15Z",
+    "link": "https://arxiv.org/abs/2602.17641v1",
+    "summary_ja": "【背景】\n機械学習（特にタブラーデータ*1の処理）における**特徴量エンジニアリング**（最適な特徴量を抽出する過程）は、指数関数的に広大な特徴量空間から最適なものを選定する難易度の高いボトルネック*2である。\n従来、この作業は専門的な知識や経験に依存しており、自動化が困難だった。\n\n---\n【提案】\n本研究では、**FAMOSE**（Feature AugMentation and Optimal Selection agEnt）という新しいフレームワークを提案する。\nこれは、**ReActパラダイム*3**（言語モデルが推論と行動を交互に行う手法）を用いて、特徴量の探索・生成・精錬を自律的に実行する。\n特徴量選定と評価ツールをエージェントアーキテクチャに統合し、分類*4と回帰*5タスクの両方に適用可能な初めての試みである。\n\n---\n【結果】\n広範な実験により、FAMOSEは**分類タスク**（特に10Kサンプル以上のデータセット）において現行手法と同等または近い性能を示し、平均で**ROC-AUC*6が0.23%向上**した。\nまた、**回帰タスク**では**RMSE*7を平均2.0%削減**し、他のアルゴリズムよりも誤りに対する**ロバスト性*8**が高かった。\nこの優れた性能は、ReActがLLMのコンテキストウィンドウに「どの特徴量が有効だったか」を逐次記録するためと推測される。\nこれは**ファーショットプロンプト*9**（少数の例から学習する手法）に類似し、LLMがより革新的な特徴量を生成する指針となる。\n\n---\n【ポイント】\nAIエージェントが**創造性の高い問題解決**（特徴量エンジニアリングなど）に驚異的な有効性を持つことを実証した。\n\n---\n*1: タブラーデータ: 表形式のデータ（列と行で構成される構造化データ）。\n*2: ボトルネック: システムのパフォーマンスを制限する難易度の高いステップ。\n*3: ReActパラダイム: 大言語モデル（LLM）が推論（Reasoning）と行動（Acting）を交互に行うことで、タスクを解決する手法。\n*4: 分類タスク: データをカテゴリに分類するタスク（例: スパムメール判定）。\n*5: 回帰タスク: データの連続値を予測するタスク（例: 住宅価格推定）。\n*6: ROC-AUC: 分類モデルの性能評価指標（受信者操作特性曲線下の面積）。\n*7: RMSE: 回帰モデルの誤差評価指標（平均二乗平方根誤差）。\n*8: ロバスト性: 外乱や誤りに対して安定した性能を維持する能力。\n*9: ファーショットプロンプト: 少数の例（ショット）を与えることでモデルの学習を誘導する手法。\n\n---",
+    "tags": [
+      "AIエージェント",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-23"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.17607v1",
+    "title": "AutoNumerics: An Autonomous, PDE-Agnostic Multi-Agent Pipeline for Scientific Computing",
+    "summary_en": "PDEs are central to scientific and engineering modeling, yet designing accurate numerical solvers typically requires substantial mathematical expertise and manual tuning. Recent neural network-based approaches improve flexibility but often demand high computational cost and suffer from limited interpretability. We introduce \\texttt{AutoNumerics}, a multi-agent framework that autonomously designs, implements, debugs, and verifies numerical solvers for general PDEs directly from natural language descriptions. Unlike black-box neural solvers, our framework generates transparent solvers grounded in classical numerical analysis. We introduce a coarse-to-fine execution strategy and a residual-based self-verification mechanism. Experiments on 24 canonical and real-world PDE problems demonstrate that \\texttt{AutoNumerics} achieves competitive or superior accuracy compared to existing neural and LLM-based baselines, and correctly selects numerical schemes based on PDE structural properties, suggesting its viability as an accessible paradigm for automated PDE solving.",
+    "published": "2026-02-19T18:31:52Z",
+    "link": "https://arxiv.org/abs/2602.17607v1",
+    "summary_ja": "【背景】\n偏微分方程式（PDEs: Partial Differential Equations）は科学や工学のモデル化において重要な役割を果たすが、高精度な数値ソルバー（解法）を設計するには専門的な数学知識と手動での調整が必要となる。\n近年のニューラルネットワーク（NN）を用いた手法は柔軟性を向上させたが、高い計算コストや解釈性の低さという課題が残っていた。\n\n【提案】\n本論文では、**AutoNumerics**という多エージェント（Multi-Agent）フレームワークを提案する。\nこのフレームワークは、自然言語（Natural Language）によるPDEの記述から自律的に**数値ソルバーの設計・実装・デバッグ・検証**を行う。\n従来のブラックボックス型（Black-Box）のニューラルソルバーとは異なり、**古典的な数値解析に基づいた透明性の高いソルバー**を生成する。\n具体的には、**粗い解から細かい解への逐次精緻化（Coarse-to-Fine Execution Strategy）**と**残差（Residual）に基づく自己検証メカニズム（Self-Verification Mechanism）**を導入している。\n\n【結果】\n実験では、**24種類の標準的（Canonical）および実世界（Real-World）のPDE問題**に適用した。\n**AutoNumerics**は既存のニューラルネットワークやLLM（Large Language Model）を用いたベースラインと比較して、**競争的または優越した精度**を達成した。\nさらに、PDEの構造的特性（Structural Properties）に基づいて数値スキーム（Numerical Schemes）を正しく選択する能力を示し、自動化されたPDE解法の**アクセスしやすい新たなパラダイム**としての有効性が確認された。\n\n【ポイント】\n**専門知識を要しない自然言語からのPDE数値ソルバー自動生成**を実現し、高精度かつ透明性のある解法を提供するフレームワークである。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "saved": false,
+    "created_at": "2026-02-23"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.17601v1",
+    "title": "Graph Neural Model Predictive Control for High-Dimensional Systems",
+    "summary_en": "The control of high-dimensional systems, such as soft robots, requires models that faithfully capture complex dynamics while remaining computationally tractable. This work presents a framework that integrates Graph Neural Network (GNN)-based dynamics models with structure-exploiting Model Predictive Control to enable real-time control of high-dimensional systems. By representing the system as a graph with localized interactions, the GNN preserves sparsity, while a tailored condensing algorithm eliminates state variables from the control problem, ensuring efficient computation. The complexity of our condensing algorithm scales linearly with the number of system nodes, and leverages Graphics Processing Unit (GPU) parallelization to achieve real-time performance. The proposed approach is validated in simulation and experimentally on a physical soft robotic trunk. Results show that our method scales to systems with up to 1,000 nodes at 100 Hz in closed-loop, and demonstrates real-time reference tracking on hardware with sub-centimeter accuracy, outperforming baselines by 63.6%. Finally, we show the capability of our method to achieve effective full-body obstacle avoidance.",
+    "published": "2026-02-19T18:26:42Z",
+    "link": "https://arxiv.org/abs/2602.17601v1",
+    "summary_ja": "【背景】\nソフトロボット（柔軟な材料や構造を持つロボット）などの高次元系（制御変数が多く複雑な動力学を持つ系）を実時間で制御するには、計算コストが低くかつ複雑な動力学を忠実に捉えるモデルが必要である。\n従来の方法では、高次元系の動力学を正確に表現することが難しく、実時間制御が実現しにくいという課題があった。\n\n---\n\n【提案】\nこの研究では、Graph Neural Network（GNN）（グラフ構造を活用したニューラルネットワーク）による動力学モデルと、システムの構造特性を活用したModel Predictive Control（MPC）（制御問題を最適化として解き、未来の状態を予測しながら制御する手法）を統合したフレームワークを提案する。\n具体的には、システムを局所的相互作用（近傍の要素間のみで影響を受ける）を持つグラフとして表現し、GNNによるモデル化でスパース性（計算量の削減）を保持する。\nさらに、専用の**状態変数削減アルゴリズム**を導入し、制御問題から不要な変数を除去。このアルゴリズムは、システムのノード数に対して線形の計算複雑度を持ち、GPU（グラフィックス処理ユニット）による並列処理を活用して実時間制御を実現する。\n\n---\n【結果】\n提案手法は、シミュレーションと物理的ソフトロボットの幹（trunk）での実験で検証された。\nシミュレーションでは、最大**1,000ノード**の高次元系を**100Hz**のクローズドループ制御で実現。物理実験では、サブセンチメートル（1cm未満）の精度で実時間参照軌道追従を実現し、従来手法を**63.6%**上回った。\nまた、全身障害物回避（ロボットの全身が障害物を避けながら動作する能力）も有効に実現できることが示された。\n\n---\n【ポイント】\n高次元系のソフトロボットを**実時間かつ高精度**に制御するための、計算効率の高いGNN-MPC統合フレームワークを実現した。\n\n---",
+    "tags": [
+      "Robotics",
+      "AIエージェント"
+    ],
+    "saved": false,
+    "created_at": "2026-02-23"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.17573v1",
+    "title": "FR-GESTURE: An RGBD Dataset For Gesture-based Human-Robot Interaction In First Responder Operations",
+    "summary_en": "The ever increasing intensity and number of disasters make even more difficult the work of First Responders (FRs). Artificial intelligence and robotics solutions could facilitate their operations, compensating these difficulties. To this end, we propose a dataset for gesture-based UGV control by FRs, introducing a set of 12 commands, drawing inspiration from existing gestures used by FRs and tactical hand signals and refined after incorporating feedback from experienced FRs. Then we proceed with the data collection itself, resulting in 3312 RGBD pairs captured from 2 viewpoints and 7 distances. To the best of our knowledge, this is the first dataset especially intended for gesture-based UGV guidance by FRs. Finally we define evaluation protocols for our RGBD dataset, termed FR-GESTURE, and we perform baseline experiments, which are put forward for improvement. We have made data publicly available to promote future research on the domain: https://doi.org/10.5281/zenodo.18131333.",
+    "published": "2026-02-19T17:31:08Z",
+    "link": "https://arxiv.org/abs/2602.17573v1",
+    "summary_ja": "【背景】\n災害の頻度や規模が増加する中、消防・救急隊員（First Responders: **FR** 災害初期対応者）の作業はより困難になっている。\n人工知能（AI）やロボット技術がこれらの課題を補完し、作業の効率化を支援できる可能性がある。\n\n【提案】\nこの論文では、**FR**がジェスチャー（手振り）で**UGV**（Unmanned Ground Vehicle: 無人地上車両）を操作するためのデータセットを提案した。\n既存の**FR**用ジェスチャーや戦術的手信号を参考に、12種類のコマンドを定義し、実務経験者からのフィードバックを取り入れて精緻化した。\nデータ収集では、2つの視点と7種類の距離から**RGBD**（RGB画像と深度情報の組み合わせ）データを取得し、計3,312組のペアを構築した。\n\n【結果】\n提案した**FR-GESTURE**と呼ばれる**RGBD**データセットは、災害現場におけるジェスチャー操作に特化した初のデータセットであることが確認された。\n定義した評価プロトコルを用いて基準実験（baseline experiments）を行い、今後の研究に向けた改善点を示した。\nデータセットは研究促進のために公開されている（DOI: [10.5281/zenodo.18131333](https://doi.org/10.5281/zenodo.18131333)）。\n\n【ポイント】\n災害現場における**FR**のジェスチャー操作を支援する**UGV**制御用データセットを初めて構築し、研究の基盤を提供した。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "saved": false,
+    "created_at": "2026-02-23"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.17537v1",
+    "title": "IRIS: Learning-Driven Task-Specific Cinema Robot Arm for Visuomotor Motion Control",
+    "summary_en": "Robotic camera systems enable dynamic, repeatable motion beyond human capabilities, yet their adoption remains limited by the high cost and operational complexity of industrial-grade platforms. We present the Intelligent Robotic Imaging System (IRIS), a task-specific 6-DOF manipulator designed for autonomous, learning-driven cinematic motion control. IRIS integrates a lightweight, fully 3D-printed hardware design with a goal-conditioned visuomotor imitation learning framework based on Action Chunking with Transformers (ACT). The system learns object-aware and perceptually smooth camera trajectories directly from human demonstrations, eliminating the need for explicit geometric programming. The complete platform costs under $1,000 USD, supports a 1.5 kg payload, and achieves approximately 1 mm repeatability. Real-world experiments demonstrate accurate trajectory tracking, reliable autonomous execution, and generalization across diverse cinematic motions.",
+    "published": "2026-02-19T16:50:31Z",
+    "link": "https://arxiv.org/abs/2602.17537v1",
+    "summary_ja": "【背景】\nロボットカメラシステムは、人間の能力を超えた動的かつ繰り返し可能な動きを実現できるが、高価な工業用プラットフォームの導入コストや操作の複雑さが普及を妨げている。\n低コストで簡便なカメラ制御ロボットが求められ、特に映画撮影（シネマティック動き）や自律的な動画撮影など、複雑な動作を学習駆動で実現する技術が重要視されている。\n\n---\n【提案】\n本論文では、**Intelligent Robotic Imaging System (IRIS)**という、映画撮影用の自律的な6軸（6-DOF）マニピュレータを提案する。\n軽量で完全3Dプリンティングによるハードウェア設計と、**目標条件付き視覚運動模倣学習フレームワーク（Goal-Conditioned Visuomotor Imitation Learning）**を統合し、人間のデモから直接カメラの軌道を学習する。\n具体的には、**アクションチャンキング（動作分割）とトランスフォーマー（ACT）**を用いた手法により、物体認識と視覚的に滑らかな軌道追従を実現し、明示的な幾何学的プログラミング（幾何学モデルを手動で設定する必要）を不要にした。\n\n---\n【結果】\n実験では、精度の高い軌道追従と信頼性のある自律実行が確認された。\nまた、多様な映画撮影動作への**汎用性（Generalization）**が示され、低コスト（1,000米ドル未満）かつ高精度（1mm程度の繰り返し精度）を実現した。\n1.5kgのペイロードをサポートする軽量設計にもかかわらず、実世界での動作が安定していることが明らかになった。\n\n---\n【ポイント】\n**低コストかつ高精度な自律カメラ制御ロボットを実現し、映画撮影などの複雑な動作を人間デモから直接学習できるフレームワークを提案した。**\n\n---",
+    "tags": [
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-23"
+  }
+]
