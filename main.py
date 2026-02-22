@@ -39,12 +39,13 @@ def summarize_to_japanese(text):
 【ルール】
 ・専門用語にはカッコで簡単な補足を入れる（例: 剪定（不要な計算を省く手法））。
 ・1文は短めにし、箇条書きや「〜である。」を適度に使う。
-・次の4項目を必ず含め、見出しは【】で囲む。
+・次の4項目を必ずすべて書き、見出しは【】で囲む。最後の【ポイント】まで必ず書き切ること。途中で切らさないこと。
+・各項目は簡潔に（背景・提案・結果は各2〜3文、ポイントは1〜2文）。
 
-【背景】 何が問題で、なぜ重要か（2〜3文）
-【提案】 この論文で何をしたか（2〜3文）
-【結果】 実験や評価で何がわかったか（2〜3文）
-【ポイント】 一言で言うと、どんな貢献か（1〜2文）
+【背景】 何が問題で、なぜ重要か
+【提案】 この論文で何をしたか
+【結果】 実験や評価で何がわかったか
+【ポイント】 一言で言うと、どんな貢献か
 
 論文アブストラクト:
 {text}
@@ -52,14 +53,14 @@ def summarize_to_japanese(text):
     payload = {
         "model": HF_MODEL,
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 512,
+        "max_tokens": 1024,
     }
 
     response = requests.post(
         HF_CHAT_URL,
         headers=headers,
         json=payload,
-        timeout=90,
+        timeout=120,
     )
 
     if response.status_code != 200:

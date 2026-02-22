@@ -115,14 +115,15 @@
     } catch (_) { return iso; }
   }
 
-  fetch('papers_db.json')
+  // Cache-bust so updated papers_db.json is loaded (GitHub Pages / browser cache)
+  fetch('papers_db.json?v=' + Date.now(), { cache: 'no-store' })
     .then(res => { if (!res.ok) throw new Error('Failed to load papers'); return res.json(); })
     .then(data => {
       const container = document.getElementById('papers');
       container.classList.remove('loading');
       if (!Array.isArray(data) || data.length === 0) {
         container.classList.add('empty');
-        container.textContent = 'No papers yet.';
+        container.innerHTML = 'No papers yet.<br><small style="color:#888;">If the repo has papers, try hard refresh (Ctrl+Shift+R) or open in a private window.</small>';
         return;
       }
 
