@@ -1,0 +1,17 @@
+# Secrets / env (never commit tokens)
+.env
+.env.local
+.env.*.local
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+venv/
+.venv/
+
+# IDE / OS
+.idea/
+.DS_Store

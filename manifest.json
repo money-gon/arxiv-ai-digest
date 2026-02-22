@@ -1,0 +1,7 @@
+{
+  "name": "arXiv AI Digest",
+  "short_name": "arXiv Digest",
+  "start_url": "./",
+  "display": "standalone",
+  "description": "arXiv AI & Robotics papers with Japanese summaries"
+}
