@@ -79,23 +79,184 @@
       margin-top: 8px;
       display: inline-block;
     }
-    #papers.loading {
-      color: #666;
-      font-size: 1rem;
+    .tags-row { margin-bottom: 10px; }
+    .tag {
+      display: inline-block;
+      padding: 4px 10px;
+      margin: 2px 4px 2px 0;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      background: #e3f2fd;
+      color: #1565c0;
     }
+    .tag.agent { background: #e8f5e9; color: #2e7d32; }
+    .tag.robotics { background: #fff3e0; color: #e65100; }
+    .tag.hand { background: #f3e5f5; color: #7b1fa2; }
+    .paper-actions { margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+    .btn-save {
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      background: #e0e0e0;
+      color: #424242;
+    }
+    .btn-save.saved { background: #2e7d32; color: #fff; }
+    .btn-save:hover { opacity: 0.9; }
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .filter-bar button {
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border: 1px solid #ccc;
+      background: #fff;
+      color: #333;
+      cursor: pointer;
+    }
+    .filter-bar button.active {
+      background: #1565c0;
+      color: #fff;
+      border-color: #1565c0;
+    }
+    .filter-bar button:hover:not(.active) { background: #f5f5f5; }
+    #papers.loading { color: #666; font-size: 1rem; }
     #papers.empty { color: #666; }
+    .settings-panel {
+      margin-bottom: 20px;
+      padding: 16px;
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #e8e8e8;
+    }
+    .settings-panel h2 { font-size: 1rem; margin: 0 0 10px; }
+    .settings-panel p { margin: 0 0 10px; font-size: 0.9rem; color: #555; }
+    .settings-panel input {
+      display: block;
+      width: 100%;
+      max-width: 400px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+    .settings-panel button { padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; border: 1px solid #1565c0; background: #1565c0; color: #fff; }
+    .settings-panel button.secondary { background: #fff; color: #333; border-color: #ccc; }
+    .settings-toggle { font-size: 0.9rem; color: #1565c0; cursor: pointer; margin-bottom: 12px; display: inline-block; }
+    .sync-hint { font-size: 0.85rem; color: #666; margin-top: 8px; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <h1>arXiv AI & Robotics Digest</h1>
+    <p class="settings-toggle" id="settingsToggle">⚙️ 設定（別端末で保存を共有）</p>
+    <div class="settings-panel" id="settingsPanel" style="display:none;">
+      <h2>GitHub で保存を共有</h2>
+      <p>リポジトリとトークンを設定すると、保存した論文一覧を別端末・別ブラウザでも同じ内容で見られます。</p>
+      <label>リポジトリ (例: ユーザー名/arxiv-ai-digest)</label>
+      <input type="text" id="inputRepo" placeholder="owner/repo">
+      <label>GitHub Token (repo スコープ)</label>
+      <input type="password" id="inputToken" placeholder="ghp_...">
+      <button type="button" id="btnSaveSettings">保存</button>
+      <button type="button" class="secondary" id="btnClearSettings">クリア</button>
+      <p class="sync-hint" id="syncHint"></p>
+    </div>
+    <div class="filter-bar" id="filterBar" style="display:none;">
+      <button type="button" id="filterAll" class="active">すべて</button>
+      <button type="button" id="filterSaved">Saved のみ</button>
+    </div>
     <div id="papers" class="loading">Loading…</div>
   </div>
 
 <script>
+  var SAVED_KEY = 'arxiv-digest-saved';
+  var GITHUB_REPO_KEY = 'arxiv-digest-github-repo';
+  var GITHUB_TOKEN_KEY = 'arxiv-digest-github-token';
+
+  function getSavedIdsFromStorage() {
+    try {
+      var raw = localStorage.getItem(SAVED_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (_) { return []; }
+  }
+  function setSavedIdsToStorage(ids) {
+    localStorage.setItem(SAVED_KEY, JSON.stringify(ids));
+  }
+
+  function getSavedIds(cb) {
+    var repo = localStorage.getItem(GITHUB_REPO_KEY);
+    if (repo) {
+      fetch('saved.json?v=' + Date.now(), { cache: 'no-store' })
+        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function(arr) { cb(Array.isArray(arr) ? arr : []); })
+        .catch(function() { cb(getSavedIdsFromStorage()); });
+    } else {
+      cb(getSavedIdsFromStorage());
+    }
+  }
+
+  function isSavedSync(id, savedIds) {
+    return savedIds.indexOf(id) >= 0;
+  }
+
+  function setSavedIds(ids, cb) {
+    var repo = localStorage.getItem(GITHUB_REPO_KEY);
+    var token = localStorage.getItem(GITHUB_TOKEN_KEY);
+    if (repo && token) {
+      updateSavedJsonOnGitHub(repo, token, ids, function(err) {
+        if (!err) setSavedIdsToStorage(ids);
+        if (cb) cb(err);
+      });
+    } else {
+      setSavedIdsToStorage(ids);
+      if (cb) cb(null);
+    }
+  }
+
+  function updateSavedJsonOnGitHub(repo, token, ids, cb) {
+    var api = 'https://api.github.com/repos/' + repo + '/contents/saved.json';
+    var payload = {
+      message: 'Update saved papers',
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(ids))))
+    };
+    fetch(api, { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(function(r) { return r.json(); })
+      .then(function(info) {
+        if (info.sha) payload.sha = info.sha;
+        return fetch(api, {
+          method: 'PUT',
+          headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      })
+      .then(function(r) {
+        if (!r.ok) return r.json().then(function(e) { throw new Error(e.message || 'API error'); });
+        if (cb) cb(null);
+      })
+      .catch(function(e) {
+        if (cb) cb(e);
+      });
+  }
+
+  function toggleSaved(id, savedIds, cb) {
+    var ids = savedIds.slice();
+    var i = ids.indexOf(id);
+    if (i >= 0) ids.splice(i, 1);
+    else ids.push(id);
+    setSavedIds(ids, cb);
+  }
+
   function escapeHtml(str) {
     if (str == null) return '';
-    const div = document.createElement('div');
+    var div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
   }
@@ -110,37 +271,141 @@
   function formatDate(iso) {
     if (!iso) return '';
     try {
-      const d = new Date(iso);
+      var d = new Date(iso);
       return isNaN(d) ? iso : d.toLocaleDateString('ja-JP', { year: 'numeric', month: 'short', day: 'numeric' });
     } catch (_) { return iso; }
   }
 
-  // Cache-bust so updated papers_db.json is loaded (GitHub Pages / browser cache)
+  function tagClass(tag) {
+    if (tag === 'AIエージェント') return 'tag agent';
+    if (tag === 'Robotics') return 'tag robotics';
+    if (tag === 'ハンド模倣学習') return 'tag hand';
+    return 'tag';
+  }
+
+  function renderPaper(paper, savedIds) {
+    var link = paper.link && /^https?:\/\//.test(paper.link) ? paper.link : '#';
+    var saved = savedIds.indexOf(paper.id) >= 0;
+    var tagsHtml = '';
+    if (paper.tags && paper.tags.length) {
+      tagsHtml = paper.tags.map(function(t) {
+        return '<span class="' + tagClass(t) + '">' + escapeHtml(t) + '</span>';
+      }).join('');
+    }
+    var div = document.createElement('div');
+    div.className = 'paper';
+    div.dataset.paperId = paper.id;
+    div.innerHTML =
+      '<div class="title">' + escapeHtml(paper.title) + '</div>' +
+      '<p class="meta">Published: ' + escapeHtml(formatDate(paper.published)) + '</p>' +
+      (tagsHtml ? '<div class="tags-row">' + tagsHtml + '</div>' : '') +
+      '<div class="summary">' + formatSummary(paper.summary_ja || '') + '</div>' +
+      '<div class="paper-actions">' +
+        '<a class="arxiv" href="' + escapeHtml(link) + '" target="_blank" rel="noopener">View on arXiv</a>' +
+        '<button type="button" class="btn-save' + (saved ? ' saved' : '') + '" data-id="' + escapeHtml(paper.id) + '" aria-label="' + (saved ? '保存解除' : '保存') + '">' + (saved ? '★ Saved' : '☆ Save') + '</button>' +
+      '</div>';
+    return div;
+  }
+
+  function renderPapers(container, data, filterSaved, savedIds) {
+    container.innerHTML = '';
+    var list = data;
+    if (filterSaved) list = list.filter(function(p) { return savedIds.indexOf(p.id) >= 0; });
+    if (list.length === 0) {
+      container.classList.add('empty');
+      container.textContent = filterSaved ? 'Saved の論文はありません。' : 'No papers yet.';
+      return;
+    }
+    container.classList.remove('empty');
+    list.forEach(function(paper) {
+      var el = renderPaper(paper, savedIds);
+      container.appendChild(el);
+    });
+    var hintEl = document.getElementById('syncHint');
+    container.querySelectorAll('.btn-save').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var id = btn.getAttribute('data-id');
+        if (!id) return;
+        var newIds = savedIds.slice();
+        var i = newIds.indexOf(id);
+        if (i >= 0) newIds.splice(i, 1); else newIds.push(id);
+        setSavedIds(newIds, function(err) {
+          if (err) {
+            if (hintEl) hintEl.textContent = '保存の同期に失敗しました: ' + (err.message || err);
+            return;
+          }
+          if (hintEl) hintEl.textContent = '';
+          savedIds.length = 0;
+          savedIds.push.apply(savedIds, newIds);
+          btn.textContent = newIds.indexOf(id) >= 0 ? '★ Saved' : '☆ Save';
+          btn.classList.toggle('saved', newIds.indexOf(id) >= 0);
+        });
+      });
+    });
+  }
+
+  var currentSavedIds = [];
+
+  document.getElementById('settingsToggle').addEventListener('click', function() {
+    var p = document.getElementById('settingsPanel');
+    p.style.display = p.style.display === 'none' ? 'block' : 'none';
+    if (p.style.display === 'block') {
+      document.getElementById('inputRepo').value = localStorage.getItem(GITHUB_REPO_KEY) || '';
+      document.getElementById('inputToken').value = localStorage.getItem(GITHUB_TOKEN_KEY) || '';
+    }
+  });
+  document.getElementById('btnSaveSettings').addEventListener('click', function() {
+    var repo = document.getElementById('inputRepo').value.trim();
+    var token = document.getElementById('inputToken').value.trim();
+    if (repo) localStorage.setItem(GITHUB_REPO_KEY, repo);
+    else localStorage.removeItem(GITHUB_REPO_KEY);
+    if (token) localStorage.setItem(GITHUB_TOKEN_KEY, token);
+    else localStorage.removeItem(GITHUB_TOKEN_KEY);
+    document.getElementById('syncHint').textContent = repo && token ? '設定を保存しました。保存した論文はリポジトリの saved.json で共有されます。' : '設定をクリアしました。';
+  });
+  document.getElementById('btnClearSettings').addEventListener('click', function() {
+    localStorage.removeItem(GITHUB_REPO_KEY);
+    localStorage.removeItem(GITHUB_TOKEN_KEY);
+    document.getElementById('inputRepo').value = '';
+    document.getElementById('inputToken').value = '';
+    document.getElementById('syncHint').textContent = '設定をクリアしました。保存はこの端末のみになります。';
+  });
+
   fetch('papers_db.json?v=' + Date.now(), { cache: 'no-store' })
-    .then(res => { if (!res.ok) throw new Error('Failed to load papers'); return res.json(); })
-    .then(data => {
-      const container = document.getElementById('papers');
+    .then(function(res) { if (!res.ok) throw new Error('Failed to load papers'); return res.json(); })
+    .then(function(data) {
+      var container = document.getElementById('papers');
+      var filterBar = document.getElementById('filterBar');
       container.classList.remove('loading');
       if (!Array.isArray(data) || data.length === 0) {
         container.classList.add('empty');
-        container.innerHTML = 'No papers yet.<br><small style="color:#888;">If the repo has papers, try hard refresh (Ctrl+Shift+R) or open in a private window.</small>';
+        container.innerHTML = 'No papers yet.<br><small style="color:#888;">If the repo has papers, try hard refresh (Ctrl+Shift+R).</small>';
         return;
       }
-
-      data.reverse().forEach(paper => {
-        const div = document.createElement('div');
-        div.className = 'paper';
-        const link = paper.link && /^https?:\/\//.test(paper.link) ? paper.link : '#';
-        div.innerHTML =
-          '<div class="title">' + escapeHtml(paper.title) + '</div>' +
-          '<p class="meta">Published: ' + escapeHtml(formatDate(paper.published)) + '</p>' +
-          '<div class="summary">' + formatSummary(paper.summary_ja || '') + '</div>' +
-          '<a class="arxiv" href="' + escapeHtml(link) + '" target="_blank" rel="noopener">View on arXiv</a>' +
-          (paper.saved ? '<p><span class="saved">★ Saved</span></p>' : '');
-        container.appendChild(div);
+      data = data.slice().reverse();
+      getSavedIds(function(ids) {
+        currentSavedIds = ids;
+        filterBar.style.display = 'flex';
+        var filterSaved = false;
+        function update() {
+          renderPapers(container, data, filterSaved, currentSavedIds);
+        }
+        document.getElementById('filterAll').onclick = function() {
+          filterSaved = false;
+          document.getElementById('filterAll').classList.add('active');
+          document.getElementById('filterSaved').classList.remove('active');
+          update();
+        };
+        document.getElementById('filterSaved').onclick = function() {
+          filterSaved = true;
+          document.getElementById('filterSaved').classList.add('active');
+          document.getElementById('filterAll').classList.remove('active');
+          update();
+        };
+        update();
       });
     })
-    .catch(() => {
+    .catch(function() {
       document.getElementById('papers').classList.remove('loading');
       document.getElementById('papers').textContent = 'Could not load papers. Check that papers_db.json is available.';
     });

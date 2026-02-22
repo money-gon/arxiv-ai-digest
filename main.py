@@ -4,11 +4,17 @@ import os
 import requests
 from datetime import datetime
 
-ARXIV_URL = (
-    "http://export.arxiv.org/api/query?"
-    "search_query=cat:cs.AI+OR+cat:cs.RO+OR+cat:cs.LG&"
-    "sortBy=submittedDate&max_results=5"
-)
+# 3種類のタグに対応する arXiv 検索クエリ（各タグから論文を取得してマージ）
+ARXIV_BASE = "http://export.arxiv.org/api/query?"
+ARXIV_QUERIES = [
+    # AIエージェント: cs.AI + agent 関連
+    "search_query=cat:cs.AI+AND+all:agent&sortBy=submittedDate&max_results=2",
+    # Robotics: ロボティクス
+    "search_query=cat:cs.RO&sortBy=submittedDate&max_results=2",
+    # ハンド模倣学習: 手・模倣・デクスタース操作
+    "search_query=(cat:cs.RO+OR+cat:cs.LG)+AND+(all:hand+OR+all:imitation+OR+all:dexterous+OR+all:manipulation)&sortBy=submittedDate&max_results=2",
+]
+MAX_PAPERS_PER_RUN = 6  # マージ後、日付でソートしてこの件数まで
 
 DB_FILE = "papers_db.json"
 
@@ -41,6 +47,7 @@ def summarize_to_japanese(text):
 ・1文は短めにし、箇条書きや「〜である。」を適度に使う。
 ・次の4項目を必ずすべて書き、見出しは【】で囲む。最後の【ポイント】まで必ず書き切ること。途中で切らさないこと。
 ・各項目は簡潔に（背景・提案・結果は各2〜3文、ポイントは1〜2文）。
+・要約の最後に1行だけ「タグ: 〇〇, 〇〇」または「タグ: なし」を書く。タグは次の3つから該当するものだけカンマ区切りで: AIエージェント, Robotics, ハンド模倣学習。該当がなければ「タグ: なし」。
 
 【背景】 何が問題で、なぜ重要か
 【提案】 この論文で何をしたか
@@ -74,20 +81,50 @@ def summarize_to_japanese(text):
         return "日本語要約に失敗しました。原文を参照してください。"
 
 
+ALLOWED_TAGS = {"AIエージェント", "Robotics", "ハンド模倣学習"}
+
+
+def extract_tags_from_summary(summary_ja):
+    """要約末尾の「タグ: 〇〇, 〇〇」行を解析し、タグリストとタグ行を除いた要約を返す。"""
+    tags = []
+    text = summary_ja or ""
+    lines = text.strip().split("\n")
+    while lines:
+        last = lines[-1].strip()
+        if last.startswith("タグ:") or last.startswith("タグ："):
+            tag_part = last.replace("タグ:", "").replace("タグ：", "").strip()
+            if tag_part != "なし":
+                for t in tag_part.split(","):
+                    t = t.strip()
+                    if t in ALLOWED_TAGS:
+                        tags.append(t)
+            lines.pop()
+            break
+        break
+    clean_summary = "\n".join(lines).strip()
+    return clean_summary, tags
+
+
 def fetch_latest_papers():
-    feed = feedparser.parse(ARXIV_URL)
+    seen_ids = set()
     papers = []
-
-    for entry in feed.entries:
-        papers.append({
-            "id": entry.id,
-            "title": entry.title,
-            "summary_en": entry.summary,
-            "published": entry.published,
-            "link": entry.link
-        })
-
-    return papers
+    for q in ARXIV_QUERIES:
+        url = ARXIV_BASE + q
+        feed = feedparser.parse(url)
+        for entry in feed.entries:
+            if entry.id in seen_ids:
+                continue
+            seen_ids.add(entry.id)
+            papers.append({
+                "id": entry.id,
+                "title": entry.title,
+                "summary_en": entry.summary,
+                "published": entry.published,
+                "link": entry.link,
+            })
+    # 公開日で新しい順にソートし、最大件数に制限
+    papers.sort(key=lambda p: p["published"] or "", reverse=True)
+    return papers[:MAX_PAPERS_PER_RUN]
 
 
 def main():
@@ -107,10 +144,12 @@ def main():
 
         print(f"Summarizing: {paper['title']}")
         summary_ja = summarize_to_japanese(paper["summary_en"])
+        summary_clean, tags = extract_tags_from_summary(summary_ja)
 
         entry = {
             **paper,
-            "summary_ja": summary_ja,
+            "summary_ja": summary_clean,
+            "tags": tags,
             "saved": False,
             "created_at": datetime.now().strftime("%Y-%m-%d")
         }
