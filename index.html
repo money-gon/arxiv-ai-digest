@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,18 +8,89 @@
   <meta name="apple-mobile-web-app-title" content="arXiv Digest">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    .paper { border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; }
-    .title { font-weight: bold; font-size: 18px; }
-    .summary { white-space: pre-line; }
-    .saved { color: green; font-weight: bold; }
-    #papers.loading { color: #666; }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 20px 16px 40px;
+      background: #f5f5f5;
+      color: #222;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 0 24px;
+      color: #1a1a1a;
+    }
+    .paper {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px 20px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+      border: 1px solid #e8e8e8;
+    }
+    .paper .title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.45;
+      margin: 0 0 8px;
+      color: #111;
+    }
+    .meta {
+      font-size: 0.85rem;
+      color: #666;
+      margin-bottom: 14px;
+    }
+    .summary {
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin: 0 0 16px;
+      color: #333;
+    }
+    .summary .section-head {
+      font-weight: 700;
+      color: #0d47a1;
+      margin-top: 12px;
+      display: inline-block;
+    }
+    .summary .section-head:first-child { margin-top: 0; }
+    .paper a.arxiv {
+      display: inline-block;
+      padding: 10px 18px;
+      background: #1565c0;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .paper a.arxiv:hover { background: #0d47a1; }
+    .saved {
+      color: #2e7d32;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-top: 8px;
+      display: inline-block;
+    }
+    #papers.loading {
+      color: #666;
+      font-size: 1rem;
+    }
+    #papers.empty { color: #666; }
   </style>
 </head>
 <body>
-
-<h1>arXiv AI & Robotics Digest</h1>
-<div id="papers" class="loading">Loading…</div>
+  <div class="wrap">
+    <h1>arXiv AI & Robotics Digest</h1>
+    <div id="papers" class="loading">Loading…</div>
+  </div>
 
 <script>
   function escapeHtml(str) {
@@ -29,11 +100,18 @@
     return div.innerHTML;
   }
 
+  function formatSummary(text) {
+    if (!text) return '';
+    var escaped = escapeHtml(text);
+    escaped = escaped.replace(/(【[^】]+】)/g, '<span class="section-head">$1</span><br>');
+    return escaped.replace(/\n/g, '<br>');
+  }
+
   function formatDate(iso) {
     if (!iso) return '';
     try {
       const d = new Date(iso);
-      return isNaN(d) ? iso : d.toLocaleDateString();
+      return isNaN(d) ? iso : d.toLocaleDateString('ja-JP', { year: 'numeric', month: 'short', day: 'numeric' });
     } catch (_) { return iso; }
   }
 
@@ -43,6 +121,7 @@
       const container = document.getElementById('papers');
       container.classList.remove('loading');
       if (!Array.isArray(data) || data.length === 0) {
+        container.classList.add('empty');
         container.textContent = 'No papers yet.';
         return;
       }
@@ -53,9 +132,9 @@
         const link = paper.link && /^https?:\/\//.test(paper.link) ? paper.link : '#';
         div.innerHTML =
           '<div class="title">' + escapeHtml(paper.title) + '</div>' +
-          '<p><strong>Published:</strong> ' + escapeHtml(formatDate(paper.published)) + '</p>' +
-          '<p class="summary">' + escapeHtml(paper.summary_ja || '') + '</p>' +
-          '<a href="' + escapeHtml(link) + '" target="_blank" rel="noopener">View on arXiv</a>' +
+          '<p class="meta">Published: ' + escapeHtml(formatDate(paper.published)) + '</p>' +
+          '<div class="summary">' + formatSummary(paper.summary_ja || '') + '</div>' +
+          '<a class="arxiv" href="' + escapeHtml(link) + '" target="_blank" rel="noopener">View on arXiv</a>' +
           (paper.saved ? '<p><span class="saved">★ Saved</span></p>' : '');
         container.appendChild(div);
       });
@@ -65,6 +144,5 @@
       document.getElementById('papers').textContent = 'Could not load papers. Check that papers_db.json is available.';
     });
 </script>
-
 </body>
 </html>
