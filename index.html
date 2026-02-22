@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>arXiv AI Digest</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .paper { border: 1px solid #ccc; padding: 15px; margin-bottom: 15px; }
+    .title { font-weight: bold; font-size: 18px; }
+    .summary { white-space: pre-line; }
+    .saved { color: green; font-weight: bold; }
+    #papers.loading { color: #666; }
+  </style>
+</head>
+<body>
+
+<h1>arXiv AI & Robotics Digest</h1>
+<div id="papers" class="loading">Loading…</div>
+
+<script>
+  function escapeHtml(str) {
+    if (str == null) return '';
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    try {
+      const d = new Date(iso);
+      return isNaN(d) ? iso : d.toLocaleDateString();
+    } catch (_) { return iso; }
+  }
+
+  fetch('papers_db.json')
+    .then(res => { if (!res.ok) throw new Error('Failed to load papers'); return res.json(); })
+    .then(data => {
+      const container = document.getElementById('papers');
+      container.classList.remove('loading');
+      if (!Array.isArray(data) || data.length === 0) {
+        container.textContent = 'No papers yet.';
+        return;
+      }
+
+      data.reverse().forEach(paper => {
+        const div = document.createElement('div');
+        div.className = 'paper';
+        const link = paper.link && /^https?:\/\//.test(paper.link) ? paper.link : '#';
+        div.innerHTML =
+          '<div class="title">' + escapeHtml(paper.title) + '</div>' +
+          '<p><strong>Published:</strong> ' + escapeHtml(formatDate(paper.published)) + '</p>' +
+          '<p class="summary">' + escapeHtml(paper.summary_ja || '') + '</p>' +
+          '<a href="' + escapeHtml(link) + '" target="_blank" rel="noopener">View on arXiv</a>' +
+          (paper.saved ? '<p><span class="saved">★ Saved</span></p>' : '');
+        container.appendChild(div);
+      });
+    })
+    .catch(() => {
+      document.getElementById('papers').classList.remove('loading');
+      document.getElementById('papers').textContent = 'Could not load papers. Check that papers_db.json is available.';
+    });
+</script>
+
+</body>
+</html>
