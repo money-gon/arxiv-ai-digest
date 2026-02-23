@@ -1,5 +1,90 @@
 [
   {
+    "id": "http://arxiv.org/abs/2602.18424v1",
+    "title": "CapNav: Benchmarking Vision Language Models on Capability-conditioned Indoor Navigation",
+    "summary_en": "Vision-Language Models (VLMs) have shown remarkable progress in Vision-Language Navigation (VLN), offering new possibilities for navigation decision-making that could benefit both robotic platforms and human users. However, real-world navigation is inherently conditioned by the agent's mobility constraints. For example, a sweeping robot cannot traverse stairs, while a quadruped can. We introduce Capability-Conditioned Navigation (CapNav), a benchmark designed to evaluate how well VLMs can navigate complex indoor spaces given an agent's specific physical and operational capabilities. CapNav defines five representative human and robot agents, each described with physical dimensions, mobility capabilities, and environmental interaction abilities. CapNav provides 45 real-world indoor scenes, 473 navigation tasks, and 2365 QA pairs to test if VLMs can traverse indoor environments based on agent capabilities. We evaluate 13 modern VLMs and find that current VLM's navigation performance drops sharply as mobility constraints tighten, and that even state-of-the-art models struggle with obstacle types that require reasoning on spatial dimensions. We conclude by discussing the implications for capability-aware navigation and the opportunities for advancing embodied spatial reasoning in future VLMs. The benchmark is available at https://github.com/makeabilitylab/CapNav",
+    "published": "2026-02-20T18:46:27Z",
+    "link": "https://arxiv.org/abs/2602.18424v1",
+    "summary_ja": "【背景】\nVision-Language Models（VLM、視覚と言語の双方を理解・生成できるAIモデル）は、Vision-Language Navigation（VLN、環境認識と自然言語指示に基づく自律移動）において飛躍的な進歩を遂げている。\nしかし、現実世界でのナビゲーションは、エージェント（移動主体）の**物理的制約**によって大きく影響される。\n例えば、掃除ロボットは階段を登れないが、四足ロボットは可能である。\nこれらの制約を考慮したナビゲーション評価が欠如しているため、VLMの実用性に疑問が残る。\n\n【提案】\n本論文では、**Capability-Conditioned Navigation（CapNav）**というベンチマークを提案する。\nこれは、エージェントの**物理的・操作的能力**（移動可能な空間、障害物回避能力など）に応じて、VLMのナビゲーション性能を評価するためのデータセットである。\n具体的には、5種類の代表的な**人間とロボットエージェント**（物理寸法や移動制約を定義）と、45の実世界インドアシーン、473のナビゲーションタスク、2365の質問-回答（QA）ペアを用意した。\n\n【結果】\n13の現代的なVLMを評価した結果、以下が明らかになった。\n・エージェントの**移動制約が厳しくなるにつれて、ナビゲーション性能が急激に低下**する。\n・特に、**空間的推論（障害物の寸法や位置を理解する能力）**が要求される障害物では、最先端のモデルでも苦戦する。\n・これらの結果は、VLMが**能力に応じたナビゲーション**を実現するためには、さらなる進化が必要であることを示唆する。\n\n【ポイント】\nVLMのナビゲーション性能を、エージェントの物理的制約に基づいて評価する初めてのベンチマークを構築し、現行モデルの限界を明らかにした。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "saved": false,
+    "created_at": "2026-02-23"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.18421v1",
+    "title": "Snapping Actuators with Asymmetric and Sequenced Motion",
+    "summary_en": "Snapping instabilities in soft structures offer a powerful pathway to achieve rapid and energy-efficient actuation. In this study, an eccentric dome-shaped snapping actuator is developed to generate controllable asymmetric motion through geometry-induced instability. Finite element simulations and experiments reveal consistent asymmetric deformation and the corresponding pressure characteristics. By coupling four snapping actuators in a pneumatic network, a compact quadrupedal robot achieves coordinated wavelike locomotion using only a single pressure input. The robot exhibits frequency-dependent performance with a maximum speed of 72.78~mm/s at 7.5~Hz. These findings demonstrate the potential of asymmetric snapping mechanisms for physically controlled actuation and lay the groundwork for fully untethered and efficient soft robotic systems.",
+    "published": "2026-02-20T18:45:17Z",
+    "link": "https://arxiv.org/abs/2602.18421v1",
+    "summary_ja": "【背景】\nソフトロボット（柔軟な素材で構築されたロボット）では、スナップ不安定性（構造が急速に形状を変化させる非線形現象）を利用したアクチュエーション（駆動）が、高速かつ省エネルギーな動作を実現する有力な手法である。\nしかし、従来のスナップメカニズムは対称的な動きが主流であり、非対称（制御可能な不均衡）な運動を生み出すための設計手法が不足していた。\n\n【提案】\nこの研究では、幾何学誘起不安定性（形状設計により生じるスナップ現象）を利用した**非対称スナップアクチュエーター**を提案する。\n具体的には、偏心（中心がずれた）ドーム形状のスナップアクチュエーターを設計し、有限要素解析（構造の変形を数値的に予測する手法）と実験により、非対称な変形と圧力特性を確認した。\nさらに、4つのスナップアクチュエーターを**空気圧ネットワーク**（単一の圧力入力で動作を調整するシステム）に組み込むことで、コンパクトな四足歩行ロボットを実現した。\n\n【結果】\n実験では、提案したアクチュエーターが**一貫した非対称変形**を示し、圧力入力に応じた制御が可能であることを確認した。\n空気圧ネットワークを用いた四足ロボットは、**波動的な協調運動**（単一の圧力入力で波のように足を動かす）を実現し、最大速度72.78 mm/s（周波数7.5 Hz時）を達成した。\nこれらの結果は、非対称スナップメカニズムによる物理制御駆動の有効性を示し、完全にケーブルなし（自立型）かつ高効率なソフトロボットへの基礎を築いた。\n\n【ポイント】\n**非対称スナップアクチュエーター**を用いた単一圧力入力による高効率なソフトロボット駆動を実証し、自立型ロボットの実現に向けた新たな設計手法を提供した。",
+    "tags": [
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-23"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.18374v1",
+    "title": "Zero-shot Interactive Perception",
+    "summary_en": "Interactive perception (IP) enables robots to extract hidden information in their workspace and execute manipulation plans by physically interacting with objects and altering the state of the environment -- crucial for resolving occlusions and ambiguity in complex, partially observable scenarios. We present Zero-Shot IP (ZS-IP), a novel framework that couples multi-strategy manipulation (pushing and grasping) with a memory-driven Vision Language Model (VLM) to guide robotic interactions and resolve semantic queries. ZS-IP integrates three key components: (1) an Enhanced Observation (EO) module that augments the VLM's visual perception with both conventional keypoints and our proposed pushlines -- a novel 2D visual augmentation tailored to pushing actions, (2) a memory-guided action module that reinforces semantic reasoning through context lookup, and (3) a robotic controller that executes pushing, pulling, or grasping based on VLM output. Unlike grid-based augmentations optimized for pick-and-place, pushlines capture affordances for contact-rich actions, substantially improving pushing performance. We evaluate ZS-IP on a 7-DOF Franka Panda arm across diverse scenes with varying occlusions and task complexities. Our experiments demonstrate that ZS-IP outperforms passive and viewpoint-based perception techniques such as Mark-Based Visual Prompting (MOKA), particularly in pushing tasks, while preserving the integrity of non-target elements.",
+    "published": "2026-02-20T17:30:25Z",
+    "link": "https://arxiv.org/abs/2602.18374v1",
+    "summary_ja": "【背景】\nロボットが作業空間内の隠れた情報（例：物体の重なりや不明確な状態）を物理的な相互作用（押す、つかむなど）で解明し、操作計画を立案する**相互知覚（Interactive Perception, IP）**は、複雑で部分観測の環境において重要な能力である。\nしかし、従来のIP手法は**ゼロショット学習**（未知のタスクや物体に対しても事前学習なしで適応可能な手法）に対応せず、特定の操作（例：ピックアンドプレイス）に最適化された補助情報（例：グリッドベースの視覚的なプロンプト）を用いることが多かった。これにより、**接触が多い操作**（例：物体を押して移動させる）の性能が制限される問題があった。\n\n---\n\n【提案】\nこの論文では、**Zero-Shot IP（ZS-IP）**という新しいフレームワークを提案する。\nZS-IPは**マルチ戦略操作**（押す、つかむなど複数の手法を組み合わせた操作）と**メモリ駆動型のVision Language Model（VLM：画像と言語を統合的に理解するAIモデル）**を連携させ、ロボットの相互作用を指示し、意味的な不明確さ（例：物体の機能や操作方法）を解決する。\n具体的には、以下の3つのモジュールを統合した：\n1. **強化観測モジュール（Enhanced Observation, EO）**：VLMの視覚認識に、従来の**キーポイント**（物体の特徴点）に加え、**プッシュライン（pushlines）**と呼ばれる新しい2D視覚補助を追加。プッシュラインは**押す操作**に特化したアフォーダンス（物体が操作に適しているかどうかの情報）を捉え、接触が多い動作の性能を向上させる。\n2. **メモリガイド型アクションモジュール**：VLMが過去の相互作用経験（メモリ）を参照し、意味的な推論を強化する。これにより、不明確な状況でも適切な操作を選択できる。\n3. **ロボット制御モジュール**：VLMの出力に基づき、7自由度（7-DOF）のFranka Pandaアームを用いて**押す、引く、つかむ**などの操作を実行する。\n\n---\n\n【結果】\n実験では、ZS-IPを**Franka Pandaアーム**（7-DOFの高精度ロボットアーム）を用いて、様々なシーン（隠れ物体や複雑なタスクを含む）で評価した。\n結果として、**ZS-IPは従来の受動的な知覚手法（例：Mark-Based Visual Prompting, MOKA）や視点変更に依存した手法を上回り**、特に**押す操作**の性能が大幅に向上した。また、非ターゲット物体（操作対象外の物体）の状態を損なうことなく、目標物体の隠れた情報を効果的に解明できることが示された。\n\n---\n\n【ポイント】\nZS-IPは、**ゼロショット学習下での接触が多い操作（例：押す）を高精度に実行できるロボット知覚フレームワーク**として、従来手法の限界を克服した。\n\n---",
+    "tags": [
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-23"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.18319v1",
+    "title": "Robo-Saber: Generating and Simulating Virtual Reality Players",
+    "summary_en": "We present the first motion generation system for playtesting virtual reality (VR) games. Our player model generates VR headset and handheld controller movements from in-game object arrangements, guided by style exemplars and aligned to maximize simulated gameplay score. We train on the large BOXRR-23 dataset and apply our framework on the popular VR game Beat Saber. The resulting model Robo-Saber produces skilled gameplay and captures diverse player behaviors, mirroring the skill levels and movement patterns specified by input style exemplars. Robo-Saber demonstrates promise in synthesizing rich gameplay data for predictive applications and enabling a physics-based whole-body VR playtesting agent.",
+    "published": "2026-02-20T16:19:19Z",
+    "link": "https://arxiv.org/abs/2602.18319v1",
+    "summary_ja": "【背景】\n仮想現実（VR）ゲームのプレイテストは、人間のテスターが手動で行う必要があるため、時間や労力がかかり、多様なプレイスタイルを網羅できない課題がある。\n特に、VRでは**ヘッドセットの動き**や**ハンドコントローラー（手に持つ操作デバイス）の操作**がゲームの難易度や体験に大きく影響するため、これらを自動生成できるシステムが求められていた。\n\n【提案】\nこの論文では、**VRゲームのプレイテスト用動作生成システム**を初めて提案する。\nシステムは、ゲーム内のオブジェクト配置（例： Beat Saber のノーツの位置）から**ヘッドセットとコントローラーの動き**を生成し、入力されたスタイル例（style exemplars）に基づいてプレイを模倣する。\n生成された動作は、**シミュレートされたスコア**を最大化するよう最適化され、大規模データセット BOXRR-23 を用いた学習により実現された。\n\n【結果】\n提案手法を Beat Saber に適用した結果、**Robo-Saber** と呼ばれるモデルが生成され、高度なプレイ動作と多様なプレイスタイルを再現できることが示された。\n入力されたスタイル例に応じて、**スキルレベルや動きパターン**を正確に模倣し、予測的なゲーム分析や物理ベースの全身VRプレイテストエージェントとして有望な性能を発揮した。\n\n【ポイント】\nVRゲームのプレイテストを自動化し、多様なプレイスタイルを効率的にシミュレートできる動作生成システムを初めて実現した。",
+    "tags": [
+      "AIエージェント",
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-23"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.18312v1",
+    "title": "Learning Smooth Time-Varying Linear Policies with an Action Jacobian Penalty",
+    "summary_en": "Reinforcement learning provides a framework for learning control policies that can reproduce diverse motions for simulated characters. However, such policies often exploit unnatural high-frequency signals that are unachievable by humans or physical robots, making them poor representations of real-world behaviors. Existing work addresses this issue by adding a reward term that penalizes a large change in actions over time. This term often requires substantial tuning efforts. We propose to use the action Jacobian penalty, which penalizes changes in action with respect to the changes in simulated state directly through auto differentiation. This effectively eliminates unrealistic high-frequency control signals without task specific tuning. While effective, the action Jacobian penalty introduces significant computational overhead when used with traditional fully connected neural network architectures. To mitigate this, we introduce a new architecture called a Linear Policy Net (LPN) that significantly reduces the computational burden for calculating the action Jacobian penalty during training. In addition, a LPN requires no parameter tuning, exhibits faster learning convergence compared to baseline methods, and can be more efficiently queried during inference time compared to a fully connected neural network. We demonstrate that a Linear Policy Net, combined with the action Jacobian penalty, is able to learn policies that generate smooth signals while solving a number of motion imitation tasks with different characteristics, including dynamic motions such as a backflip and various challenging parkour skills. Finally, we apply this approach to create policies for dynamic motions on a physical quadrupedal robot equipped with an arm.",
+    "published": "2026-02-20T16:11:19Z",
+    "link": "https://arxiv.org/abs/2602.18312v1",
+    "summary_ja": "【背景】\n強化学習（Reinforcement Learning: 報酬を最大化するために環境との相互作用を通じて最適な行動方針を自動的に学習するフレームワーク）は、シミュレーション上のキャラクターに多様な動きを再現させる制御ポリシーの学習に有効である。\nしかし、学習されたポリシーはしばしば**非自然的な高周波信号**（人間や物理ロボットが実現できない急激な制御変化）を利用し、現実世界の動きを忠実に再現できない。\n既存の研究では、この問題を解決するために**行動変化ペナルティ**（時間経過における行動の急激な変化を罰する報酬項目）を追加する手法が提案されているが、適切なパラメータ調整が難しく、多大な手間を要する。\n\n---\n\n【提案】\n本論文では、**行動ヤコビアンペナルティ**（行動とシミュレーション状態の変化を**自動微分**（機械学習モデルの勾配を解析的に計算する代わりに、数値微分を用いて高速に近似する手法）を活用し、任意のタスクに依存しない調整で非現実的な高周波制御信号を排除する手法を提案する。\nしかし、従来の**全結合型ニューラルネットワーク**（各層のノードが次層のすべてのノードと接続される密結合型のネットワーク）では、このペナルティの計算に多大な計算コストがかかるため、新たなアーキテクチャ「**Linear Policy Net (LPN)**」を導入する。\nLPNは、高周波信号を抑制しながら**スムーズな制御信号**を生成するポリシーを効率的に学習できるように設計されている。\n\n---\n\n【結果】\n実験では、LPNと行動ヤコビアンペナルティを組み合わせることで、様々な特性を持つ**モーション模倣タスク**（バックフリップやパークールなどのダイナミックな動きを含む）において、現実的かつスムーズな動きを生成するポリシーが学習できることを示した。\nさらに、LPNは**パラメータ調整不要**で、従来手法と比較して**学習収束が速く**、推論時（実行時）の計算効率も向上する。\n物理的な四足ロボット（Quadrupedal Robot: 4本の脚を持つロボット）にアームを装備した環境でも、ダイナミックな動きを実現するポリシーが生成可能であることを実証した。\n\n---\n【ポイント】\n**自動微分を用いた行動ヤコビアンペナルティとLPNアーキテクチャにより、タスク固有の調整を不要にしつつ、現実的かつスムーズな制御ポリシーを高効率で学習・実行できる手法を提案した。**\n\n---",
+    "tags": [
+      "AIエージェント",
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-23"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.18291v1",
+    "title": "Diffusing to Coordinate: Efficient Online Multi-Agent Diffusion Policies",
+    "summary_en": "Online Multi-Agent Reinforcement Learning (MARL) is a prominent framework for efficient agent coordination. Crucially, enhancing policy expressiveness is pivotal for achieving superior performance. Diffusion-based generative models are well-positioned to meet this demand, having demonstrated remarkable expressiveness and multimodal representation in image generation and offline settings. Yet, their potential in online MARL remains largely under-explored. A major obstacle is that the intractable likelihoods of diffusion models impede entropy-based exploration and coordination. To tackle this challenge, we propose among the first \\underline{O}nline off-policy \\underline{MA}RL framework using \\underline{D}iffusion policies (\\textbf{OMAD}) to orchestrate coordination. Our key innovation is a relaxed policy objective that maximizes scaled joint entropy, facilitating effective exploration without relying on tractable likelihood. Complementing this, within the centralized training with decentralized execution (CTDE) paradigm, we employ a joint distributional value function to optimize decentralized diffusion policies. It leverages tractable entropy-augmented targets to guide the simultaneous updates of diffusion policies, thereby ensuring stable coordination. Extensive evaluations on MPE and MAMuJoCo establish our method as the new state-of-the-art across $10$ diverse tasks, demonstrating a remarkable $2.5\\times$ to $5\\times$ improvement in sample efficiency.",
+    "published": "2026-02-20T15:38:02Z",
+    "link": "https://arxiv.org/abs/2602.18291v1",
+    "summary_ja": "【背景】\nマルチエージェント強化学習（Multi-Agent Reinforcement Learning, MARL）は、複数のエージェントが協調してタスクを遂行するための効率的なフレームワークである。\nしかし、従来のMARLでは、エージェントの**ポリシー（行動決定モデル）の表現力（多様な行動を生成できる能力）**が限られており、高性能な協調を達成するための課題となっていた。\n特に、**拡散モデル（Diffusion models）**は画像生成やオフライン学習（事前収集されたデータのみを用いる学習）において高い表現力を示したものの、オンラインMARLへの応用はほとんど検討されていなかった。\n\n【提案】\nこの論文では、**オンライン・オフポリシーMARL**（Online off-policy MARL）における**拡散ポリシー（Diffusion policies）**を用いた協調制御フレームワーク「**OMAD**」を提案する。\n拡散モデルの**非解析的な尤度（likelihood, 確率密度の計算が困難な性質）**を克服するため、エントロピー（joint entropy, 協調行動の不確実性を測る指標）を最大化する**緩和型ポリシー目標（relaxed policy objective）**を導入した。\nさらに、**CTDE（Centralized Training with Decentralized Execution）**というパラダイムを採用し、拡散ポリシーを同時に最適化するための**共同分布値関数（joint distributional value function）**を用いることで、安定した協調を実現した。\n\n【結果】\n提案手法「OMAD」は、MPE（Multi-Agent Particle Environments）とMAMuJoCo（Multi-Agent MuJoCo）の10種類のタスクで、従来手法を大幅に上回る性能を示した。\n特に、**サンプル効率（sample efficiency, 学習に必要なデータ量）**が2.5倍から5倍向上し、新たな**State-of-the-Art（SOTA, 最先端の手法）**として確立した。\n拡散ポリシーの表現力とエントロピー最大化による探索効率の向上が、協調制御の安定性と高性能に寄与した。\n\n【ポイント】\n拡散モデルの高い表現力を活かしつつ、**非解析的な尤度の問題**をエントロピー最大化によって克服し、オンラインMARLにおける協調制御の**サンプル効率と性能を飛躍的に向上**させた。\n\n---",
+    "tags": [
+      "AIエージェント"
+    ],
+    "saved": false,
+    "created_at": "2026-02-23"
+  },
+  {
     "id": "http://arxiv.org/abs/2602.17659v1",
     "title": "When Vision Overrides Language: Evaluating and Mitigating Counterfactual Failures in VLAs",
     "summary_en": "Vision-Language-Action models (VLAs) promise to ground language instructions in robot control, yet in practice often fail to faithfully follow language. When presented with instructions that lack strong scene-specific supervision, VLAs suffer from counterfactual failures: they act based on vision shortcuts induced by dataset biases, repeatedly executing well-learned behaviors and selecting objects frequently seen during training regardless of language intent. To systematically study it, we introduce LIBERO-CF, the first counterfactual benchmark for VLAs that evaluates language following capability by assigning alternative instructions under visually plausible LIBERO layouts. Our evaluation reveals that counterfactual failures are prevalent yet underexplored across state-of-the-art VLAs. We propose Counterfactual Action Guidance (CAG), a simple yet effective dual-branch inference scheme that explicitly regularizes language conditioning in VLAs. CAG combines a standard VLA policy with a language-unconditioned Vision-Action (VA) module, enabling counterfactual comparison during action selection. This design reduces reliance on visual shortcuts, improves robustness on under-observed tasks, and requires neither additional demonstrations nor modifications to existing architectures or pretrained models. Extensive experiments demonstrate its plug-and-play integration across diverse VLAs and consistent improvements. For example, on LIBERO-CF, CAG improves $π_{0.5}$ by 9.7% in language following accuracy and 3.6% in task success on under-observed tasks using a training-free strategy, with further gains of 15.5% and 8.5%, respectively, when paired with a VA model. In real-world evaluations, CAG reduces counterfactual failures of 9.4% and improves task success by 17.2% on average.",
