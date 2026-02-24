@@ -1,5 +1,90 @@
 [
   {
+    "id": "http://arxiv.org/abs/2602.20159v1",
+    "title": "A Very Big Video Reasoning Suite",
+    "summary_en": "Rapid progress in video models has largely focused on visual quality, leaving their reasoning capabilities underexplored. Video reasoning grounds intelligence in spatiotemporally consistent visual environments that go beyond what text can naturally capture, enabling intuitive reasoning over spatiotemporal structure such as continuity, interaction, and causality. However, systematically studying video reasoning and its scaling behavior is hindered by the lack of large-scale training data. To address this gap, we introduce the Very Big Video Reasoning (VBVR) Dataset, an unprecedentedly large-scale resource spanning 200 curated reasoning tasks following a principled taxonomy and over one million video clips, approximately three orders of magnitude larger than existing datasets. We further present VBVR-Bench, a verifiable evaluation framework that moves beyond model-based judging by incorporating rule-based, human-aligned scorers, enabling reproducible and interpretable diagnosis of video reasoning capabilities. Leveraging the VBVR suite, we conduct one of the first large-scale scaling studies of video reasoning and observe early signs of emergent generalization to unseen reasoning tasks. Together, VBVR lays a foundation for the next stage of research in generalizable video reasoning. The data, benchmark toolkit, and models are publicly available at https://video-reason.com/ .",
+    "published": "2026-02-23T18:59:41Z",
+    "link": "https://arxiv.org/abs/2602.20159v1",
+    "summary_ja": "【背景】\n近年の動画モデル（画像や動画を理解・生成するAIモデル）の進歩は主に**視覚的品質（生成画像の鮮明さやリアリティなど）**に焦点が当てられてきた。\nしかし、**動画における推論能力（空間・時間的な一貫性や因果関係を理解する能力）**は十分に研究されていない。\n動画はテキストよりも直感的に**空間時間構造（連続性、相互作用、因果関係など）**を捉えられるため、推論に適した環境を提供するが、大規模な動画データが不足していることが課題となっている。\n\n---\n\n【提案】\n本論文では、**動画推論能力の研究を加速するための2つの新しいデータセット**を提案した。\n1. **Very Big Video Reasoning (VBVR) Dataset**：200種類の**推論タスク（空間時間的な論理や因果関係を問う課題）**に基づく、約100万本の動画クリップを含む大規模データセット。\n   既存のデータセットより**3桁以上の規模拡大**を実現し、体系的な分類（taxonomy）に従って構築された。\n2. **VBVR-Bench**：動画モデルの推論能力を**再現性の高い評価**で診断可能にするフレームワーク。\n   モデルに依存した判定（model-based judging）ではなく、**ルールベースかつ人間の基準に合わせたスコアリング（rule-based, human-aligned scorers）**を採用し、解釈可能な評価を可能にした。\n\n---\n\n【結果】\nVBVRデータセットとベンチマークを用いた**大規模なスケーリング研究**で、以下の知見が得られた：\n- 動画モデルは、**未知の推論タスクにも一般化（emergent generalization）する兆候**を示した。\n  これは、モデルが単に訓練データを暗記するのではなく、空間時間構造を理解し適用できる能力を獲得している可能性を示唆する。\n- 既存の動画データセットでは困難だった**体系的な評価**が、VBVR-Benchにより初めて実現された。\n  ルールベースのスコアリングにより、モデルの推論能力が客観的に診断できるようになった。\n- 研究コミュニティへの貢献として、**データ、ベンチマークツールキット、およびモデル**が公開された（URL: https://video-reason.com/）。\n\n---\n\n【ポイント】\n動画推論能力の研究を**大規模データと再現性の高い評価フレームワーク**により体系化し、モデルの**一般化可能な推論力**の発見に道筋を示した。\n\n---",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "saved": false,
+    "created_at": "2026-02-24"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.20150v1",
+    "title": "Simulation-Ready Cluttered Scene Estimation via Physics-aware Joint Shape and Pose Optimization",
+    "summary_en": "Estimating simulation-ready scenes from real-world observations is crucial for downstream planning and policy learning tasks. Regretfully, existing methods struggle in cluttered environments, often exhibiting prohibitive computational cost, poor robustness, and restricted generality when scaling to multiple interacting objects. We propose a unified optimization-based formulation for real-to-sim scene estimation that jointly recovers the shapes and poses of multiple rigid objects under physical constraints. Our method is built on two key technical innovations. First, we leverage the recently introduced shape-differentiable contact model, whose global differentiability permits joint optimization over object geometry and pose while modeling inter-object contacts. Second, we exploit the structured sparsity of the augmented Lagrangian Hessian to derive an efficient linear system solver whose computational cost scales favorably with scene complexity. Building on this formulation, we develop an end-to-end real-to-sim scene estimation pipeline that integrates learning-based object initialization, physics-constrained joint shape-pose optimization, and differentiable texture refinement. Experiments on cluttered scenes with up to 5 objects and 22 convex hulls demonstrate that our approach robustly reconstructs physically valid, simulation-ready object shapes and poses.",
+    "published": "2026-02-23T18:58:24Z",
+    "link": "https://arxiv.org/abs/2602.20150v1",
+    "summary_ja": "【背景】\n現実世界の観測データから物理シミュレーションで利用可能なシーン（物体の形状と姿勢）を推定することは、ロボットの計画（プランニング）やポリシー学習（行動学習）に不可欠である。\nしかし、既存の手法は混雑した環境（クラッタード環境）で精度が低下しやすく、計算コストが高すぎたり、ロバスト性（外乱に対する頑健性）が悪かったり、複数の相互作用する物体への拡張が困難な場合が多い。\n\n【提案】\n本論文では、物理制約下での複数剛体物体の形状と姿勢を**統合最適化**により推定する、新たなフレームワークを提案する。\n具体的には、2つの技術革新に基づく：\n1. 最近導入された**形状微分可能な接触モデル**（物体の形状と接触状態を連続的に最適化できるモデル）を活用し、物体間の接触を考慮した**同時最適化**を可能にする。\n2. 拡張ラグランジュ法（制約付き最適化問題を解く手法）の**構造的稀疎性**（計算行列の多くがゼロで、効率的な解法が可能）を利用し、計算コストがシーンの複雑さに対して有利にスケールする**線形系ソルバー**を導出する。\nさらに、この最適化フレームワークに基づき、**エンドツーエンド（端末間）の実世界→シミュレーションシーン推定パイプライン**を開発する。これは、学習ベースの物体初期化（物体の初期推定）、物理制約付きの形状・姿勢同時最適化、微分可能なテクスチャ（表面質感）リファインメント（精緻化）を統合したものである。\n\n【結果】\n実験では、最大5物体・22凸多面体（凸状の物体形状）からなる混雑シーンで評価を行った。\n提案手法は、物理的に妥当でシミュレーション可能な物体の形状と姿勢を**頑健に**再構成できることが示された。また、計算コストが既存手法に比べて有利にスケールすることが確認された。\n\n【ポイント】\n**物理制約下での混雑シーンにおける複数物体の形状・姿勢推定を、高速かつ頑健に実現する統合最適化フレームワーク**を提案し、実世界観測データからシミュレーション準備シーンを効率的に構築可能であることを実証した。",
+    "tags": [
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-24"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.20144v1",
+    "title": "Agentic AI for Scalable and Robust Optical Systems Control",
+    "summary_en": "We present AgentOptics, an agentic AI framework for high-fidelity, autonomous optical system control built on the Model Context Protocol (MCP). AgentOptics interprets natural language tasks and executes protocol-compliant actions on heterogeneous optical devices through a structured tool abstraction layer. We implement 64 standardized MCP tools across 8 representative optical devices and construct a 410-task benchmark to evaluate request understanding, role-aware responses, multi-step coordination, robustness to linguistic variation, and error handling. We assess two deployment configurations--commercial online LLMs and locally hosted open-source LLMs--and compare them with LLM-based code generation baselines. AgentOptics achieves 87.7%--99.0% average task success rates, significantly outperforming code-generation approaches, which reach up to 50% success. We further demonstrate broader applicability through five case studies extending beyond device-level control to system orchestration, monitoring, and closed-loop optimization. These include DWDM link provisioning and coordinated monitoring of coherent 400 GbE and analog radio-over-fiber (ARoF) channels; autonomous characterization and bias optimization of a wideband ARoF link carrying 5G fronthaul traffic; multi-span channel provisioning with launch power optimization; closed-loop fiber polarization stabilization; and distributed acoustic sensing (DAS)-based fiber monitoring with LLM-assisted event detection. These results establish AgentOptics as a scalable, robust paradigm for autonomous control and orchestration of heterogeneous optical systems.",
+    "published": "2026-02-23T18:54:32Z",
+    "link": "https://arxiv.org/abs/2602.20144v1",
+    "summary_ja": "【背景】\n光システムの自律制御は、複雑な多種多様な光デバイス間の協調を要し、高精度な操作が求められる。\n従来の手法では、プログラムやコード生成を介した制御が主流であったが、自然言語による直感的なタスク指示に対応できず、エラー処理や柔軟な応答が難しかった。\nこのため、光システムの自律制御を実現するための新たなフレームワークが必要とされていた。\n\n【提案】\nこの論文では、**AgentOptics**というAIエージェントフレームワークを提案する。\n**Model Context Protocol (MCP)**（モデルとデバイス間の標準化された通信プロトコル）を基盤とし、自然言語で記述されたタスクを解釈して、異種の光デバイスに対してプロトコル準拠の操作を実行する。\n具体的には、8種類の代表的な光デバイスに対応する64種類の標準化されたMCPツールを実装し、410タスクのベンチマークを構築した。\n\n【結果】\n・商用オンラインLLM（大規模言語モデル）とローカルでホストされるオープンソースLLMの2つの展開設定を評価した。\n・AgentOpticsは平均87.7%〜99.0%のタスク成功率を達成し、コード生成ベースの手法（最大50%成功）を大きく上回った。\n・5つのケーススタディ（光システム全体のオーケストレーション、監視、閉ループ最適化）を通じて、より広範な応用可能性を実証した。\n・例として、DWDMリンクのプロビジョニング、ARoF（アナログ無線信号を光ファイバーで伝送する技術）チャネルの協調監視、自律的なARoFリンクの特性評価とバイアス最適化、マルチスパンチャネルプロビジョニング、光ファイバーの偏波安定化、DAS（分散音響センサ）によるファイバー監視とLLM支援のイベント検出などが挙げられる。\n\n【ポイント】\nAgentOpticsは、自然言語による直感的な指示に対応しつつ、異種の光デバイスを自律的に制御・最適化する新たなパラダイムを確立した。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "saved": false,
+    "created_at": "2026-02-24"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.20141v1",
+    "title": "Recurrent Structural Policy Gradient for Partially Observable Mean Field Games",
+    "summary_en": "Mean Field Games (MFGs) provide a principled framework for modeling interactions in large population models: at scale, population dynamics become deterministic, with uncertainty entering only through aggregate shocks, or common noise. However, algorithmic progress has been limited since model-free methods are too high variance and exact methods scale poorly. Recent Hybrid Structural Methods (HSMs) use Monte Carlo rollouts for the common noise in combination with exact estimation of the expected return, conditioned on those samples. However, HSMs have not been scaled to Partially Observable settings. We propose Recurrent Structural Policy Gradient (RSPG), the first history-aware HSM for settings involving public information. We also introduce MFAX, our JAX-based framework for MFGs. By leveraging known transition dynamics, RSPG achieves state-of-the-art performance as well as an order-of-magnitude faster convergence and solves, for the first time, a macroeconomics MFG with heterogeneous agents, common noise and history-aware policies. MFAX is publicly available at: https://github.com/CWibault/mfax.",
+    "published": "2026-02-23T18:53:09Z",
+    "link": "https://arxiv.org/abs/2602.20141v1",
+    "summary_ja": "【背景】\n**平均場ゲーム理論（Mean Field Games, MFGs）**は、大規模な集団（人口）の相互作用を確率的なフレームワークでモデル化する手法である。\nこの理論では、集団の動態が**決定論的（deterministic）**となるが、不確実性は**集合的ショック（aggregate shocks）**や**共通ノイズ（common noise）**として導入される。\nしかし、従来のアルゴリズムでは、**モデルフリー法（model-free methods）**が高い分散を持ち、**正確な方法（exact methods）**が計算効率が悪いため、実用的な進展が限られていた。\n\n【提案】\n本論文では、**ハイブリッド構造的方法（Hybrid Structural Methods, HSMs）**を拡張し、**部分観測環境（Partially Observable settings）**に適用可能な新たな手法**再帰構造的ポリシー勾配法（Recurrent Structural Policy Gradient, RSPG）**を提案する。\nRSPGは、**共通ノイズに対するモンテカルロ展開（Monte Carlo rollouts）**と、**過去の履歴（history）を考慮したポリシー（policy）の精密な推定**を組み合わせたものであり、公共情報（public information）を含む設定に対応する。\nまた、**MFGsをJAXベースで実装するフレームワーク（MFAX）**も導入し、既知の遷移ダイナミクス（transition dynamics）を活用することで、高速な収束と実用性を実現した。\n\n【結果】\nRSPGは、**履歴を考慮したポリシー（history-aware policies）**を用いた初めてのMFGs解法であり、従来の手法と比較して**桁違いの収束速度（order-of-magnitude faster convergence）**を実現した。\nさらに、**異質なエージェント（heterogeneous agents）や共通ノイズを含むマクロ経済学のMFGs問題**を初めて解決し、最先端の性能を達成した。\nMFAXはオープンソースで公開されており、実験の再現性と拡張性を高めている。\n\n【ポイント】\n**履歴依存性と構造的知識を活用した平均場ゲーム理論の高速・高効率解法を初めて実現し、マクロ経済学への応用を可能にした。**",
+    "tags": [
+      "AIエージェント",
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-24"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.20119v1",
+    "title": "NovaPlan: Zero-Shot Long-Horizon Manipulation via Closed-Loop Video Language Planning",
+    "summary_en": "Solving long-horizon tasks requires robots to integrate high-level semantic reasoning with low-level physical interaction. While vision-language models (VLMs) and video generation models can decompose tasks and imagine outcomes, they often lack the physical grounding necessary for real-world execution. We introduce NovaPlan, a hierarchical framework that unifies closed-loop VLM and video planning with geometrically grounded robot execution for zero-shot long-horizon manipulation. At the high level, a VLM planner decomposes tasks into sub-goals and monitors robot execution in a closed loop, enabling the system to recover from single-step failures through autonomous re-planning. To compute low-level robot actions, we extract and utilize both task-relevant object keypoints and human hand poses as kinematic priors from the generated videos, and employ a switching mechanism to choose the better one as a reference for robot actions, maintaining stable execution even under heavy occlusion or depth inaccuracy. We demonstrate the effectiveness of NovaPlan on three long-horizon tasks and the Functional Manipulation Benchmark (FMB). Our results show that NovaPlan can perform complex assembly tasks and exhibit dexterous error recovery behaviors without any prior demonstrations or training. Project page: https://nova-plan.github.io/",
+    "published": "2026-02-23T18:35:18Z",
+    "link": "https://arxiv.org/abs/2602.20119v1",
+    "summary_ja": "【背景】\nロボットが長期間のタスク（複数ステップにわたる操作）を実行する際、高水準の意味理解（タスクの意図や構造を把握する能力）と低水準の物理的操作（具体的な動作や環境との相互作用）を統合する必要がある。\n従来の**視覚言語モデル（VLM: 画像とテキストを統合的に理解するAIモデル）**や**動画生成モデル**は、タスク分解や動作のイメージ化に優れるが、実世界での物理的制約（物体の形状や位置、障害物など）を考慮できないことが課題だった。\n\n---\n\n【提案】\n本論文では、**NovaPlan**という階層型フレームワークを提案する。\nこれは、以下の3つの要素を組み合わせたものである：\n1. **クローズドループVLMプランナー**：タスクをサブゴール（部分目標）に分解し、ロボットの実行を監視しながら、単一ステップの失敗時に自律的に再計画を行う。\n2. **動画からのキネマティックプライオ（運動学的先験知識）抽出**：動画生成モデルから、タスクに関連する物体の**キーポイント（重要な特徴点や接触部位）**や**人間の手の姿勢（手の位置・向き・形状）**を抽出し、ロボットの動作参考に利用する。\n3. **スイッチングメカニズム**：キーポイントと手の姿勢のどちらがより安定した実行に適しているかを判断し、動作の参考として切り替える。これにより、重度の**オクルージョン（障害物による視認不能）**や**深度誤差（距離情報の不正確さ）**に対してもロバスト（頑健）な操作が可能になる。\n\n---\n\n【結果】\n3つの長期間タスクと**FMB（機能的操作ベンチマーク：実世界での複雑な操作を評価するデータセット）**でNovaPlanの有効性を実証した。\n- **複雑なアセンブリタスク（部品組み立てなど）**をゼロショット（事前学習なし）で実行可能。\n- **エラー回復行動（誤操作からの自律的な修正）**を示し、物理的な制約下でも安定した動作を維持。\n- 従来のモデルと比較して、オクルージョンや深度誤差への対応性が向上した。\n\n---\n【ポイント】\nゼロショット環境で、高水準の意味理解と低水準の物理的操作を統合し、複雑な長期間タスクを実世界で実行可能にした。\n\n---",
+    "tags": [
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-24"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.20117v1",
+    "title": "ReSyn: Autonomously Scaling Synthetic Environments for Reasoning Models",
+    "summary_en": "Reinforcement learning with verifiable rewards (RLVR) has emerged as a promising approach for training reasoning language models (RLMs) by leveraging supervision from verifiers. Although verifier implementation is easier than solution annotation for many tasks, existing synthetic data generation methods remain largely solution-centric, while verifier-based methods rely on a few hand-crafted procedural environments. In this work, we scale RLVR by introducing ReSyn, a pipeline that generates diverse reasoning environments equipped with instance generators and verifiers, covering tasks such as constraint satisfaction, algorithmic puzzles, and spatial reasoning. A Qwen2.5-7B-Instruct model trained with RL on ReSyn data achieves consistent gains across reasoning benchmarks and out-of-domain math benchmarks, including a 27\\% relative improvement on the challenging BBEH benchmark. Ablations show that verifier-based supervision and increased task diversity both contribute significantly, providing empirical evidence that generating reasoning environments at scale can enhance reasoning abilities in RLMs",
+    "published": "2026-02-23T18:34:29Z",
+    "link": "https://arxiv.org/abs/2602.20117v1",
+    "summary_ja": "【背景】\n強化学習（Reinforcement Learning：RL）による推論言語モデル（Reasoning Language Models：RLM）の訓練は、検証者（verifier）からのフィードバックを利用する**RLVR（Reinforcement Learning with Verifiable Rewards）**によって注目されている。\nしかし、従来の合成データ生成手法は主に**解答中心的（solution-centric）**であり、検証者を活用した手法は手作業で設計された限られたプロシージャル環境に依存していた。\nそのため、多様な推論タスクを大規模に扱うための効率的な手法が求められていた。\n\n---\n\n【提案】\n本研究では、**ReSyn**というパイプラインを提案する。\nReSynは、インスタンス生成器（instance generator）と検証者（verifier）を備えた多様な推論環境を自動生成し、制約充足（constraint satisfaction）、アルゴリズムパズル（algorithmic puzzles）、空間推論（spatial reasoning）などのタスクを網羅する。\nこれにより、従来の手作業設計に依存せず、大規模で多様な推論タスクを訓練データとして利用できるようになった。\n\n---\n【結果】\n**Qwen2.5-7B-Instructモデル**をReSyn生成データで強化学習（RL）訓練したところ、推論ベンチマーク（reasoning benchmarks）および数学外領域のベンチマーク（out-of-domain math benchmarks）で一貫した性能向上が確認された。\n特に、難易度の高い**BBEHベンチマーク（BBEH：Bridging the Gap Between Human and Machine Reasoning）**では、27%の相対改善（relative improvement）を達成した。\nまた、アブレーション実験（ablations）により、検証者ベースの指導（verifier-based supervision）とタスク多様性（task diversity）の両方が有意義な貢献をしていることが明らかになった。\n\n---\n【ポイント】\n**大規模で多様な推論環境を自動生成することで、RLMの推論能力を効果的に向上させる手法を実証した。**\n\n---",
+    "tags": [
+      "AIエージェント",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-24"
+  },
+  {
     "id": "http://arxiv.org/abs/2602.18424v1",
     "title": "CapNav: Benchmarking Vision Language Models on Capability-conditioned Indoor Navigation",
     "summary_en": "Vision-Language Models (VLMs) have shown remarkable progress in Vision-Language Navigation (VLN), offering new possibilities for navigation decision-making that could benefit both robotic platforms and human users. However, real-world navigation is inherently conditioned by the agent's mobility constraints. For example, a sweeping robot cannot traverse stairs, while a quadruped can. We introduce Capability-Conditioned Navigation (CapNav), a benchmark designed to evaluate how well VLMs can navigate complex indoor spaces given an agent's specific physical and operational capabilities. CapNav defines five representative human and robot agents, each described with physical dimensions, mobility capabilities, and environmental interaction abilities. CapNav provides 45 real-world indoor scenes, 473 navigation tasks, and 2365 QA pairs to test if VLMs can traverse indoor environments based on agent capabilities. We evaluate 13 modern VLMs and find that current VLM's navigation performance drops sharply as mobility constraints tighten, and that even state-of-the-art models struggle with obstacle types that require reasoning on spatial dimensions. We conclude by discussing the implications for capability-aware navigation and the opportunities for advancing embodied spatial reasoning in future VLMs. The benchmark is available at https://github.com/makeabilitylab/CapNav",
