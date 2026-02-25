@@ -1,5 +1,62 @@
 [
   {
+    "id": "http://arxiv.org/abs/2602.21203v1",
+    "title": "Squint: Fast Visual Reinforcement Learning for Sim-to-Real Robotics",
+    "summary_en": "Visual reinforcement learning is appealing for robotics but expensive -- off-policy methods are sample-efficient yet slow; on-policy methods parallelize well but waste samples. Recent work has shown that off-policy methods can train faster than on-policy methods in wall-clock time for state-based control. Extending this to vision remains challenging, where high-dimensional input images complicate training dynamics and introduce substantial storage and encoding overhead. To address these challenges, we introduce Squint, a visual Soft Actor Critic method that achieves faster wall-clock training than prior visual off-policy and on-policy methods. Squint achieves this via parallel simulation, a distributional critic, resolution squinting, layer normalization, a tuned update-to-data ratio, and an optimized implementation. We evaluate on the SO-101 Task Set, a new suite of eight manipulation tasks in ManiSkill3 with heavy domain randomization, and demonstrate sim-to-real transfer to a real SO-101 robot. We train policies for 15 minutes on a single RTX 3090 GPU, with most tasks converging in under 6 minutes.",
+    "published": "2026-02-24T18:58:11Z",
+    "link": "https://arxiv.org/abs/2602.21203v1",
+    "summary_ja": "【背景】\n視覚強化学習（Visual Reinforcement Learning：画像入力を用いた強化学習）はロボット工学に魅力的だが、高次元の画像データを扱うために**計算コスト**や**記憶容量**が膨大になる問題がある。\n従来の手法では、**オフポリシー法**（過去の経験データから学習する手法）がサンプル効率が高いものの学習速度が遅く、**オンポリシー法**（最新の経験データのみで学習する手法）は並列化が容易だがサンプルの無駄が多いという Trade-off が存在した。\n\n---\n\n【提案】\n本研究では、**視覚 Soft Actor Critic（SAC）**（画像入力に対応したアクティブな探索と安定性を両立する強化学習アルゴリズム）を拡張した**Squint**という手法を提案する。\nSquint は以下の技術を組み合わせることで、従来手法よりも**壁時計時間での学習速度**を大幅に向上させた：\n- **並列シミュレーション**（複数の環境で同時に学習を行うこと）\n- **分布型クリティック**（報酬分布をモデル化し、不確実性に強い評価関数）\n- **解像度 Squinting**（入力画像の解像度を動的に低減し、計算負荷を軽減する手法）\n- **レイヤー正規化**（各層の出力を安定化させる技術）\n- **最適な更新対データ比**（効率的な学習のための更新頻度調整）\n- **高度に最適化された実装**\n\nさらに、実験用タスクセットとして**SO-101 Task Set**（ManiSkill3 上の8つの操作タスクで、多様な環境変化を模擬する）を新規に構築し、シミュレーションから実機への転移（sim-to-real transfer）も実証した。\n\n---\n\n【結果】\nSO-101 Task Set 上での実験では、Squint が**1枚の RTX 3090 GPU で15分以内に学習し、ほとんどのタスクが6分以内に収束**することを示した。\n従来の視覚強化学習手法（オフポリシー法やオンポリシー法）と比較して、**壁時計時間での学習速度が最速**であり、実機への転移性能も高いことを確認した。\n\n---\n\n【ポイント】\n**高次元画像入力下でも極めて効率的な視覚強化学習手法**を実現し、ロボット操作タスクの**短時間学習と実機転移性能**を飛躍的に向上させた。\n\n---",
+    "tags": [
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-25"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.21201v1",
+    "title": "Aletheia tackles FirstProof autonomously",
+    "summary_en": "We report the performance of Aletheia (Feng et al., 2026b), a mathematics research agent powered by Gemini 3 Deep Think, on the inaugural FirstProof challenge. Within the allowed timeframe of the challenge, Aletheia autonomously solved 6 problems (2, 5, 7, 8, 9, 10) out of 10 according to majority expert assessments; we note that experts were not unanimous on Problem 8 (only). For full transparency, we explain our interpretation of FirstProof and disclose details about our experiments as well as our evaluation. Raw prompts and outputs are available at https://github.com/google-deepmind/superhuman/tree/main/aletheia.",
+    "published": "2026-02-24T18:56:10Z",
+    "link": "https://arxiv.org/abs/2602.21201v1",
+    "summary_ja": "【背景】\n数学研究において、AIエージェント（自律的に問題を解決するAIシステム）の性能評価が求められている。\nしかし、従来のベンチマークでは、AIの解法過程や人間の研究者との互換性が十分に検証されていない。\nそこで、数学の証明問題に特化した「FirstProofチャレンジ」が登場し、AIエージェントの自律的な問題解決能力を評価する新たな基準となった。\n\n【提案】\nこの論文では、Google DeepMindが開発したGemini 3 Deep Think（数学的推論に特化したモデル）をベースとしたAIエージェント「Aletheia（アレテイア）」の性能を報告している。\nFirstProofチャレンジの制限時間内で、10問中6問（問題2、5、7、8、9、10）を自律的に解決した。\nなお、問題8のみ専門家の評価が一致しなかったため、透明性を確保するために実験詳細や評価基準を公開した。\n\n【結果】\nAletheiaは、専門家の多数評価により、6問を正解したことが確認された。\n問題8の解答については、専門家間で意見が分かれたものの、解法過程の説明や実験結果の開示により再現性と信頼性が向上した。\n論文では、チャレンジの解釈や実験条件、評価方法について詳細を明らかにしており、GitHubリポジトリにて生のプロンプト（入力）と出力を公開している。\n\n【ポイント】\nAIエージェントが数学研究の自律的な問題解決能力を実証し、特に解法過程の透明性を高めたことが貢献である。",
+    "tags": [
+      "AIエージェント"
+    ],
+    "saved": false,
+    "created_at": "2026-02-25"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.21198v1",
+    "title": "Learning from Trials and Errors: Reflective Test-Time Planning for Embodied LLMs",
+    "summary_en": "Embodied LLMs endow robots with high-level task reasoning, but they cannot reflect on what went wrong or why, turning deployment into a sequence of independent trials where mistakes repeat rather than accumulate into experience. Drawing upon human reflective practitioners, we introduce Reflective Test-Time Planning, which integrates two modes of reflection: \\textit{reflection-in-action}, where the agent uses test-time scaling to generate and score multiple candidate actions using internal reflections before execution; and \\textit{reflection-on-action}, which uses test-time training to update both its internal reflection model and its action policy based on external reflections after execution. We also include retrospective reflection, allowing the agent to re-evaluate earlier decisions and perform model updates with hindsight for proper long-horizon credit assignment. Experiments on our newly-designed Long-Horizon Household benchmark and MuJoCo Cupboard Fitting benchmark show significant gains over baseline models, with ablative studies validating the complementary roles of reflection-in-action and reflection-on-action. Qualitative analyses, including real-robot trials, highlight behavioral correction through reflection.",
+    "published": "2026-02-24T18:55:18Z",
+    "link": "https://arxiv.org/abs/2602.21198v1",
+    "summary_ja": "【背景】\nロボットに組み込まれた**Embodied Large Language Models（LLM）**（言語モデルが物理的な環境やタスクを理解・実行できるように拡張されたモデル）は高度なタスク推論を可能にするが、失敗の原因や理由について自己反省を行えない。\nこのため、ロボットの展開は独立した試行の繰り返しとなり、同じミスが繰り返されるだけで経験として蓄積されず、長期的な学習が困難である。\n人間の反省プロセス（リフレクション）をロボットに取り入れることが、効率的な学習と適応性向上に重要である。\n\n---\n\n【提案】\nこの論文では、**リフレクション機能を持つテスト時計画（Reflective Test-Time Planning）**を提案する。\n具体的には、2つの反省モードを導入した：\n1. **行動中の反省（reflection-in-action）**：テスト時（実行前）に複数の候補行動を生成・評価し、内部の反省プロセスを用いて最適な行動を選択する。\n2. **行動後の反省（reflection-on-action）**：外部からのフィードバック（失敗など）を受け、実行後のモデル更新で反省機能と行動方針を改善する。\nさらに、**回顧的反省（retrospective reflection）**を追加し、過去の決定を後から再評価・修正できるようにした。\nこれにより、長期的なタスク（long-horizon）での適切な学習と経験の蓄積が可能となる。\n\n---\n\n【結果】\n新たに設計した**Long-Horizon Householdベンチマーク**（長期的な家庭内タスクを評価する環境）と**MuJoCo Cupboard Fittingベンチマーク**（物理シミュレーションによる棚の取り付けタスク）で実験を行った。\n結果として、従来のベースラインモデルと比較し、有意な性能向上が確認された。\nまた、アブレーションスタディ（各モードの寄与を分析する実験）により、**行動中の反省**と**行動後の反省**が相補的（お互いの欠点を補完）に機能することが示された。\n実ロボットでの試行では、反省機能による行動修正が観察された。\n\n---\n【ポイント】\n**Embodied LLMにリフレクション機能を組み込むことで、失敗から学習し経験を蓄積できるようになり、長期的なタスクでも効率的に改善できることを実証した**。",
+    "tags": [
+      "AIエージェント",
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-25"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.21161v1",
+    "title": "ActionReasoning: Robot Action Reasoning in 3D Space with LLM for Robotic Brick Stacking",
+    "summary_en": "Classical robotic systems typically rely on custom planners designed for constrained environments. While effective in restricted settings, these systems lack generalization capabilities, limiting the scalability of embodied AI and general-purpose robots. Recent data-driven Vision-Language-Action (VLA) approaches aim to learn policies from large-scale simulation and real-world data. However, the continuous action space of the physical world significantly exceeds the representational capacity of linguistic tokens, making it unclear if scaling data alone can yield general robotic intelligence. To address this gap, we propose ActionReasoning, an LLM-driven framework that performs explicit action reasoning to produce physics-consistent, prior-guided decisions for robotic manipulation. ActionReasoning leverages the physical priors and real-world knowledge already encoded in Large Language Models (LLMs) and structures them within a multi-agent architecture. We instantiate this framework on a tractable case study of brick stacking, where the environment states are assumed to be already accurately measured. The environmental states are then serialized and passed to a multi-agent LLM framework that generates physics-aware action plans. The experiments demonstrate that the proposed multi-agent LLM framework enables stable brick placement while shifting effort from low-level domain-specific coding to high-level tool invocation and prompting, highlighting its potential for broader generalization. This work introduces a promising approach to bridging perception and execution in robotic manipulation by integrating physical reasoning with LLMs.",
+    "published": "2026-02-24T18:07:06Z",
+    "link": "https://arxiv.org/abs/2602.21161v1",
+    "summary_ja": "【背景】\n従来のロボットシステムは、制限された環境に特化したカスタムプランナー（環境の物理制約に合わせて設計されたロボットの動作計画手法）に依存してきた。\nこれらのプランナーは、狭いタスク領域では有効だが、一般的な環境やタスクに対する**汎用性（広範な状況に適用できる能力）**が欠如している。\nそのため、AIロボットや汎用ロボットの**スケーラビリティ（拡張性）**が制限され、大規模なデータから学習するVision-Language-Action（VLA：視覚・言語・行動の統合モデル）手法の限界が浮き彫りになっていた。\n\n【提案】\n本論文では、LLM（Large Language Model：大規模言語モデル）を活用した**ActionReasoning**というフレームワークを提案する。\nこのフレームワークは、LLMに既にエンコード（組み込み）されている**物理的事前知識（物理法則や現実世界の常識）**と**多エージェントアーキテクチャ（複数のAIエージェントが協調して行動する設計）**を組み合わせ、ロボット操作における**物理的に一致した行動計画**を生成する。\n具体例として、ブリック積み（環境状態が正確に測定されている前提の下）のタスクを取り上げ、環境状態をシリアル化（言語化）してLLMに入力し、物理的な認識に基づいた行動プランを生成する。\n\n【結果】\n実験では、提案手法の**多エージェントLLMフレームワーク**が、安定したブリックの配置を実現した。\nまた、従来の手法で必要だった**低レベルのドメイン特化コーディング（具体的なタスクに依存したプログラムの詳細実装）**を、高レベルな**ツール呼び出しやプロンプティング（指示文の設計）**に置き換えることで、効率化が可能となった。\nこの結果は、本手法がより広範なタスクへの**汎用性**を持つことを示唆しており、視覚認識と実行の橋渡しとして有望である。\n\n【ポイント】\nLLMに物理的事前知識を組み込んだ多エージェントフレームワークにより、ロボット操作の**汎用性と安定性**を実現した。",
+    "tags": [
+      "AIエージェント",
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-02-25"
+  },
+  {
     "id": "http://arxiv.org/abs/2602.20159v1",
     "title": "A Very Big Video Reasoning Suite",
     "summary_en": "Rapid progress in video models has largely focused on visual quality, leaving their reasoning capabilities underexplored. Video reasoning grounds intelligence in spatiotemporally consistent visual environments that go beyond what text can naturally capture, enabling intuitive reasoning over spatiotemporal structure such as continuity, interaction, and causality. However, systematically studying video reasoning and its scaling behavior is hindered by the lack of large-scale training data. To address this gap, we introduce the Very Big Video Reasoning (VBVR) Dataset, an unprecedentedly large-scale resource spanning 200 curated reasoning tasks following a principled taxonomy and over one million video clips, approximately three orders of magnitude larger than existing datasets. We further present VBVR-Bench, a verifiable evaluation framework that moves beyond model-based judging by incorporating rule-based, human-aligned scorers, enabling reproducible and interpretable diagnosis of video reasoning capabilities. Leveraging the VBVR suite, we conduct one of the first large-scale scaling studies of video reasoning and observe early signs of emergent generalization to unseen reasoning tasks. Together, VBVR lays a foundation for the next stage of research in generalizable video reasoning. The data, benchmark toolkit, and models are publicly available at https://video-reason.com/ .",
