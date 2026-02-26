@@ -66,6 +66,18 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.08);
       border: 1px solid #e8e8e8;
     }
+    .paper.read {
+      opacity: 0.55;
+      transition: opacity 0.2s ease;
+    }
+    .new-badge {
+      background:#e53935;
+      color:white;
+      font-size:0.7rem;
+      padding:2px 6px;
+      border-radius:4px;
+      margin-left:8px;
+    }
     .paper .title { font-size: 1.1rem; font-weight: 700; line-height: 1.45; margin: 0 0 8px; color: #111; }
     .meta { font-size: 0.85rem; color: #666; margin-bottom: 14px; }
     .summary { font-size: 0.95rem; line-height: 1.7; margin: 0 0 16px; color: #333; }
@@ -189,6 +201,7 @@
     <div class="header-row">
       <div>
         <h1>arXiv AI & Robotics Digest</h1>
+        <span id="unreadCount" style="margin-left:15px;font-weight:600;"></span>
         <p class="last-update" id="lastUpdate"></p>
       </div>
       <div class="header-actions">
@@ -211,6 +224,8 @@
     <div class="toolbar" id="toolbar" style="display:none;">
       <div class="filter-bar">
         <button type="button" id="filterAll" class="active">すべて</button>
+        <button type="button" id="filterUnread">未読のみ</button>
+        <button type="button" id="filterRead">既読のみ</button>
         <button type="button" id="filterSaved">Saved のみ</button>
         <button type="button" id="filterTagAgent">AIエージェント</button>
         <button type="button" id="filterTagRobotics">Robotics</button>
@@ -233,6 +248,7 @@
   </div>
 
 <script>
+  var READ_KEY = 'arxiv-digest-read';
   var SAVED_KEY = 'arxiv-digest-saved';
   var GITHUB_REPO_KEY = 'arxiv-digest-github-repo';
   var GITHUB_TOKEN_KEY = 'arxiv-digest-github-token';
@@ -245,6 +261,9 @@
   }
   function setSavedIdsToStorage(ids) {
     localStorage.setItem(SAVED_KEY, JSON.stringify(ids));
+  }
+  function setReadIdsToStorage(ids) {
+    localStorage.setItem(READ_KEY, JSON.stringify(ids));
   }
 
   function getSavedIds(cb) {
@@ -308,6 +327,72 @@
       });
   }
 
+  function getReadIdsFromStorage() {
+    try {
+      var raw = localStorage.getItem(READ_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (_) { return []; }
+  }
+  function setReadIdsToStorage(ids) {
+    localStorage.setItem(READ_KEY, JSON.stringify(ids));
+  }
+  function isRead(id, readIds) {
+    return readIds.indexOf(id) >= 0;
+  }
+
+  function getReadIds(cb) {
+    var repo = localStorage.getItem(GITHUB_REPO_KEY);
+    if (repo) {
+      fetch('read.json?v=' + Date.now(), { cache: 'no-store' })
+        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function(arr) { cb(Array.isArray(arr) ? arr : []); })
+        .catch(function() { cb(getReadIdsFromStorage()); });
+    } else {
+      cb(getReadIdsFromStorage());
+    }
+  }
+
+  function setReadIds(ids, cb) {
+    var repo = localStorage.getItem(GITHUB_REPO_KEY);
+    var token = localStorage.getItem(GITHUB_TOKEN_KEY);
+
+    if (repo && token) {
+      updateReadJsonOnGitHub(repo, token, ids, function(err) {
+        if (!err) setReadIdsToStorage(ids);
+        if (cb) cb(err);
+      });
+    } else {
+      setReadIdsToStorage(ids);
+      if (cb) cb(null);
+    }
+  }
+
+  function updateReadJsonOnGitHub(repo, token, ids, cb) {
+    var api = 'https://api.github.com/repos/' + repo + '/contents/read.json';
+    var payload = {
+      message: 'Update read papers',
+      content: btoa(unescape(encodeURIComponent(JSON.stringify(ids))))
+    };
+
+    fetch(api, { headers: { 'Authorization': 'Bearer ' + token } })
+      .then(function(r) { return r.json(); })
+      .then(function(info) {
+        if (info.sha) payload.sha = info.sha;
+        return fetch(api, {
+          method: 'PUT',
+          headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      })
+      .then(function(r) {
+        if (!r.ok) throw new Error('GitHub update failed');
+        if (cb) cb(null);
+      })
+      .catch(function(e) {
+        if (cb) cb(e);
+      });
+  }
+
   function toggleSaved(id, savedIds, cb) {
     var ids = savedIds.slice();
     var i = ids.indexOf(id);
@@ -345,27 +430,40 @@
     return 'tag';
   }
 
-  function renderPaper(paper, savedIds) {
+  function renderPaper(paper, savedIds, readIds) {
     var link = paper.link && /^https?:\/\//.test(paper.link) ? paper.link : '#';
     var saved = savedIds.indexOf(paper.id) >= 0;
+    var read = readIds.indexOf(paper.id) >= 0;
+
     var tagsHtml = '';
     if (paper.tags && paper.tags.length) {
       tagsHtml = paper.tags.map(function(t) {
         return '<span class="' + tagClass(t) + '">' + escapeHtml(t) + '</span>';
       }).join('');
     }
+
     var div = document.createElement('div');
     div.className = 'paper';
-    div.dataset.paperId = paper.id;
+    if (read) div.classList.add('read');
+
     div.innerHTML =
-      '<div class="title">' + escapeHtml(paper.title) + '</div>' +
+      '<div class="title">' +
+        escapeHtml(paper.title) +
+        (read ? '' : ' <span class="new-badge">NEW</span>') +
+      '</div>' +
       '<p class="meta">Published: ' + escapeHtml(formatDate(paper.published)) + '</p>' +
       (tagsHtml ? '<div class="tags-row">' + tagsHtml + '</div>' : '') +
       '<div class="summary">' + formatSummary(paper.summary_ja || '') + '</div>' +
       '<div class="paper-actions">' +
+        '<label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;">' +
+        '<input type="checkbox" class="chk-read" data-id="' + escapeHtml(paper.id) + '"' + (read ? ' checked' : '') + '>既読' +
+        '</label>' +
         '<a class="arxiv" href="' + escapeHtml(link) + '" target="_blank" rel="noopener">View on arXiv</a>' +
-        '<button type="button" class="btn-save' + (saved ? ' saved' : '') + '" data-id="' + escapeHtml(paper.id) + '" aria-label="' + (saved ? '保存解除' : '保存') + '">' + (saved ? '★ Saved' : '☆ Save') + '</button>' +
+        '<button type="button" class="btn-save' + (saved ? ' saved' : '') + '" data-id="' + escapeHtml(paper.id) + '">' +
+          (saved ? '★ Saved' : '☆ Save') +
+        '</button>' +
       '</div>';
+
     return div;
   }
 
@@ -386,10 +484,14 @@
     return arr;
   }
 
-  function renderPapers(container, data, filterMode, sortValue, savedIds) {
+  function renderPapers(container, data, filterMode, sortValue, savedIds, readIds) {
     container.innerHTML = '';
     var list = data;
-    if (filterMode === 'saved') {
+    if (filterMode === 'unread') {
+      list = list.filter(function(p){ return readIds.indexOf(p.id) === -1; });
+    } else if (filterMode === 'read') {
+      list = list.filter(function(p){ return readIds.indexOf(p.id) >= 0; });
+    } else if (filterMode === 'saved') {
       list = list.filter(function(p) { return savedIds.indexOf(p.id) >= 0; });
     } else if (filterMode === 'AIエージェント' || filterMode === 'Robotics' || filterMode === 'ハンド模倣学習') {
       list = list.filter(function(p) { return p.tags && p.tags.indexOf(filterMode) >= 0; });
@@ -402,7 +504,7 @@
     }
     container.classList.remove('empty');
     list.forEach(function(paper) {
-      var el = renderPaper(paper, savedIds);
+      var el = renderPaper(paper, savedIds, readIds);
       container.appendChild(el);
     });
     var hintEl = document.getElementById('syncHint');
@@ -429,9 +531,25 @@
         });
       });
     });
+    container.querySelectorAll('.chk-read').forEach(function(chk){
+      chk.addEventListener('change', function(){
+        var id = chk.getAttribute('data-id');
+        var ids = currentReadIds.slice();
+        var i = ids.indexOf(id);
+
+        if (chk.checked && i === -1) ids.push(id);
+        if (!chk.checked && i >= 0) ids.splice(i, 1);
+
+        setReadIds(ids, function(){
+          currentReadIds = ids;
+          update();
+        });
+      });
+    });
   }
 
   var currentSavedIds = [];
+  var currentReadIds = [];
 
   document.getElementById('settingsToggle').addEventListener('click', function() {
     var p = document.getElementById('settingsPanel');
@@ -509,32 +627,65 @@
         if (p.created_at && (!lastDate || p.created_at > lastDate)) lastDate = p.created_at;
       });
       if (lastDate) document.getElementById('lastUpdate').textContent = '最終更新: ' + lastDate;
-      getSavedIds(function(ids) {
-        try { if (!Array.isArray(ids)) ids = []; } catch (_) { ids = []; }
-        currentSavedIds = ids;
-        toolbar.style.display = 'flex';
-        var filterMode = 'all';
-        var sortValue = 'newest';
-        function setFilterActive() {
-          ['filterAll', 'filterSaved', 'filterTagAgent', 'filterTagRobotics', 'filterTagHand'].forEach(function(id) {
-            var btn = document.getElementById(id);
-            var isAll = id === 'filterAll' && filterMode === 'all';
-            var isSaved = id === 'filterSaved' && filterMode === 'saved';
-            var isTag = (id === 'filterTagAgent' && filterMode === 'AIエージェント') || (id === 'filterTagRobotics' && filterMode === 'Robotics') || (id === 'filterTagHand' && filterMode === 'ハンド模倣学習');
-            btn.classList.toggle('active', isAll || isSaved || isTag);
-          });
+
+      getReadIds(function(readIds) {
+
+        currentReadIds = readIds || [];
+        // 初回のみ：既存データを既読扱いにする
+        var firstVisit = !localStorage.getItem(READ_KEY);
+        if (firstVisit) {
+          currentReadIds = data.map(function(p){ return p.id; });
+          setReadIds(currentReadIds);
         }
-        function update() {
-          renderPapers(container, data, filterMode, sortValue, currentSavedIds);
-        }
-        document.getElementById('filterAll').onclick = function() { filterMode = 'all'; setFilterActive(); update(); };
-        document.getElementById('filterSaved').onclick = function() { filterMode = 'saved'; setFilterActive(); update(); };
-        document.getElementById('filterTagAgent').onclick = function() { filterMode = 'AIエージェント'; setFilterActive(); update(); };
-        document.getElementById('filterTagRobotics').onclick = function() { filterMode = 'Robotics'; setFilterActive(); update(); };
-        document.getElementById('filterTagHand').onclick = function() { filterMode = 'ハンド模倣学習'; setFilterActive(); update(); };
-        document.getElementById('sortSelect').onchange = function() { sortValue = this.value; update(); };
-        setFilterActive();
-        update();
+
+        getSavedIds(function(ids) {
+          currentSavedIds = Array.isArray(ids) ? ids : [];
+
+          toolbar.style.display = 'flex';
+          var filterMode = 'all';
+          var sortValue = 'newest';
+
+          function setFilterActive() {
+            [
+              'filterAll','filterUnread','filterRead',
+              'filterSaved','filterTagAgent',
+              'filterTagRobotics','filterTagHand'
+            ].forEach(function(id){
+              var btn = document.getElementById(id);
+              var active =
+                (id==='filterAll' && filterMode==='all') ||
+                (id==='filterUnread' && filterMode==='unread') ||
+                (id==='filterRead' && filterMode==='read') ||
+                (id==='filterSaved' && filterMode==='saved') ||
+                (id==='filterTagAgent' && filterMode==='AIエージェント') ||
+                (id==='filterTagRobotics' && filterMode==='Robotics') ||
+                (id==='filterTagHand' && filterMode==='ハンド模倣学習');
+              btn.classList.toggle('active', active);
+            });
+          }
+
+          function update() {
+            renderPapers(container, data, filterMode, sortValue, currentSavedIds, currentReadIds);
+            var unread = data.filter(function(p){
+              return currentReadIds.indexOf(p.id) === -1;
+            }).length;
+            document.getElementById('unreadCount').textContent =
+              unread > 0 ? '未読: ' + unread : '';
+          }
+
+          document.getElementById('filterAll').onclick = function(){filterMode='all';setFilterActive();update();};
+          document.getElementById('filterUnread').onclick = function(){filterMode='unread';setFilterActive();update();};
+          document.getElementById('filterRead').onclick = function(){filterMode='read';setFilterActive();update();};
+          document.getElementById('filterSaved').onclick = function(){filterMode='saved';setFilterActive();update();};
+          document.getElementById('filterTagAgent').onclick = function(){filterMode='AIエージェント';setFilterActive();update();};
+          document.getElementById('filterTagRobotics').onclick = function(){filterMode='Robotics';setFilterActive();update();};
+          document.getElementById('filterTagHand').onclick = function(){filterMode='ハンド模倣学習';setFilterActive();update();};
+          document.getElementById('sortSelect').onchange = function(){sortValue=this.value;update();};
+
+          setFilterActive();
+          update();
+
+        });
       });
     })
     .catch(function(e) {
