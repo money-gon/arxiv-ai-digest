@@ -1,5 +1,71 @@
 [
   {
+    "id": "http://arxiv.org/abs/2602.22190v1",
+    "title": "GUI-Libra: Training Native GUI Agents to Reason and Act with Action-aware Supervision and Partially Verifiable RL",
+    "summary_en": "Open-source native GUI agents still lag behind closed-source systems on long-horizon navigation tasks. This gap stems from two limitations: a shortage of high-quality, action-aligned reasoning data, and the direct adoption of generic post-training pipelines that overlook the unique challenges of GUI agents. We identify two fundamental issues in these pipelines: (i) standard SFT with CoT reasoning often hurts grounding, and (ii) step-wise RLVR-tyle training faces partial verifiability, where multiple actions can be correct but only a single demonstrated action is used for verification. This makes offline step-wise metrics weak predictors of online task success. In this work, we present GUI-Libra, a tailored training recipe that addresses these challenges. First, to mitigate the scarcity of action-aligned reasoning data, we introduce a data construction and filtering pipeline and release a curated 81K GUI reasoning dataset. Second, to reconcile reasoning with grounding, we propose action-aware SFT that mixes reasoning-then-action and direct-action data and reweights tokens to emphasize action and grounding. Third, to stabilize RL under partial verifiability, we identify the overlooked importance of KL regularization in RLVR and show that a KL trust region is critical for improving offline-to-online predictability; we further introduce success-adaptive scaling to downweight unreliable negative gradients. Across diverse web and mobile benchmarks, GUI-Libra consistently improves both step-wise accuracy and end-to-end task completion. Our results suggest that carefully designed post-training and data curation can unlock significantly stronger task-solving capabilities without costly online data collection. We release our dataset, code, and models to facilitate further research on data-efficient post-training for reasoning-capable GUI agents.",
+    "published": "2026-02-25T18:34:57Z",
+    "link": "https://arxiv.org/abs/2602.22190v1",
+    "summary_ja": "日本語要約に失敗しました。原文を参照してください。",
+    "tags": [],
+    "saved": false,
+    "created_at": "2026-02-26"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.22154v1",
+    "title": "Position-Based Flocking for Persistent Alignment without Velocity Sensing",
+    "summary_en": "Coordinated collective motion in bird flocks and fish schools inspires algorithms for cohesive swarm robotics. This paper presents a position-based flocking model that achieves persistent velocity alignment without velocity sensing. By approximating relative velocity differences from changes between current and initial relative positions and incorporating a time- and density-dependent alignment gain with a non-zero minimum threshold to maintain persistent alignment, the model sustains coherent collective motion over extended periods. Simulations with a collective of 50 agents demonstrate that the position-based flocking model attains faster and more sustained directional alignment and results in more compact formations than a velocity-alignment-based baseline. This position-based flocking model is particularly well-suited for real-world robotic swarms, where velocity measurements are unreliable, noisy, or unavailable. Experimental results using a team of nine real wheeled mobile robots are also presented.",
+    "published": "2026-02-25T18:01:00Z",
+    "link": "https://arxiv.org/abs/2602.22154v1",
+    "summary_ja": "日本語要約に失敗しました。原文を参照してください。",
+    "tags": [],
+    "saved": false,
+    "created_at": "2026-02-26"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.22124v1",
+    "title": "SWE-Protégé: Learning to Selectively Collaborate With an Expert Unlocks Small Language Models as Software Engineering Agents",
+    "summary_en": "Small language models (SLMs) offer compelling advantages in cost, latency, and adaptability, but have so far lagged behind larger models on long-horizon software engineering tasks such as SWE-bench, where they suffer from pervasive action looping and low resolution rates. We introduce SWE-Protégé, a post-training framework that reframes software repair as an expert-protégé collaboration problem. In SWE-Protégé, an SLM remains the sole decision-maker while learning to selectively seek guidance from a strong expert model, recognize stalled states, and follow through on expert feedback. Our approach combines supervised fine-tuning on expert-augmented trajectories with agentic reinforcement learning that explicitly discourages degenerative looping and unproductive expert collaboration. We lightly post-train Qwen2.5-Coder-7B-Instruct to achieve 42.4% Pass@1 on SWE-bench Verified, a +25.4% improvement over the prior SLM state of the art, while using expert assistance sparsely (~4 calls per task and 11% of total tokens).",
+    "published": "2026-02-25T17:11:49Z",
+    "link": "https://arxiv.org/abs/2602.22124v1",
+    "summary_ja": "日本語要約に失敗しました。原文を参照してください。",
+    "tags": [],
+    "saved": false,
+    "created_at": "2026-02-26"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.22118v1",
+    "title": "System Design of the Ultra Mobility Vehicle: A Driving, Balancing, and Jumping Bicycle Robot",
+    "summary_en": "Trials cyclists and mountain bike riders can hop, jump, balance, and drive on one or both wheels. This versatility allows them to achieve speed and energy-efficiency on smooth terrain and agility over rough terrain. Inspired by these athletes, we present the design and control of a robotic platform, Ultra Mobility Vehicle (UMV), which combines a bicycle and a reaction mass to move dynamically with minimal actuated degrees of freedom. We employ a simulation-driven design optimization process to synthesize a spatial linkage topology with a focus on vertical jump height and momentum-based balancing on a single wheel contact. Using a constrained Reinforcement Learning (RL) framework, we demonstrate zero-shot transfer of diverse athletic behaviors, including track-stands, jumps, wheelies, rear wheel hopping, and front flips. This 23.5 kg robot is capable of high speeds (8 m/s) and jumping on and over large obstacles (1 m tall, or 130% of the robot's nominal height).",
+    "published": "2026-02-25T17:05:09Z",
+    "link": "https://arxiv.org/abs/2602.22118v1",
+    "summary_ja": "日本語要約に失敗しました。原文を参照してください。",
+    "tags": [],
+    "saved": false,
+    "created_at": "2026-02-26"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.22088v1",
+    "title": "Force Policy: Learning Hybrid Force-Position Control Policy under Interaction Frame for Contact-Rich Manipulation",
+    "summary_en": "Contact-rich manipulation demands human-like integration of perception and force feedback: vision should guide task progress, while high-frequency interaction control must stabilize contact under uncertainty. Existing learning-based policies often entangle these roles in a monolithic network, trading off global generalization against stable local refinement, while control-centric approaches typically assume a known task structure or learn only controller parameters rather than the structure itself. In this paper, we formalize a physically grounded interaction frame, an instantaneous local basis that decouples force regulation from motion execution, and propose a method to recover it from demonstrations. Based on this, we address both issues by proposing Force Policy, a global-local vision-force policy in which a global policy guides free-space actions using vision, and upon contact, a high-frequency local policy with force feedback estimates the interaction frame and executes hybrid force-position control for stable interaction. Real-world experiments across diverse contact-rich tasks show consistent gains over strong baselines, with more robust contact establishment, more accurate force regulation, and reliable generalization to novel objects with varied geometries and physical properties, ultimately improving both contact stability and execution quality. Project page: https://force-policy.github.io/",
+    "published": "2026-02-25T16:35:24Z",
+    "link": "https://arxiv.org/abs/2602.22088v1",
+    "summary_ja": "日本語要約に失敗しました。原文を参照してください。",
+    "tags": [],
+    "saved": false,
+    "created_at": "2026-02-26"
+  },
+  {
+    "id": "http://arxiv.org/abs/2602.22056v1",
+    "title": "FlowCorrect: Efficient Interactive Correction of Generative Flow Policies for Robotic Manipulation",
+    "summary_en": "Generative manipulation policies can fail catastrophically under deployment-time distribution shift, yet many failures are near-misses: the robot reaches almost-correct poses and would succeed with a small corrective motion. We present FlowCorrect, a deployment-time correction framework that converts near-miss failures into successes using sparse human nudges, without full policy retraining. During execution, a human provides brief corrective pose nudges via a lightweight VR interface. FlowCorrect uses these sparse corrections to locally adapt the policy, improving actions without retraining the backbone while preserving the model performance on previously learned scenarios. We evaluate on a real-world robot across three tabletop tasks: pick-and-place, pouring, and cup uprighting. With a low correction budget, FlowCorrect improves success on hard cases by 85\\% while preserving performance on previously solved scenarios. The results demonstrate clearly that FlowCorrect learns only with very few demonstrations and enables fast and sample-efficient incremental, human-in-the-loop corrections of generative visuomotor policies at deployment time in real-world robotics.",
+    "published": "2026-02-25T16:06:49Z",
+    "link": "https://arxiv.org/abs/2602.22056v1",
+    "summary_ja": "日本語要約に失敗しました。原文を参照してください。",
+    "tags": [],
+    "saved": false,
+    "created_at": "2026-02-26"
+  },
+  {
     "id": "http://arxiv.org/abs/2602.21203v1",
     "title": "Squint: Fast Visual Reinforcement Learning for Sim-to-Real Robotics",
     "summary_en": "Visual reinforcement learning is appealing for robotics but expensive -- off-policy methods are sample-efficient yet slow; on-policy methods parallelize well but waste samples. Recent work has shown that off-policy methods can train faster than on-policy methods in wall-clock time for state-based control. Extending this to vision remains challenging, where high-dimensional input images complicate training dynamics and introduce substantial storage and encoding overhead. To address these challenges, we introduce Squint, a visual Soft Actor Critic method that achieves faster wall-clock training than prior visual off-policy and on-policy methods. Squint achieves this via parallel simulation, a distributional critic, resolution squinting, layer normalization, a tuned update-to-data ratio, and an optimized implementation. We evaluate on the SO-101 Task Set, a new suite of eight manipulation tasks in ManiSkill3 with heavy domain randomization, and demonstrate sim-to-real transfer to a real SO-101 robot. We train policies for 15 minutes on a single RTX 3090 GPU, with most tasks converging in under 6 minutes.",
