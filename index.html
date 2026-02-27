@@ -35,6 +35,8 @@
     body.dark .filter-bar button { background: #2d2d2d; border-color: #555; color: #e0e0e0; }
     body.dark .filter-bar button:hover:not(.active) { background: #3d3d3d; }
     body.dark .filter-bar button.active { background: #1565c0; border-color: #1565c0; color: #fff; }
+    body.dark .filter-tags .tag-btn { background: #2d2d2d; border-color: #555; color: #e0e0e0; }
+    body.dark .filter-tags .tag-btn.active { background: #1565c0; color: #fff; }
     body.dark .tag.agent { background: #1b5e20; color: #a5d6a7; }
     body.dark .tag.robotics { background: #e65100; color: #ffcc80; }
     body.dark .tag.hand { background: #4a148c; color: #ce93d8; }
@@ -135,6 +137,18 @@
     }
     .filter-bar button.active { background: #1565c0; color: #fff; border-color: #1565c0; }
     .filter-bar button:hover:not(.active) { background: #f5f5f5; }
+    .filter-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;}
+    .filter-tags .tag-btn {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      border: 1px solid #ccc;
+      background: #fff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .filter-tags .tag-btn.active { background: #1565c0; color: #fff; border-color: #1565c0; }
+    .filter-tags .tag-btn:hover:not(.active) { background: #f0f0f0; }
     .sort-wrap { display: flex; align-items: center; gap: 6px; }
     .sort-wrap label { font-size: 0.9rem; color: #666; }
     body.dark .sort-wrap label { color: #aaa; }
@@ -223,13 +237,17 @@
     <div id="errorBanner"></div>
     <div class="toolbar" id="toolbar" style="display:none;">
       <div class="filter-bar">
-        <button type="button" id="filterAll" class="active">すべて</button>
-        <button type="button" id="filterUnread">未読のみ</button>
-        <button type="button" id="filterRead">既読のみ</button>
-        <button type="button" id="filterSaved">Saved のみ</button>
-        <button type="button" id="filterTagAgent">AIエージェント</button>
-        <button type="button" id="filterTagRobotics">Robotics</button>
-        <button type="button" id="filterTagHand">ハンド模倣学習</button>
+        <div class="filter-main">
+          <button type="button" id="filterAll" class="active">すべて</button>
+          <button type="button" id="filterUnread">未読のみ</button>
+          <button type="button" id="filterRead">既読のみ</button>
+          <button type="button" id="filterSaved">Saved のみ</button>
+        </div>
+        <div class="filter-tags">
+          <button type="button" id="filterTagAgent">AIエージェント</button>
+          <button type="button" id="filterTagRobotics">Robotics</button>
+          <button type="button" id="filterTagHand">ハンド模倣学習</button>
+        </div>
       </div>
       <div class="sort-wrap">
         <label for="sortSelect">並び順:</label>
