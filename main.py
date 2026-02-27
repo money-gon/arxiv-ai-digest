@@ -3,6 +3,7 @@ import json
 import os
 import re
 import requests
+import time
 from datetime import datetime
 from typing import List, Tuple
 
@@ -20,7 +21,7 @@ ARXIV_QUERIES = [
     "search_query=(cat:cs.RO+OR+cat:cs.LG)+AND+(all:hand+OR+all:imitation+OR+all:dexterous+OR+all:manipulation)&sortBy=submittedDate&max_results=2",
 ]
 
-MAX_PAPERS_PER_RUN = 6  # マージ後、日付でソートしてこの件数まで
+MAX_PAPERS_PER_RUN = 4  # マージ後、日付でソートしてこの件数まで
 DB_FILE = "papers_db.json"
 
 # ==========================
@@ -29,7 +30,8 @@ DB_FILE = "papers_db.json"
 HF_TOKEN = os.getenv("HF_TOKEN")
 # Hugging Face Router (旧 api-inference は 410 で廃止)
 HF_CHAT_URL = "https://router.huggingface.co/v1/chat/completions"
-HF_MODEL = "mistralai/Mistral-7B-Instruct-v0.2:fastest"
+HF_MODEL = "Qwen/Qwen2.5-7B-Instruct"
+# HF_MODEL = "mistralai/Mistral-7B-Instruct-v0.2:fastest"
 
 ALLOWED_TAGS = {"AIエージェント", "Robotics", "ハンド模倣学習"}
 
@@ -89,30 +91,47 @@ def summarize_to_japanese(text: str) -> str:
     payload = {
         "model": HF_MODEL,
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 1024,
-        "temperature": 0.3,
+        "max_tokens": 768,
+        "temperature": 0.2,
     }
 
-    try:
-        response = requests.post(
-            HF_CHAT_URL,
-            headers=headers,
-            json=payload,
-            timeout=120,
-        )
-    except requests.RequestException as e:
-        print("HF request error:", e)
-        return "日本語要約に失敗しました。原文を参照してください。"
+    for attempt in range(3):  # retry 3 times
+        try:
+            response = requests.post(
+                HF_CHAT_URL,
+                headers=headers,
+                json=payload,
+                timeout=60,
+            )
 
-    if response.status_code != 200:
-        print("HF ERROR:", response.status_code, response.text[:200])
-        return "日本語要約に失敗しました。原文を参照してください。"
+            print("HF STATUS:", response.status_code)
 
-    try:
-        data = response.json()
-        return data["choices"][0]["message"]["content"].strip()
-    except (KeyError, IndexError, TypeError, json.JSONDecodeError):
-        return "日本語要約に失敗しました。原文を参照してください。"
+            if response.status_code == 429:
+                print("Rate limit. Retrying...")
+                time.sleep(5)
+                continue
+
+            if response.status_code != 200:
+                print("HF ERROR:", response.status_code, response.text[:300])
+                return "日本語要約に失敗しました。"
+
+            data = response.json()
+            if "choices" not in data or not data["choices"]:
+                print("HF EMPTY RESPONSE:", data)
+                return "日本語要約に失敗しました。"
+
+            content = data["choices"][0]["message"]["content"].strip()
+            if not content:
+                print("HF BLANK CONTENT")
+                return "日本語要約に失敗しました。"
+
+            return content
+
+        except requests.RequestException as e:
+            print("HF request error:", e)
+            time.sleep(5)
+
+    return "日本語要約に失敗しました。"
 
 
 # ==========================
