@@ -1,5 +1,61 @@
 [
   {
+    "id": "http://arxiv.org/abs/2603.02196v1",
+    "title": "Conformal Policy Control",
+    "summary_en": "An agent must try new behaviors to explore and improve. In high-stakes environments, an agent that violates safety constraints may cause harm and must be taken offline, curtailing any future interaction. Imitating old behavior is safe, but excessive conservatism discourages exploration. How much behavior change is too much? We show how to use any safe reference policy as a probabilistic regulator for any optimized but untested policy. Conformal calibration on data from the safe policy determines how aggressively the new policy can act, while provably enforcing the user's declared risk tolerance. Unlike conservative optimization methods, we do not assume the user has identified the correct model class nor tuned any hyperparameters. Unlike previous conformal methods, our theory provides finite-sample guarantees even for non-monotonic bounded constraint functions. Our experiments on applications ranging from natural language question answering to biomolecular engineering show that safe exploration is not only possible from the first moment of deployment, but can also improve performance.",
+    "published": "2026-03-02T18:54:36Z",
+    "link": "https://arxiv.org/abs/2603.02196v1",
+    "summary_ja": "【背景】\n高リスクの環境では、エージェントが安全制約を違反すると危険が生じ、そのエージェントは停止される。これにより、将来的な相互作用が制限される。一方、古い行動を模倣することは安全だが、過度の保守性は探索を抑制する。適切な行動変化量はどの程度か？\n\n【提案】\nこの論文では、安全な参照ポリシーを確率的リグレーターとして使用し、未テストの最適化ポリシーに適用する方法を提案する。安全なポリシーからのデータでコンフォーマル校正を行い、新しいポリシーがどの程度積極的に行動できるかを決定する。ユーザーの宣言されたリスク許容度を証明的に保証する。\n\n【結果】\n自然言語の質問応答からバイモレキュラー工学までの様々なアプリケーションで実験を行い、安全な探索は最初から可能であり、パフォーマンスの向上につながることが示された。\n\n【ポイント】\n安全な探索とパフォーマンスの向上を両立する方法を提供し、保守的な最適化手法とは異なるアプローチを採用している。",
+    "tags": [
+      "AIエージェント",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-03-03"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.02194v1",
+    "title": "From Leaderboard to Deployment: Code Quality Challenges in AV Perception Repositories",
+    "summary_en": "Autonomous vehicle (AV) perception models are typically evaluated solely on benchmark performance metrics, with limited attention to code quality, production readiness and long-term maintainability. This creates a significant gap between research excellence and real-world deployment in safety-critical systems subject to international safety standards. To address this gap, we present the first large-scale empirical study of software quality in AV perception repositories, systematically analyzing 178 unique models from the KITTI and NuScenes 3D Object Detection leaderboards. Using static analysis tools (Pylint, Bandit, and Radon), we evaluated code errors, security vulnerabilities, maintainability, and development practices. Our findings revealed that only 7.3% of the studied repositories meet basic production-readiness criteria, defined as having zero critical errors and no high-severity security vulnerabilities. Security issues are highly concentrated, with the top five issues responsible for almost 80% of occurrences, which prompted us to develop a set of actionable guidelines to prevent them. Additionally, the adoption of Continuous Integration/Continuous Deployment pipelines was correlated with better code maintainability. Our findings highlight that leaderboard performance does not reflect production readiness and that targeted interventions could substantially improve the quality and safety of AV perception code.",
+    "published": "2026-03-02T18:54:28Z",
+    "link": "https://arxiv.org/abs/2603.02194v1",
+    "summary_ja": "【背景】\n自動運転車（AV）の感知モデルは、通常、ベンチマークの性能指標のみで評価され、コード品質や生産性、長期的な維持性についてはあまり考慮されていません。これは、国際的な安全基準に準拠する安全基準が適用されるシステムでの研究と実世界の展開間の大きなギャップを生み出します。\n\n【提案】\nこの論文では、AVの感知リポジトリにおけるソフトウェア品質の最初の大量の実証的研究を提示し、Pylint、Bandit、Radonなどの静的解析ツールを使用して、178のユニークなモデルを系統的に分析しました。\n\n【結果】\nコードエラー、セキュリティ脆弱性、維持性、開発実践を評価した結果、調査対象のリポジトリのうち、基本的な生産性基準を満たすものは7.3%に過ぎませんでした。セキュリティ問題は非常に集中しており、トップ5の問題が全体の80%を占めました。さらに、継続的インテグレーション/継続的デプロイメントパイプラインの導入は、コードの維持性と関連していました。\n\n【ポイント】\nリーダーボードの性能は生産性を反映していないため、ターゲット介入によりAVの感知コードの品質と安全性を大幅に改善することが可能であることを示しました。",
+    "tags": [
+      "AIエージェント",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-03-03"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.02190v1",
+    "title": "Sketch2Colab: Sketch-Conditioned Multi-Human Animation via Controllable Flow Distillation",
+    "summary_en": "We present Sketch2Colab, which turns storyboard-style 2D sketches into coherent, object-aware 3D multi-human motion with fine-grained control over agents, joints, timing, and contacts. Conventional diffusion-based motion generators have advanced realism; however, achieving precise adherence to rich interaction constraints typically demands extensive training and/or costly posterior guidance, and performance can degrade under strong multi-entity conditioning. Sketch2Colab instead first learns a sketch-driven diffusion prior and then distills it into an efficient rectified-flow student operating in latent space for fast, stable sampling. Differentiable energies over keyframes, trajectories, and physics-based constraints directly shape the student's transport field, steering samples toward motions that faithfully satisfy the storyboard while remaining physically plausible. To capture coordinated interaction, we augment the continuous flow with a continuous-time Markov chain (CTMC) planner that schedules discrete events such as touches, grasps, and handoffs, modulating the dynamics to produce crisp, well-phased human-object-human collaborations. Experiments on CORE4D and InterHuman show that Sketch2Colab achieves state-of-the-art constraint adherence and perceptual quality while offering significantly faster inference than diffusion-only baselines.",
+    "published": "2026-03-02T18:52:51Z",
+    "link": "https://arxiv.org/abs/2603.02190v1",
+    "summary_ja": "【背景】\n2D スケッチから3D多人数の連続的な動きを生成する手法が求められている。従来の拡散モデルはリアルさを向上させたが、複数のエージェント間の複雑な相互作用を正確に再現するためには、多くのトレーニングや高コストのポストerior制御が必要で、性能は多体条件の強い影響を受けやすい。\n\n【提案】\nSketch2Colabは、スケッチから3D多人数の動きを生成する新しい手法を提案する。まずスケッチに基づく拡散モデルの先駆的な知識を学習し、その後、効率的な直交フロー学生モデルを構築する。この学生モデルはラティン空間で動作し、高速かつ安定したサンプリングが可能になる。さらに、キーフレーム、軌跡、物理制約の差分エネルギーを使用して、学生モデルの輸送フィールドを直接形作る。\n\n【結果】\nCORE4DとInterHumanの実験では、Sketch2Colabは最適な制約遵守と感覚的品質を達成し、純粋な拡散モデルの基準よりも大幅に高速な推論が可能となった。\n\n【ポイント】\nSketch2Colabは、スケッチからリアルで物理的に可能な多人数の動きを高速に生成する新しい方法を提供し、複雑な相互作用を正確に再現する。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "saved": false,
+    "created_at": "2026-03-03"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.02139v1",
+    "title": "Rethinking Camera Choice: An Empirical Study on Fisheye Camera Properties in Robotic Manipulation",
+    "summary_en": "The adoption of fisheye cameras in robotic manipulation, driven by their exceptionally wide Field of View (FoV), is rapidly outpacing a systematic understanding of their downstream effects on policy learning. This paper presents the first comprehensive empirical study to bridge this gap, rigorously analyzing the properties of wrist-mounted fisheye cameras for imitation learning. Through extensive experiments in both simulation and the real world, we investigate three critical research questions: spatial localization, scene generalization, and hardware generalization. Our investigation reveals that: (1) The wide FoV significantly enhances spatial localization, but this benefit is critically contingent on the visual complexity of the environment. (2) Fisheye-trained policies, while prone to overfitting in simple scenes, unlock superior scene generalization when trained with sufficient environmental diversity. (3) While naive cross-camera transfer leads to failures, we identify the root cause as scale overfitting and demonstrate that hardware generalization performance can be improved with a simple Random Scale Augmentation (RSA) strategy. Collectively, our findings provide concrete, actionable guidance for the large-scale collection and effective use of fisheye datasets in robotic learning. More results and videos are available on https://robo-fisheye.github.io/",
+    "published": "2026-03-02T18:00:37Z",
+    "link": "https://arxiv.org/abs/2603.02139v1",
+    "summary_ja": "【背景】\n fisheyeカメラの視野角が非常に広いため、ロボット操作への導入が急速に進んでいますが、その影響を理解するシステム的な研究は不足しています。この問題は、ロボットの政策学習に fisheyeカメラを使用する際の効果を把握する上で重要です。\n\n【提案】\n この論文では、腕に取り付けられた fisheyeカメラを用いた模倣学習の性質を初めて系統的に調査しました。実験と実世界の両方で、空間的ローカライゼーション、シーンの一般化、ハードウェアの一般化という3つの重要な研究課題を検討しました。\n\n【結果】\n 結果から、広い視野角は空間的ローカライゼーションに大きな利点をもたらしますが、環境の視覚的な複雑さによって制限されます。また、単純なシーンではオーバーフィッティングが起こりやすい fisheye訓練されたポリシーは、十分な環境多様性でトレーニングされた場合、優れたシーンの一般化を達成できます。さらに、カメラ間の直接的な転移は失敗を引き起こす一方で、スケールオーバーフィッティングが根本的な原因であり、単純なランダムスケール増強（RSA）戦略がハードウェアの一般化性能を向上させることを示しました。\n\n【ポイント】\n 本研究は、fisheyeデータセットの大量収集と効果的な使用に向けた具体的で実践的なガイドラインを提供しました。",
+    "tags": [
+      "Robotics",
+      "AIエージェント"
+    ],
+    "saved": false,
+    "created_at": "2026-03-03"
+  },
+  {
     "id": "http://arxiv.org/abs/2602.24288v1",
     "title": "DARE-bench: Evaluating Modeling and Instruction Fidelity of LLMs in Data Science",
     "summary_en": "The fast-growing demands in using Large Language Models (LLMs) to tackle complex multi-step data science tasks create an emergent need for accurate benchmarking. There are two major gaps in existing benchmarks: (i) the lack of standardized, process-aware evaluation that captures instruction adherence and process fidelity, and (ii) the scarcity of accurately labeled training data. To bridge these gaps, we introduce DARE-bench, a benchmark designed for machine learning modeling and data science instruction following. Unlike many existing benchmarks that rely on human- or model-based judges, all tasks in DARE-bench have verifiable ground truth, ensuring objective and reproducible evaluation. To cover a broad range of tasks and support agentic tools, DARE-bench consists of 6,300 Kaggle-derived tasks and provides both large-scale training data and evaluation sets. Extensive evaluations show that even highly capable models such as gpt-o4-mini struggle to achieve good performance, especially in machine learning modeling tasks. Using DARE-bench training tasks for fine-tuning can substantially improve model performance. For example, supervised fine-tuning boosts Qwen3-32B's accuracy by 1.83x and reinforcement learning boosts Qwen3-4B's accuracy by more than 8x. These significant improvements verify the importance of DARE-bench both as an accurate evaluation benchmark and critical training data.",
