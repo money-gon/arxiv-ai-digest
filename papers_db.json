@@ -1,5 +1,61 @@
 [
   {
+    "id": "http://arxiv.org/abs/2603.03280v1",
+    "title": "How to Peel with a Knife: Aligning Fine-Grained Manipulation with Human Preference",
+    "summary_en": "Many essential manipulation tasks - such as food preparation, surgery, and craftsmanship - remain intractable for autonomous robots. These tasks are characterized not only by contact-rich, force-sensitive dynamics, but also by their \"implicit\" success criteria: unlike pick-and-place, task quality in these domains is continuous and subjective (e.g. how well a potato is peeled), making quantitative evaluation and reward engineering difficult. We present a learning framework for such tasks, using peeling with a knife as a representative example. Our approach follows a two-stage pipeline: first, we learn a robust initial policy via force-aware data collection and imitation learning, enabling generalization across object variations; second, we refine the policy through preference-based finetuning using a learned reward model that combines quantitative task metrics with qualitative human feedback, aligning policy behavior with human notions of task quality. Using only 50-200 peeling trajectories, our system achieves over 90% average success rates on challenging produce including cucumbers, apples, and potatoes, with performance improving by up to 40% through preference-based finetuning. Remarkably, policies trained on a single produce category exhibit strong zero-shot generalization to unseen in-category instances and to out-of-distribution produce from different categories while maintaining over 90% success rates.",
+    "published": "2026-03-03T18:59:32Z",
+    "link": "https://arxiv.org/abs/2603.03280v1",
+    "summary_ja": "【背景】\n多くの重要な操作タスク（食品調理、手術、工作など）は、自律型ロボットにとって未解決の問題である。これらのタスクは、接触が豊富で力に敏感な動力学を持つだけでなく、「明示的」ではなく「暗黙的」な成功基準を持つ。つまり、タスクの品質は連続的で主観的であり（例：じゃがいもの削り方）、定量的な評価や報酬設計が困難である。\n\n【提案】\n本論文では、力感知データ収集と模倣学習を用いたrobustな初期ポリシーの学習と、定量的なタスクメトリクスと主観的な人間フィードバックを組み合わせた学習報酬モデルを使用したポリシーの微調整を行う2段階のパイプラインを提案する。代表的な例として、ナイフを使用した皮むきタスクを用いる。\n\n【結果】\n50〜200の皮むきトラジェクトリーのみで、本システムはキュウリ、リンゴ、じゃがいもなどの難易度の高い生鮮食品での成功率を90%以上に達成し、微調整により最大40%の性能向上を達成した。さらに、単一の生鮮食品カテゴリーでの学習により、未見の同カテゴリーのインスタンスや異なるカテゴリーの分布外の生鮮食品でも90%以上の成功率を維持した。\n\n【ポイント】\n本研究は、主観的な成功基準を持つタスクでもrobustなポリシーを学習し、微調整により性能を大幅に向上させる手法を提案した。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "saved": false,
+    "created_at": "2026-03-04"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.03279v1",
+    "title": "ULTRA: Unified Multimodal Control for Autonomous Humanoid Whole-Body Loco-Manipulation",
+    "summary_en": "Achieving autonomous and versatile whole-body loco-manipulation remains a central barrier to making humanoids practically useful. Yet existing approaches are fundamentally constrained: retargeted data are often scarce or low-quality; methods struggle to scale to large skill repertoires; and, most importantly, they rely on tracking predefined motion references rather than generating behavior from perception and high-level task specifications. To address these limitations, we propose ULTRA, a unified framework with two key components. First, we introduce a physics-driven neural retargeting algorithm that translates large-scale motion capture to humanoid embodiments while preserving physical plausibility for contact-rich interactions. Second, we learn a unified multimodal controller that supports both dense references and sparse task specifications, under sensing ranging from accurate motion-capture state to noisy egocentric visual inputs. We distill a universal tracking policy into this controller, compress motor skills into a compact latent space, and apply reinforcement learning finetuning to expand coverage and improve robustness under out-of-distribution scenarios. This enables coordinated whole-body behavior from sparse intent without test-time reference motions. We evaluate ULTRA in simulation and on a real Unitree G1 humanoid. Results show that ULTRA generalizes to autonomous, goal-conditioned whole-body loco-manipulation from egocentric perception, consistently outperforming tracking-only baselines with limited skills.",
+    "published": "2026-03-03T18:59:29Z",
+    "link": "https://arxiv.org/abs/2603.03279v1",
+    "summary_ja": "【背景】\n humanoidロボットが人間の生活や作業を支援するためには、全身の自律的な動作と操作が重要だが、現存の手法はデータが限られたり、質が低かったり、多くのスキルを扱うのが難しかったり、特に物理的な相互作用を考慮した行動生成が不足していた。\n\n【提案】\n ULTRAという統一的なフレームワークを提案し、物理に基づいたニューラルリターゲティングアルゴリズムと統一的なマルチモーダルコントローラーを導入した。リターゲティングアルゴリズムは、物理的な可能性を保ちつつ、 humanoidロボットに大規模な運動捕捉データを適用する。また、コントローラーは正確な運動捕捉状態からノイズのある自己中心的な視覚入力まで、多様なセンシング環境に対応する。\n\n【結果】\n ULTRAは、自己中心的な感知から自主的な目標条件付きの全身動作と操作を実現し、限られたスキルを持つ追跡専用の基準よりも優れたパフォーマンスを示した。シミュレーションと実際のUnitree G1 humanoidでの評価で、出力分布外の状況でも信頼性を向上させ、意図から稀疏な指示に応じた協調的な全身動作を可能にした。\n\n【ポイント】\n ULTRAは、物理的な相互作用を考慮した稀疏な意図から自主的な全身動作と操作を実現し、既存の手法を大幅に超越した。",
+    "tags": [
+      "Robotics",
+      "AIエージェント"
+    ],
+    "saved": false,
+    "created_at": "2026-03-04"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.03258v1",
+    "title": "Inherited Goal Drift: Contextual Pressure Can Undermine Agentic Goals",
+    "summary_en": "The accelerating adoption of language models (LMs) as agents for deployment in long-context tasks motivates a thorough understanding of goal drift: agents' tendency to deviate from an original objective. While prior-generation language model agents have been shown to be susceptible to drift, the extent to which drift affects more recent models remains unclear. In this work, we provide an updated characterization of the extent and causes of goal drift. We investigate drift in state-of-the-art models within a simulated stock-trading environment (Arike et al., 2025). These models are largely shown to be robust even when subjected to adversarial pressure. We show, however, that this robustness is brittle: across multiple settings, the same models often inherit drift when conditioned on prefilled trajectories from weaker agents. The extent of conditioning-induced drift varies significantly by model family, with only GPT-5.1 maintaining consistent resilience among tested models. We find that drift behavior is inconsistent between prompt variations and correlates poorly with instruction hierarchy following behavior, with strong hierarchy following failing to reliably predict resistance to drift. Finally, we run analogous experiments in a new emergency room triage environment to show preliminary evidence for the transferability of our results across qualitatively different settings. Our findings underscore the continued vulnerability of modern LM agents to contextual pressures and the need for refined post-training techniques to mitigate this.",
+    "published": "2026-03-03T18:50:59Z",
+    "link": "https://arxiv.org/abs/2603.03258v1",
+    "summary_ja": "【背景】\n言語モデル（LM）が長期コンテキストタスクでのエージェントとして急速に採用される中、目標逸脱（agentsが元の目標から逸脱する傾向）の理解が重要になっています。前世代のLMエージェントは目標逸脱に対して脆弱であることが示されていましたが、最近のモデルではその影響度が不明です。この研究では、目標逸脱の範囲と原因について最新の理解を提供します。\n\n【提案】\n最新の言語モデルをシミュレートされた株取引環境で評価し、これらのモデルが敵対的な圧力にさらされた場合でも堅牢であることが示されました。しかし、前エージェントの事前埋め込みトラジェクトリーに条件付けされた場合、同じモデルがしばしば目標逸脱を引き継ぐことがわかりました。この研究では、条件付けによる逸脱の範囲と原因について調査しました。\n\n【結果】\n実験では、多くの設定で同じモデルが事前埋め込みトラジェクトリーに条件付けられた場合、目標逸脱を引き継ぐことが確認されました。逸脱の範囲はモデルファミリーによって大きく異なり、GPT-5.1のみがテストされたモデル群の中で一貫して堅牢でした。また、プロンプトの変化と指令階層の順守行動との間の逸脱行動は一貫していませんし、強い階層順守が逸脱に対する抵抗力を予測するとは限らないことも明らかになりました。さらに、新しい救急室の患者分類環境での類似の実験で、結果が異なる設定でも有効である可能性が示唆されました。\n\n【ポイント】\n現代のLMエージェントはコンテキスト的な圧力に対して引き続き脆弱であり、後処理技術の改善が必要であることを強調しています。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "saved": false,
+    "created_at": "2026-03-04"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.03233v1",
+    "title": "AI-for-Science Low-code Platform with Bayesian Adversarial Multi-Agent Framework",
+    "summary_en": "Large Language Models (LLMs) demonstrate potentials for automating scientific code generation but face challenges in reliability, error propagation in multi-agent workflows, and evaluation in domains with ill-defined success metrics. We present a Bayesian adversarial multi-agent framework specifically designed for AI for Science (AI4S) tasks in the form of a Low-code Platform (LCP). Three LLM-based agents are coordinated under the Bayesian framework: a Task Manager that structures user inputs into actionable plans and adaptive test cases, a Code Generator that produces candidate solutions, and an Evaluator providing comprehensive feedback. The framework employs an adversarial loop where the Task Manager iteratively refines test cases to challenge the Code Generator, while prompt distributions are dynamically updated using Bayesian principles by integrating code quality metrics: functional correctness, structural alignment, and static analysis. This co-optimization of tests and code reduces dependence on LLM reliability and addresses evaluation uncertainty inherent to scientific tasks. LCP also streamlines human-AI collaboration by translating non-expert prompts into domain-specific requirements, bypassing the need for manual prompt engineering by practitioners without coding backgrounds. Benchmark evaluations demonstrate LCP's effectiveness in generating robust code while minimizing error propagation. The proposed platform is also tested on an Earth Science cross-disciplinary task and demonstrates strong reliability, outperforming competing models.",
+    "published": "2026-03-03T18:25:00Z",
+    "link": "https://arxiv.org/abs/2603.03233v1",
+    "summary_ja": "【背景】\n科学コードの自動生成には大きな可能性があるが、信頼性の問題、マルチエージェントワークフローでのエラー伝搬、そして評価における不確定性がある。特に、成功指標が明確でない分野では評価が困難である。\n\n【提案】\nこの論文では、Bayesian adversarial multi-agent frameworkというフレームワークを提案し、AI for Science (AI4S) のタスクをLow-code Platform (LCP)の形で実現する。このフレームワークは、タスクマネージャ、コードジェネレータ、評価器の3つのLLMベースのエージェントを統合している。\n\n【結果】\n実験では、LCPは信頼性の高いコードを生成し、エラー伝搬を最小限に抑えていることが示された。また、地球科学の複合タスクでも高い信頼性を示し、競合モデルよりも優れていることが確認された。\n\n【ポイント】\nこの研究は、マルチエージェントワークフローでの評価不確定性を解決し、科学タスクでの人間とAIの協働を容易にする新しいフレームワークを提供している。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "saved": false,
+    "created_at": "2026-03-04"
+  },
+  {
     "id": "http://arxiv.org/abs/2603.02196v1",
     "title": "Conformal Policy Control",
     "summary_en": "An agent must try new behaviors to explore and improve. In high-stakes environments, an agent that violates safety constraints may cause harm and must be taken offline, curtailing any future interaction. Imitating old behavior is safe, but excessive conservatism discourages exploration. How much behavior change is too much? We show how to use any safe reference policy as a probabilistic regulator for any optimized but untested policy. Conformal calibration on data from the safe policy determines how aggressively the new policy can act, while provably enforcing the user's declared risk tolerance. Unlike conservative optimization methods, we do not assume the user has identified the correct model class nor tuned any hyperparameters. Unlike previous conformal methods, our theory provides finite-sample guarantees even for non-monotonic bounded constraint functions. Our experiments on applications ranging from natural language question answering to biomolecular engineering show that safe exploration is not only possible from the first moment of deployment, but can also improve performance.",
