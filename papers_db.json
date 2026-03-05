@@ -1,5 +1,61 @@
 [
   {
+    "id": "http://arxiv.org/abs/2603.04392v1",
+    "title": "SELDON: Supernova Explosions Learned by Deep ODE Networks",
+    "summary_en": "The discovery rate of optical transients will explode to 10 million public alerts per night once the Vera C. Rubin Observatory's Legacy Survey of Space and Time comes online, overwhelming the traditional physics-based inference pipelines. A continuous-time forecasting AI model is of interest because it can deliver millisecond-scale inference for thousands of objects per day, whereas legacy MCMC codes need hours per object. In this paper, we propose SELDON, a new continuous-time variational autoencoder for panels of sparse and irregularly time-sampled (gappy) astrophysical light curves that are nonstationary, heteroscedastic, and inherently dependent. SELDON combines a masked GRU-ODE encoder with a latent neural ODE propagator and an interpretable Gaussian-basis decoder. The encoder learns to summarize panels of imbalanced and correlated data even when only a handful of points are observed. The neural ODE then integrates this hidden state forward in continuous time, extrapolating to future unseen epochs. This extrapolated time series is further encoded by deep sets to a latent distribution that is decoded to a weighted sum of Gaussian basis functions, the parameters of which are physically meaningful. Such parameters (e.g., rise time, decay rate, peak flux) directly drive downstream prioritization of spectroscopic follow-up for astrophysical surveys. Beyond astronomy, the architecture of SELDON offers a generic recipe for interpretable and continuous-time sequence modeling in any time domain where data are multivariate, sparse, heteroscedastic, and irregularly spaced.",
+    "published": "2026-03-04T18:57:21Z",
+    "link": "https://arxiv.org/abs/2603.04392v1",
+    "summary_ja": "【背景】\n光学瞬変現象の発見率が大幅に増加し、 Vera C. Rubin天文台のLegacy Survey of Space and Timeが稼働すると、毎晩1000万件の公的警告が発生し、従来の物理ベースの推論パイプラインを圧倒する可能性がある。このような大量のデータを効率的に処理するためには、ミリ秒単位での推論が可能な連続時間予測AIモデルが必要となる。\n\n【提案】\nこの論文では、稀疏で不規則にサンプリングされた（ギャップのある）天体物理学の光曲線データを扱うための新しい連続時間変分自動エンコーダー、SELDONを提案する。SELDONは、非定常的、異方分散的、かつ固有に依存的なデータを扱うことができる。\n\n【結果】\nSELDONは、少数の観測点しか得られていないデータでも、データの要約を行うことができ、深層集合を使用して未来の未観測エポックまで推定を行う。さらに、物理的に意味のあるパラメータ（例えば、上昇時間、衰減率、ピークフロックス）を直接駆動する下流のスペクトロスコピックフォローアップの優先順位付けに使用できる。\n\n【ポイント】\nSELDONは、多変量、稀疏、異方分散的、不規則に配置されたデータを扱うための解釈可能な連続時間シーケンスモデルの一般的なレシピを提供する。",
+    "tags": [
+      "AIエージェント",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-03-05"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.04390v1",
+    "title": "A Dual-Helix Governance Approach Towards Reliable Agentic AI for WebGIS Development",
+    "summary_en": "WebGIS development requires rigor, yet agentic AI frequently fails due to five large language model (LLM) limitations: context constraints, cross-session forgetting, stochasticity, instruction failure, and adaptation rigidity. We propose a dual-helix governance framework reframing these challenges as structural governance problems that model capacity alone cannot resolve. We implement the framework as a 3-track architecture (Knowledge, Behavior, Skills) that uses a knowledge graph substrate to stabilize execution by externalizing domain facts and enforcing executable protocols, complemented by a self-learning cycle for autonomous knowledge growth. Applying this to the FutureShorelines WebGIS tool, a governed agent refactored a 2,265-line monolithic codebase into modular ES6 components. Results demonstrated a 51\\% reduction in cyclomatic complexity and a 7-point increase in maintainability index. A comparative experiment against a zero-shot LLM confirms that externalized governance, not just model capability, drives operational reliability in geospatial engineering. This approach is implemented in the open-source AgentLoom governance toolkit.",
+    "published": "2026-03-04T18:53:25Z",
+    "link": "https://arxiv.org/abs/2603.04390v1",
+    "summary_ja": "【背景】WebGIS開発には厳格さが必要だが、大規模言語モデル（LLM）の5つの制限事項（コンテキスト制約、セッション間の忘却、確率性、指示失敗、適応の堅牢性）により、アジェンタAIは頻繁に失敗する。これらの問題は単にモデルの能力だけでは解決できない構造的な問題である。\n\n【提案】この論文では、これらの課題を構造的な治理問題として再定義し、知識グラフの基盤を使用して実行を安定化する3トラックアーキテクチャ（知識、行動、スキル）を提案する。さらに、自律的な知識成長を可能にする自己学習サイクルを組み込む。\n\n【結果】FutureShorelines WebGISツールへの適用により、2,265行の単一モジュールコードベースをモジュラーES6コンポーネントにリファクタリング。 Cyclomatic複雑性が51%減少し、メンテナビリティ指数が7ポイント向上した。ゼロショットLLMとの比較実験では、外部化された治理が、単なるモデルの能力よりも地理空間エンジニアリングでの操作的信頼性を向上させることを確認した。\n\n【ポイント】構造的な治理を外部化することで、地理空間エンジニアリングにおける操作的信頼性を向上させる方法を提案した。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "saved": false,
+    "created_at": "2026-03-05"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.04378v1",
+    "title": "Robustness of Agentic AI Systems via Adversarially-Aligned Jacobian Regularization",
+    "summary_en": "As Large Language Models (LLMs) transition into autonomous multi-agent ecosystems, robust minimax training becomes essential yet remains prone to instability when highly non-linear policies induce extreme local curvature in the inner maximization. Standard remedies that enforce global Jacobian bounds are overly conservative, suppressing sensitivity in all directions and inducing a large Price of Robustness. We introduce Adversarially-Aligned Jacobian Regularization (AAJR), a trajectory-aligned approach that controls sensitivity strictly along adversarial ascent directions. We prove that AAJR yields a strictly larger admissible policy class than global constraints under mild conditions, implying a weakly smaller approximation gap and reduced nominal performance degradation. Furthermore, we derive step-size conditions under which AAJR controls effective smoothness along optimization trajectories and ensures inner-loop stability. These results provide a structural theory for agentic robustness that decouples minimax stability from global expressivity restrictions.",
+    "published": "2026-03-04T18:41:45Z",
+    "link": "https://arxiv.org/abs/2603.04378v1",
+    "summary_ja": "【背景】\nLLMsが自律的なマルチエージェントシステムに移行する中、robust minimax trainingは重要だが、非線形なポリシーが内側の最大化に極端なローカルカービングを引き起こすことで不安定になる。標準的な解決策は、全域的なジャコビアン制約を強制するが、これにより全ての方向での感受性が抑制され、Robustnessの価格が高くなる。\n\n【提案】\nこの論文では、Adversarially-Aligned Jacobian Regularization (AAJR)を導入し、軌跡に沿ったアプローチで、敵対的な上昇方向に厳密に制限された感受性を制御する方法を提案する。\n\n【結果】\nAAJRは、軽微な条件の下で、全域的な制約よりもより大きな許容ポリシークラスを生成し、近似ギャップを弱く小さくし、ノミナルパフォーマンスの劣化を軽減する。また、AAJRが最適化軌跡における効果的な滑らかさを制御し、内ループの安定性を確保するためのステップサイズ条件を導出している。\n\n【ポイント】\nAAJRは、最小最大安定性と全域的な表現力制約を分離する構造理論を提供し、エージェントのrobustnessを強化する。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "saved": false,
+    "created_at": "2026-03-05"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.04364v1",
+    "title": "Dual-Modality Multi-Stage Adversarial Safety Training: Robustifying Multimodal Web Agents Against Cross-Modal Attacks",
+    "summary_en": "Multimodal web agents that process both screenshots and accessibility trees are increasingly deployed to interact with web interfaces, yet their dual-stream architecture opens an underexplored attack surface: an adversary who injects content into the webpage DOM simultaneously corrupts both observation channels with a consistent deceptive narrative. Our vulnerability analysis on MiniWob++ reveals that attacks including a visual component far outperform text-only injections, exposing critical gaps in text-centric VLM safety training. Motivated by this finding, we propose Dual-Modality Multi-Stage Adversarial Safety Training (DMAST), a framework that formalizes the agent-attacker interaction as a two-player zero-sum Markov game and co-trains both players through a three-stage pipeline: (1) imitation learning from a strong teacher model, (2) oracle-guided supervised fine-tuning that uses a novel zero-acknowledgment strategy to instill task-focused reasoning under adversarial noise, and (3) adversarial reinforcement learning via Group Relative Policy Optimization (GRPO) self-play. On out-of-distribution tasks, DMAST substantially mitigates adversarial risks while simultaneously doubling task completion efficiency. Our approach significantly outperforms established training-based and prompt-based defenses, demonstrating genuine co-evolutionary progress and robust generalization to complex, unseen environments.",
+    "published": "2026-03-04T18:29:54Z",
+    "link": "https://arxiv.org/abs/2603.04364v1",
+    "summary_ja": "【背景】ウェブインターフェースと対話するマルチモーダルウェブエージェントは、スクリーンショットとアクセシビリティツリーの両方を処理しますが、この双方向アーキテクチャは、ページDOMに内容を注入する攻撃者が両方の観測チャネルを一貫した説得的な叙事法で腐敗させる可能性を引き起こします。この問題は、テキスト中心のVLMセーフティトレーニングの欠陥を明らかにしています。\n\n【提案】本論文では、Dual-Modality Multi-Stage Adversarial Safety Training (DMAST)というフレームワークを提案します。これは、エージェントと攻撃者の相互作用を二つのプレイヤーのゼロサムマルコフゲームとして形式化し、強力な教師モデルからのimitation learning、ゼロアコーディネーション戦略を使用したoracleガイドされた監督微調整、そしてGroup Relative Policy Optimization (GRPO)による自演習の敵対的強化学習の三段階パイプラインを通じて両プレイヤーを共にトレーニングします。\n\n【結果】DMASTは、既存のトレーニングベースとプロンプトベースの防御方法よりも大幅に敵対的リスクを軽減し、タスク完了効率を倍増させました。特に、分布外タスクでは、DMASTは敵対的リスクを大幅に軽減しながら、タスク完了効率を倍増させました。\n\n【ポイント】DMASTは、敵対的攻撃に対する共進化的な進歩と、複雑で未見の環境への堅牢な汎化を示しました。",
+    "tags": [
+      "AIエージェント",
+      "ハンド模倣学習"
+    ],
+    "saved": false,
+    "created_at": "2026-03-05"
+  },
+  {
     "id": "http://arxiv.org/abs/2603.03280v1",
     "title": "How to Peel with a Knife: Aligning Fine-Grained Manipulation with Human Preference",
     "summary_en": "Many essential manipulation tasks - such as food preparation, surgery, and craftsmanship - remain intractable for autonomous robots. These tasks are characterized not only by contact-rich, force-sensitive dynamics, but also by their \"implicit\" success criteria: unlike pick-and-place, task quality in these domains is continuous and subjective (e.g. how well a potato is peeled), making quantitative evaluation and reward engineering difficult. We present a learning framework for such tasks, using peeling with a knife as a representative example. Our approach follows a two-stage pipeline: first, we learn a robust initial policy via force-aware data collection and imitation learning, enabling generalization across object variations; second, we refine the policy through preference-based finetuning using a learned reward model that combines quantitative task metrics with qualitative human feedback, aligning policy behavior with human notions of task quality. Using only 50-200 peeling trajectories, our system achieves over 90% average success rates on challenging produce including cucumbers, apples, and potatoes, with performance improving by up to 40% through preference-based finetuning. Remarkably, policies trained on a single produce category exhibit strong zero-shot generalization to unseen in-category instances and to out-of-distribution produce from different categories while maintaining over 90% success rates.",
