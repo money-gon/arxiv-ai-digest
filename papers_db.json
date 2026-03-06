@@ -1,5 +1,61 @@
 [
   {
+    "id": "http://arxiv.org/abs/2603.05504v1",
+    "title": "RoboPocket: Improve Robot Policies Instantly with Your Phone",
+    "summary_en": "Scaling imitation learning is fundamentally constrained by the efficiency of data collection. While handheld interfaces have emerged as a scalable solution for in-the-wild data acquisition, they predominantly operate in an open-loop manner: operators blindly collect demonstrations without knowing the underlying policy's weaknesses, leading to inefficient coverage of critical state distributions. Conversely, interactive methods like DAgger effectively address covariate shift but rely on physical robot execution, which is costly and difficult to scale. To reconcile this trade-off, we introduce RoboPocket, a portable system that enables Robot-Free Instant Policy Iteration using single consumer smartphones. Its core innovation is a Remote Inference framework that visualizes the policy's predicted trajectory via Augmented Reality (AR) Visual Foresight. This immersive feedback allows collectors to proactively identify potential failures and focus data collection on the policy's weak regions without requiring a physical robot. Furthermore, we implement an asynchronous Online Finetuning pipeline that continuously updates the policy with incoming data, effectively closing the learning loop in minutes. Extensive experiments demonstrate that RoboPocket adheres to data scaling laws and doubles the data efficiency compared to offline scaling strategies, overcoming their long-standing efficiency bottleneck. Moreover, our instant iteration loop also boosts sample efficiency by up to 2$\\times$ in distributed environments a small number of interactive corrections per person. Project page and videos: https://robo-pocket.github.io.",
+    "published": "2026-03-05T18:59:38Z",
+    "link": "https://arxiv.org/abs/2603.05504v1",
+    "summary_ja": "【背景】手持端口界面虽然提供了大规模数据收集的潜力，但由于其开放环操作方式，操作员无法了解策略的弱点，导致关键状态分布的覆盖效率低下。相比之下，交互式方法如DAgger能够有效解决协变量偏移问题，但需要物理机器人执行，这不仅成本高昂，而且难以大规模扩展。因此，如何在保证数据效率的同时，又能减少对物理机器人的依赖，成为亟待解决的问题。\n\n【提案】本文提出了一种名为RoboPocket的便携系统，该系统利用单个消费者智能手机实现无机器人即时策略迭代。其核心创新在于远程推理框架，通过增强现实（AR）视觉预知来可视化策略预测轨迹，从而让数据收集者能够主动识别潜在失败并专注于策略的薄弱区域，无需依赖物理机器人。\n\n【結果】广泛的实验表明，RoboPocket遵循数据扩展定律，与离线扩展策略相比，其数据效率提高了两倍，成功克服了长期以来的数据效率瓶颈。此外，我们的即时迭代循环在分布式环境中通过少量的交互式修正，样本效率也提高了两倍。\n\n【ポイント】RoboPocket通过结合增强现实和远程推理，实现了无机器人环境下的高效数据收集和策略迭代，显著提升了样本和数据效率。",
+    "tags": [
+      "Robotics",
+      "AIエージェント"
+    ],
+    "saved": false,
+    "created_at": "2026-03-06"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.05497v1",
+    "title": "Safe-SAGE: Social-Semantic Adaptive Guidance for Safe Engagement through Laplace-Modulated Poisson Safety Functions",
+    "summary_en": "Traditional safety-critical control methods, such as control barrier functions, suffer from semantic blindness, exhibiting the same behavior around obstacles regardless of contextual significance. This limitation leads to the uniform treatment of all obstacles, despite their differing semantic meanings. We present Safe-SAGE (Social-Semantic Adaptive Guidance for Safe Engagement), a unified framework that bridges the gap between high-level semantic understanding and low-level safety-critical control through a Poisson safety function (PSF) modulated using a Laplace guidance field. Our approach perceives the environment by fusing multi-sensor point clouds with vision-based instance segmentation and persistent object tracking to maintain up-to-date semantics beyond the camera's field of view. A multi-layer safety filter is then used to modulate system inputs to achieve safe navigation using this semantic understanding of the environment. This safety filter consists of both a model predictive control layer and a control barrier function layer. Both layers utilize the PSF and flux modulation of the guidance field to introduce varying levels of conservatism and multi-agent passing norms for different obstacles in the environment. Our framework enables legged robots to navigate semantically rich, dynamic environments with context-dependent safety margins while maintaining rigorous safety guarantees.",
+    "published": "2026-03-05T18:59:02Z",
+    "link": "https://arxiv.org/abs/2603.05497v1",
+    "summary_ja": "【背景】\n安全に重要な制御方法、例えば制御バリア関数は、文脈的な意味を理解できない「セマンティック・ブラインド」の問題があります。これは、すべての障害物を同じように扱ってしまうため、実際の意味に応じた適切な対応ができないという問題があります。\n\n【提案】\nこの論文では、Safe-SAGE（Social-Semantic Adaptive Guidance for Safe Engagement）という統一的なフレームワークを提案します。これは、高度なセマンティック理解と低レベルの安全制御を結びつけるために、ポアソン安全関数（PSF）とラプラス指導場を用いた方法です。\n\n【結果】\n環境を感知するために、多感覚点群とビジョンベースのインスタンス分割、持続的なオブジェクト追跡を融合します。これにより、カメラの視野外でも最新のセマンティック情報を維持できます。セマンティック理解に基づいてシステム入力を調整する多層安全フィルタを使用し、安全なナビゲーションを達成します。このフィルタは、モデル予測制御層と制御バリア関数層で構成され、それぞれがPSFと指導場のフロー調整を用いて、異なる障害物に対する異なる保守性とマルチエージェント通過規則を導入します。\n\n【ポイント】\nSafe-SAGEは、セマンティック豊かな動的な環境を文脈に応じた安全マージンでナビゲートできるようにし、厳格な安全性を保証します。",
+    "tags": [
+      "Robotics",
+      "AIエージェント"
+    ],
+    "saved": false,
+    "created_at": "2026-03-06"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.05493v1",
+    "title": "cuRoboV2: Dynamics-Aware Motion Generation with Depth-Fused Distance Fields for High-DoF Robots",
+    "summary_en": "Effective robot autonomy requires motion generation that is safe, feasible, and reactive. Current methods are fragmented: fast planners output physically unexecutable trajectories, reactive controllers struggle with high-fidelity perception, and existing solvers fail on high-DoF systems. We present cuRoboV2, a unified framework with three key innovations: (1) B-spline trajectory optimization that enforces smoothness and torque limits; (2) a GPU-native TSDF/ESDF perception pipeline that generates dense signed distance fields covering the full workspace, unlike existing methods that only provide distances within sparsely allocated blocks, up to 10x faster and in 8x less memory than the state-of-the-art at manipulation scale, with up to 99% collision recall; and (3) scalable GPU-native whole-body computation, namely topology-aware kinematics, differentiable inverse dynamics, and map-reduce self-collision, that achieves up to 61x speedup while also extending to high-DoF humanoids (where previous GPU implementations fail). On benchmarks, cuRoboV2 achieves 99.7% success under 3kg payload (where baselines achieve only 72--77%), 99.6% collision-free IK on a 48-DoF humanoid (where prior methods fail entirely), and 89.5% retargeting constraint satisfaction (vs. 61% for PyRoki); these collision-free motions yield locomotion policies with 21% lower tracking error than PyRoki and 12x lower cross-seed variance than mink. A ground-up codebase redesign for discoverability enabled LLM coding assistants to author up to 73% of new modules, including hand-optimized CUDA kernels, demonstrating that well-structured robotics code can unlock productive human--LLM collaboration. Together, these advances provide a unified, dynamics-aware motion generation stack that scales from single-arm manipulators to full humanoids.",
+    "published": "2026-03-05T18:58:04Z",
+    "link": "https://arxiv.org/abs/2603.05493v1",
+    "summary_ja": "【背景】\n現在のロボットの自律性を実現するためには、安全で実行可能で反応性のある運動生成が必要です。しかし、高速なプランナーは物理的に実行不可能な軌道を出力し、反応性制御は高精度な感知に苦労し、既存のソルバは高自由度のシステムで失敗します。この問題を解決するために、統一的なフレームワークであるcuRoboV2を開発しました。\n\n【提案】\ncuRoboV2は、三次曲線補間による軌道最適化、GPUネイティブのTSDF/ESDF感知パイプライン、スケーラブルなGPUネイティブの全体的な運動計算の3つの主要な革新を含んでいます。\n\n【結果】\ncuRoboV2は、3kgのロード下で99.7%の成功を達成し、基準値は72-77%にとどまっています。また、48自由度の humanoid では99.6%の衝突なしのIKを達成し、先駆的な方法は完全に失敗します。さらに、89.5%のリターゲティング制約の満足度を達成し、PyRokiと比較して61%です。これらの衝突なしの運動は、PyRokiと比較して21%のトラッキングエラーを低減し、minkと比較して12倍のシード間のばらつきを低減します。\n\n【ポイント】\ncuRoboV2は、単一アームの操作機器から完全な humanoid まで、統一的なダイナミクスに敏感な運動生成スタックを提供し、高度な自由度の humanoid でも動作します。",
+    "tags": [
+      "Robotics",
+      "AIエージェント"
+    ],
+    "saved": false,
+    "created_at": "2026-03-06"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.05471v1",
+    "title": "Leveraging LLM Parametric Knowledge for Fact Checking without Retrieval",
+    "summary_en": "Trustworthiness is a core research challenge for agentic AI systems built on Large Language Models (LLMs). To enhance trust, natural language claims from diverse sources, including human-written text, web content, and model outputs, are commonly checked for factuality by retrieving external knowledge and using an LLM to verify the faithfulness of claims to the retrieved evidence. As a result, such methods are constrained by retrieval errors and external data availability, while leaving the models intrinsic fact-verification capabilities largely unused. We propose the task of fact-checking without retrieval, focusing on the verification of arbitrary natural language claims, independent of their source. To study this setting, we introduce a comprehensive evaluation framework focused on generalization, testing robustness to (i) long-tail knowledge, (ii) variation in claim sources, (iii) multilinguality, and (iv) long-form generation. Across 9 datasets, 18 methods and 3 models, our experiments indicate that logit-based approaches often underperform compared to those that leverage internal model representations. Building on this finding, we introduce INTRA, a method that exploits interactions between internal representations and achieves state-of-the-art performance with strong generalization. More broadly, our work establishes fact-checking without retrieval as a promising research direction that can complement retrieval-based frameworks, improve scalability, and enable the use of such systems as reward signals during training or as components integrated into the generation process.",
+    "published": "2026-03-05T18:42:51Z",
+    "link": "https://arxiv.org/abs/2603.05471v1",
+    "summary_ja": "【背景】\n信頼性は、大規模言語モデル（LLM）に基づくエージェントAIシステムにとって重要な研究課題です。自然言語の主張を検証するために、人間の書いたテキストやウェブコンテンツ、モデル出力など、多様なソースからの情報を外部知識として取り込み、LLMを使ってその主張が取り込んだ証拠に忠実であるかどうかを確認します。しかし、この方法はリトリーバルエラーと外部データの利用可能性に制約され、モデル固有の事実検証能力がほとんど活用されていません。\n\n【提案】\nこの論文では、リトリーバルなしの事実検証タスクを提案します。任意の自然言語の主張を検証し、その主張のソースに依存せずにその真偽を確認します。この設定を研究するために、長尾知識への汎用性、主張ソースの変化、多言語性、長文生成に対する強固なrobustnessをテストするための評価フレームワークを導入しました。\n\n【結果】\n9つのデータセット、18のメソッド、3のモデルを対象に実験を行いました。結果、ロジットベースのアプローチは、内部モデル表現を活用するアプローチに比べてしばしば劣ることがわかりました。この見地から、内部表現間の相互作用を活用するINTRAという方法を提案し、強力な汎用性と最適性能を達成しました。\n\n【ポイント】\nリトリーバルなしの事実検証は、リトリーバルベースのフレームワークを補完し、スケーラビリティを改善し、訓練時の報酬信号としての使用や生成プロセスへの統合を可能にする有望な研究方向を確立しました。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "saved": false,
+    "created_at": "2026-03-06"
+  },
+  {
     "id": "http://arxiv.org/abs/2603.04392v1",
     "title": "SELDON: Supernova Explosions Learned by Deep ODE Networks",
     "summary_en": "The discovery rate of optical transients will explode to 10 million public alerts per night once the Vera C. Rubin Observatory's Legacy Survey of Space and Time comes online, overwhelming the traditional physics-based inference pipelines. A continuous-time forecasting AI model is of interest because it can deliver millisecond-scale inference for thousands of objects per day, whereas legacy MCMC codes need hours per object. In this paper, we propose SELDON, a new continuous-time variational autoencoder for panels of sparse and irregularly time-sampled (gappy) astrophysical light curves that are nonstationary, heteroscedastic, and inherently dependent. SELDON combines a masked GRU-ODE encoder with a latent neural ODE propagator and an interpretable Gaussian-basis decoder. The encoder learns to summarize panels of imbalanced and correlated data even when only a handful of points are observed. The neural ODE then integrates this hidden state forward in continuous time, extrapolating to future unseen epochs. This extrapolated time series is further encoded by deep sets to a latent distribution that is decoded to a weighted sum of Gaussian basis functions, the parameters of which are physically meaningful. Such parameters (e.g., rise time, decay rate, peak flux) directly drive downstream prioritization of spectroscopic follow-up for astrophysical surveys. Beyond astronomy, the architecture of SELDON offers a generic recipe for interpretable and continuous-time sequence modeling in any time domain where data are multivariate, sparse, heteroscedastic, and irregularly spaced.",
