@@ -90,9 +90,13 @@ def summarize_to_japanese(text: str) -> str:
 
     payload = {
         "model": HF_MODEL,
-        "messages": [{"role": "user", "content": prompt}],
+        "messages": [
+            {"role": "system", "content": "以降の全ての出力は日本語で書いてください。別の言語を使わないでください。出力は日本語のみで完結させてください。"},
+            {"role": "user", "content": "以下のアブストラクトを研究者向けに日本語で要約してください。ルール: ...\n\n" + text}
+        ],
         "max_tokens": 768,
         "temperature": 0.2,
+        "top_p": 0.95,
     }
 
     for attempt in range(3):  # retry 3 times
