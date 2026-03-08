@@ -1,5 +1,70 @@
 [
   {
+    "id": "2603.05504v1",
+    "title": "RoboPocket: Improve Robot Policies Instantly with Your Phone",
+    "summary_ja": "【背景】手動によるデータ収集は、模倣学習のスケーリングに根本的な制約を設ける。手持ちインターフェースは、野外での大量データ収集に有効だが、開環動作のため、政策の弱点を把握せずにデータを収集するため効率が低くなる。一方、DAggerなどの相互作用型手法は、コバリエートシフトを解決するが、物理ロボットの実行に依存し、コストが高く、スケーリングが難しい。\n\n【提案】RoboPocketというポータブルシステムを提案し、物理ロボットなしで即時政策改善を可能にする。このシステムの核となるイノベーションは、Augmented Reality（AR）ビジュアルフォーセイプスを使用したリモート推論フレームワークで、政策の予測軌道を視覚化し、データ収集者が政策の弱点を事前に把握できるようにする。\n\n【結果】広範な実験では、RoboPocketはデータスケーリング法則に従い、オフラインスケーリング戦略と比較してデータ効率を2倍に向上させた。さらに、分散環境でのサンプル効率も最大2倍向上させた。\n\n【ポイント】RoboPocketは、物理ロボットなしで即時政策改善を可能にし、模倣学習のデータ収集効率の longstanding ビンディングを解消した。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "link": "https://arxiv.org/abs/2603.05504v1",
+    "published": "2026-03-05T18:59:38Z"
+  },
+  {
+    "id": "2603.05497v1",
+    "title": "Safe-SAGE: Social-Semantic Adaptive Guidance for Safe Engagement through Laplace-Modulated Poisson Safety Functions",
+    "summary_ja": "【背景】安全に制御するための伝統的な方法（例えば、制御バリア関数）は、文脈的な意味を理解できない「セマンティック盲点」がある。これは、すべての障害物を同一の方法で扱うことを意味し、それぞれの障害物の異なる意味が無視される。\n\n【提案】Safe-SAGEという統一的なフレームワークを提案し、高次元のセマンティック理解と低次元の安全制御を結びつけるためのポアソン安全関数（PSF）とラプラス指導場を用いた方法を導入する。多感度点雲とビジョンベースのインスタンスセグメンテーション、持続的なオブジェクト追跡を融合して環境を認識し、カメラの視野外でも最新のセマンティック情報を維持する。\n\n【結果】多層セーフティフィルターを使用し、環境のセマンティック理解に基づいてシステム入力を調整することで、文脈に応じた安全マージンでのナビゲーションを達成する。このフィルターは、モデル予測制御層と制御バリア関数層から構成され、それぞれがPSFと指導場のフロックス modulationを用いて、環境内の異なる障害物に対して異なる保守性と多機体通過規範を導入する。\n\n【ポイント】Safe-SAGEは、セマンティック豊かな動的な環境を文脈に応じた安全マージンでナビゲートできるようにし、同時に厳格な安全保証を維持する。",
+    "tags": [
+      "Robotics",
+      "AIエージェント"
+    ],
+    "link": "https://arxiv.org/abs/2603.05497v1",
+    "published": "2026-03-05T18:59:02Z"
+  },
+  {
+    "id": "2603.05493v1",
+    "title": "cuRoboV2: Dynamics-Aware Motion Generation with Depth-Fused Distance Fields for High-DoF Robots",
+    "summary_ja": "【背景】ロボットの自主性を実現するためには、安全で実行可能で反応性の高い運動生成が必要であるが、現在の手法は分断されており、高速なプランナーは物理的に実行不可能な軌道を出力し、反応性制御は高精度な感知を難しく、既存のソルバーは高自由度システムで失敗する。\n\n【提案】本論文では、cuRoboV2という統一的なフレームワークを提案し、3つの主要な革新を実装：（1）B-スプライン軌道最適化により滑らかさとトルク制限を強制、（2）GPUネイティブのTSDF/ESDF感知パイプラインにより、全ワークスペースをカバーする密集な符号距離フィールドを生成、（3）スケーラブルなGPUネイティブの全体的な運動計算により、高自由度 humanoid まで拡張。\n\n【結果】cuRoboV2は、3kgのロード下で99.7%の成功を達成し、48自由度 humanoid で99.6%の衝突なしのIKを達成し、89.5%のリターゲティング制約の満足度を達成。これらの衝突なしの運動は、PyRokiよりも21%低い追跡エラーと12倍低いシード間のばらつきをもたらす。\n\n【ポイント】cuRoboV2は、単一アームから完全な humanoid までスケーラブルな、動力学に敏感な運動生成スタックを提供し、LLMコーディングアシスタントとの協働を可能にする。",
+    "tags": [
+      "Robotics",
+      "AIエージェント"
+    ],
+    "link": "https://arxiv.org/abs/2603.05493v1",
+    "published": "2026-03-05T18:58:04Z"
+  },
+  {
+    "id": "2603.05471v1",
+    "title": "Leveraging LLM Parametric Knowledge for Fact Checking without Retrieval",
+    "summary_ja": "【背景】AGENTIC AIシステムの信頼性は、大規模言語モデル（LLM）を基に構築される重要な研究課題である。自然言語の主張を検証するために、LLMは外部知識を取得し、その主張が取得された証拠に忠実であるかどうかを確認する。しかし、この方法はリトリーバルエラーと外部データの利用可能性に制約され、モデル固有の事実検証能力がほとんど活用されていない。\n\n【提案】LLMの固有の事実検証能力を活用するため、リトリーバルなしの事実検証タスクを提案する。任意の自然言語の主張を検証し、その主張のソースに依存しないようにする。\n\n【結果】9つのデータセット、18の手法、3つのモデルを用いた実験では、ロジットベースのアプローチは内部モデル表現を活用するアプローチに比べてしばしばパフォーマンスが劣るという結果を得た。この結果に基づき、内部表現間の相互作用を利用したINTRAという手法を提案し、強力な汎化性能と最適性能を達成した。\n\n【ポイント】リトリーバルなしの事実検証は、リトリーバルベースのフレームワークを補完し、スケーラビリティを改善し、訓練中の報酬信号としての使用や生成プロセスへの統合を可能にする有望な研究分野を確立した。",
+    "tags": [
+      "AIエージェント",
+      "ハンド模倣学習"
+    ],
+    "link": "https://arxiv.org/abs/2603.05471v1",
+    "published": "2026-03-05T18:42:51Z"
+  },
+  {
+    "id": "2603.05440v1",
+    "title": "Latent Wasserstein Adversarial Imitation Learning",
+    "summary_ja": "【背景】専門的なエージェントが専門家の行動を模倣するには、大量の高品質なデモンストレーションが必要ですが、これらはしばしば入手困難です。このような課題を解決するために、Latent Wasserstein Adversarial Imitation Learning (LWAIL) を提案しました。\n\n【提案】LWAIL は、動的状態空間を理解する Wasserstein 距離を使用した新しい模倣学習フレームワークです。この方法では、小さなランダム生成の状態のみのデータセットを用いて、Intention Conditioned Value Function (ICVF) を前処理段階で訓練し、動的状態空間の構造を捉えます。\n\n【結果】LWAIL は、専門家のレベルに達するパフォーマンスを達成するために、専門家の状態のみのエピソードを1つまたは数個だけ使用できます。MuJoCo 環境での実験では、LWAIL は以前の Wasserstein 基準の模倣学習方法と前処理の模倣学習方法よりも優れた結果を示しました。\n\n【ポイント】LWAIL は、少ない状態のみの専門家のエピソードから専門家のレベルのパフォーマンスを達成できるようにすることで、模倣学習の課題を解決します。",
+    "tags": [
+      "AIエージェント",
+      "ハンド模倣学習"
+    ],
+    "link": "https://arxiv.org/abs/2603.05440v1",
+    "published": "2026-03-05T18:01:49Z"
+  },
+  {
+    "id": "2603.05399v1",
+    "title": "Judge Reliability Harness: Stress Testing the Reliability of LLM Judges",
+    "summary_ja": "【背景】LLM（大型言語モデル）に基づく評価がAIベンチマークで広く使用されているが、これらの方法の信頼性を効率的に評価するためのツールが不足している。この問題を解決するために、Judge Reliability Harnessというオープンソースライブラリを開発した。\n\n【提案】このライブラリは、与えられたベンチマークデータセットとLLM評価設定から、二値判断精度と順序評価性能を評価するための信頼性テストを自動生成する。自由応答形式と代理タスク形式の両方を対象としている。\n\n【結果】四つの最先端の評価器を四つのベンチマーク（安全、説得力、誤用、代理行動）で評価した結果、モデル間およびパーシャレーションタイプ間で有意な性能の違いが見られ、評価器のrobustness（堅牢性）を改善する機会が示唆された。どの評価器も Harnessを使用して全ベンチマークで一貫して信頼できるわけではなかった。\n\n【ポイント】評価器の信頼性を効率的に評価するためのツールを開発し、モデル間およびパーシャレーションタイプ間の性能の違いを明らかにした。",
+    "tags": [
+      "AIエージェント"
+    ],
+    "link": "https://arxiv.org/abs/2603.05399v1",
+    "published": "2026-03-05T17:27:07Z"
+  },
+  {
     "id": "http://arxiv.org/abs/2603.04392v1",
     "title": "SELDON: Supernova Explosions Learned by Deep ODE Networks",
     "summary_en": "The discovery rate of optical transients will explode to 10 million public alerts per night once the Vera C. Rubin Observatory's Legacy Survey of Space and Time comes online, overwhelming the traditional physics-based inference pipelines. A continuous-time forecasting AI model is of interest because it can deliver millisecond-scale inference for thousands of objects per day, whereas legacy MCMC codes need hours per object. In this paper, we propose SELDON, a new continuous-time variational autoencoder for panels of sparse and irregularly time-sampled (gappy) astrophysical light curves that are nonstationary, heteroscedastic, and inherently dependent. SELDON combines a masked GRU-ODE encoder with a latent neural ODE propagator and an interpretable Gaussian-basis decoder. The encoder learns to summarize panels of imbalanced and correlated data even when only a handful of points are observed. The neural ODE then integrates this hidden state forward in continuous time, extrapolating to future unseen epochs. This extrapolated time series is further encoded by deep sets to a latent distribution that is decoded to a weighted sum of Gaussian basis functions, the parameters of which are physically meaningful. Such parameters (e.g., rise time, decay rate, peak flux) directly drive downstream prioritization of spectroscopic follow-up for astrophysical surveys. Beyond astronomy, the architecture of SELDON offers a generic recipe for interpretable and continuous-time sequence modeling in any time domain where data are multivariate, sparse, heteroscedastic, and irregularly spaced.",
