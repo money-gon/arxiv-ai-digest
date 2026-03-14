@@ -4,7 +4,7 @@ import os
 import re
 import requests
 import time
-from datetime import date
+from datetime import datetime, timezone, timedelta
 from typing import List, Tuple
 
 # ==========================
@@ -20,17 +20,20 @@ ARXIV_QUERIES = [
     "search_query=(cat:cs.RO+OR+cat:cs.LG)+AND+(all:hand+OR+all:imitation+OR+all:dexterous+OR+all:manipulation)&sortBy=submittedDate&max_results=3",
 ]
 
-MAX_PAPERS_PER_RUN = 4
+MAX_PAPERS_PER_RUN = 6
 DB_FILE = "papers_db.json"
 
 # ==========================
 # Hugging Face設定
 # ==========================
-HF_TOKEN      = os.getenv("HF_TOKEN")
-HF_CHAT_URL   = "https://router.huggingface.co/v1/chat/completions"
-HF_MODEL      = "Qwen/Qwen2.5-7B-Instruct"
+HF_TOKEN    = os.getenv("HF_TOKEN")
+HF_CHAT_URL = "https://router.huggingface.co/v1/chat/completions"
+HF_MODEL    = "Qwen/Qwen2.5-7B-Instruct"
 
 ALLOWED_TAGS = {"AIエージェント", "Robotics", "ハンド模倣学習"}
+
+# JST タイムゾーン（不具合②: UTC date を使うと JST と1日ずれる）
+JST = timezone(timedelta(hours=9))
 
 # ==========================
 # DB処理
@@ -55,10 +58,6 @@ def save_db(data: List[dict]):
 def clean_abstract(text: str) -> str:
     return " ".join(text.replace("\n", " ").split())
 
-# --- 改善点①: システムプロンプトとユーザープロンプトの重複を除去
-#              各セクション間に空行を明示
-#              max_tokens を 768 → 1024 に増加（【ポイント】の途中打ち切り防止）
-#              タグ判定基準を具体化（誤タグ付け抑制）
 SYSTEM_PROMPT = (
     "あなたは研究論文を日本語で要約する専門家です。\n"
     "回答は必ず日本語のみで書いてください。\n"
@@ -112,7 +111,7 @@ def summarize_to_japanese(text: str) -> str:
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user",   "content": build_user_prompt(text)},
         ],
-        "max_tokens": 1024,   # 768 → 1024: 【ポイント】打ち切り防止
+        "max_tokens": 1024,
         "temperature": 0.2,
         "top_p": 0.95,
     }
@@ -143,23 +142,15 @@ def summarize_to_japanese(text: str) -> str:
 # タグ抽出
 # ==========================
 def extract_tags(summary: str) -> Tuple[str, List[str]]:
-    """
-    要約末尾の「タグ: ...」行から ALLOWED_TAGS を抽出し、行を除去して返す。
-    """
     tags: List[str] = []
     for m in re.findall(r"タグ[:：](.+)", summary):
         for t in m.split(","):
             t = t.strip()
             if t in ALLOWED_TAGS and t not in tags:
                 tags.append(t)
-
     summary = re.sub(r"タグ[:：].*", "", summary).strip()
     return summary, tags
 
-
-# --- 改善点②: infer_tags のフォールバックを厳格化
-#              タイトル＋アブストラクト両方にキーワードが存在する場合のみタグ付け
-#              天文・物理・化学など明らかに無関係なカテゴリを除外
 UNRELATED_DOMAINS = {
     "astro", "astrophys", "stellar", "supernovae", "supernova", "galaxy",
     "quantum", "fluid", "thermodynamic", "plasma", "optic", "photon",
@@ -167,35 +158,22 @@ UNRELATED_DOMAINS = {
 }
 
 def infer_tags(title: str, abstract: str) -> List[str]:
-    """
-    LLM タグ生成失敗時のフォールバック。
-    タイトルと要約の両方にキーワードが存在し、
-    かつ無関係ドメインのキーワードが含まれない場合のみタグ付けする。
-    """
+    """LLM タグ生成失敗時のフォールバック。厳格な共起チェックで誤タグを防ぐ。"""
     combined = (title + " " + abstract).lower()
 
-    # 無関係ドメインのキーワードが含まれていればスキップ
     if any(d in combined for d in UNRELATED_DOMAINS):
         return []
 
     tags: List[str] = []
-    title_l    = title.lower()
-    abstract_l = abstract.lower()
 
-    def both(kw: str) -> bool:
-        """タイトルまたは要約のどちらにも（あるいは両方に）含まれるか"""
-        return kw in title_l or kw in abstract_l
-
-    # AIエージェント: agent 単独ではなく、autonomous/planning/LLM などと共起
-    agent_keywords = ["autonomous agent", "llm agent", "ai agent", "tool use", "planning agent", "multi-agent"]
+    agent_keywords = ["autonomous agent", "llm agent", "ai agent", "tool use",
+                      "planning agent", "multi-agent", "language model agent"]
     if any(kw in combined for kw in agent_keywords):
         tags.append("AIエージェント")
 
-    # Robotics: robot が title か abstract にあること
-    if both("robot"):
+    if "robot" in title.lower() or "robot" in abstract.lower():
         tags.append("Robotics")
 
-    # ハンド模倣学習: 複数キーワードの共起を要求
     hand_score = sum([
         "dexterous" in combined,
         "manipulation" in combined and "robot" in combined,
@@ -210,9 +188,10 @@ def infer_tags(title: str, abstract: str) -> List[str]:
 
 # ==========================
 # arXiv取得
+# 不具合⑤: e.id（フルURL）をそのまま ID として使用し DB と一致させる
 # ==========================
 def fetch() -> List[dict]:
-    seen: set[str] = set()
+    seen: set = set()
     papers: List[dict] = []
 
     for q in ARXIV_QUERIES:
@@ -220,12 +199,13 @@ def fetch() -> List[dict]:
         time.sleep(1)
 
         for e in feed.entries:
+            # e.id = "http://arxiv.org/abs/2603.04392v1" (フルURL)
             if e.id in seen:
                 continue
             seen.add(e.id)
-            pid = e.id.split("/")[-1]
+
             papers.append({
-                "id":         pid,
+                "id":         e.id,           # ← フル URL を canonical ID として使用
                 "title":      e.title.strip(),
                 "summary_en": clean_abstract(e.summary),
                 "published":  e.published,
@@ -248,6 +228,9 @@ def main():
     papers = fetch()
     new_count = 0
 
+    # 不具合②: JST の日付を使用（UTC では1日ずれる場合がある）
+    today_jst = datetime.now(JST).date().isoformat()
+
     for p in papers:
         if p["id"] in db_map:
             continue
@@ -257,7 +240,6 @@ def main():
 
         if summary_raw == "要約失敗":
             summary_clean = "要約生成に失敗しました。"
-            # --- 改善点③: フォールバック時もタイトルを活用
             tags = infer_tags(p["title"], p["summary_en"])
         else:
             summary_clean, tags = extract_tags(summary_raw)
@@ -265,13 +247,13 @@ def main():
                 tags = infer_tags(p["title"], p["summary_en"])
 
         db_map[p["id"]] = {
-            "id":         p["id"],
+            "id":         p["id"],          # フル URL
             "title":      p["title"],
             "summary_ja": summary_clean,
             "tags":       tags,
             "link":       p["link"],
             "published":  p["published"],
-            "created_at": date.today().isoformat(),  # 改善点④: 追加日を記録
+            "created_at": today_jst,        # JST 日付
         }
         new_count += 1
 

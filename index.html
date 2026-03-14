@@ -19,10 +19,7 @@
       -webkit-font-smoothing: antialiased;
       transition: background 0.2s, color 0.2s;
     }
-    body.dark {
-      background: #1a1a1a;
-      color: #e0e0e0;
-    }
+    body.dark { background: #1a1a1a; color: #e0e0e0; }
     body.dark .paper { background: #2d2d2d; border-color: #444; }
     body.dark .paper .title { color: #fff; }
     body.dark .meta { color: #aaa; }
@@ -47,163 +44,68 @@
     body.dark .last-update { color: #888; }
     body.dark .settings-toggle { color: #64b5f6; }
     body.dark #papers.empty { color: #888; }
-    body.dark .btn-sync { background: #1565c0; border-color: #1565c0; color: #fff; }
-    body.dark .btn-sync:disabled { background: #444; border-color: #555; color: #888; }
+    body.dark .btn-sync { border-color: #64b5f6; color: #64b5f6; background: transparent; }
+    body.dark .btn-sync:hover:not(:disabled) { background: #1a2a3a; }
+    body.dark .btn-icon { background: #2d2d2d; border-color: #555; color: #e0e0e0; }
+    body.dark .sort-wrap label { color: #aaa; }
+    body.dark .sort-wrap select { background: #2d2d2d; border-color: #555; color: #e0e0e0; }
     .wrap { max-width: 680px; margin: 0 auto; }
     .header-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
     h1 { font-size: 1.5rem; font-weight: 700; margin: 0; color: #1a1a1a; }
     .last-update { font-size: 0.85rem; color: #666; }
     .header-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-    .btn-icon {
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      background: #fff;
-      cursor: pointer;
-      font-size: 0.9rem;
-    }
-    body.dark .btn-icon { background: #2d2d2d; border-color: #555; color: #e0e0e0; }
-
-    /* ─── Sync ボタン ─── */
+    .btn-icon { padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; background: #fff; cursor: pointer; font-size: 0.9rem; }
     .btn-sync {
-      padding: 8px 14px;
-      border-radius: 8px;
-      border: 1px solid #1565c0;
-      background: #fff;
-      color: #1565c0;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-      transition: background 0.15s, color 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
+      padding: 8px 14px; border-radius: 8px; border: 1px solid #1565c0;
+      background: #fff; color: #1565c0; cursor: pointer; font-size: 0.9rem;
+      font-weight: 600; transition: background 0.15s, color 0.15s;
+      display: inline-flex; align-items: center; gap: 5px;
     }
     .btn-sync:hover:not(:disabled) { background: #e3f2fd; }
-    .btn-sync:disabled { opacity: 0.55; cursor: not-allowed; }
-    .btn-sync.syncing .sync-icon { display: inline-block; animation: spin 0.8s linear infinite; }
+    .btn-sync:disabled { opacity: 0.5; cursor: not-allowed; }
+    .sync-icon { display: inline-block; }
+    .btn-sync.syncing .sync-icon { animation: spin 0.8s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
-
     .paper {
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px 20px 24px;
-      margin-bottom: 20px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-      border: 1px solid #e8e8e8;
+      background: #fff; border-radius: 12px; padding: 20px 20px 24px;
+      margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); border: 1px solid #e8e8e8;
     }
-    .paper.read {
-      opacity: 0.55;
-      transition: opacity 0.2s ease;
-    }
-    .new-badge {
-      background:#e53935;
-      color:white;
-      font-size:0.7rem;
-      padding:2px 6px;
-      border-radius:4px;
-      margin-left:8px;
-    }
+    .paper.read { opacity: 0.55; transition: opacity 0.2s ease; }
+    .new-badge { background:#e53935; color:white; font-size:0.7rem; padding:2px 6px; border-radius:4px; margin-left:8px; }
     .paper .title { font-size: 1.1rem; font-weight: 700; line-height: 1.45; margin: 0 0 8px; color: #111; }
     .meta { font-size: 0.85rem; color: #666; margin-bottom: 14px; }
-
-    /* ─── 要約セクション ─── */
-    .summary {
-      font-size: 0.95rem;
-      line-height: 1.7;
-      margin: 0 0 16px;
-      color: #333;
-    }
-    /* 構造化セクション（【】あり） */
-    .summary-section {
-      margin-bottom: 10px;
-    }
+    .summary { font-size: 0.95rem; line-height: 1.7; margin: 0 0 16px; color: #333; }
+    .summary-section { margin-bottom: 10px; }
     .summary-section:last-child { margin-bottom: 0; }
-    .summary .section-head {
-      font-weight: 700;
-      color: #0d47a1;
-      display: block;
-      margin-bottom: 3px;
-      font-size: 0.92rem;
-      letter-spacing: 0.01em;
-    }
-    .summary .section-body {
-      margin: 0;
-      padding-left: 2px;
-      color: #333;
-    }
-    /* 構造化されていないプレーンテキスト用 */
+    .summary .section-head { font-weight: 700; color: #0d47a1; display: block; margin-bottom: 3px; font-size: 0.92rem; }
+    .summary .section-body { margin: 0; padding-left: 2px; color: #333; }
     .summary .plain-text { margin: 0; }
-
     .paper a.arxiv {
-      display: inline-block;
-      padding: 10px 18px;
-      background: #1565c0;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
+      display: inline-block; padding: 10px 18px; background: #1565c0; color: #fff;
+      text-decoration: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600;
     }
     .paper a.arxiv:hover { background: #0d47a1; }
-    .saved { color: #2e7d32; font-weight: 600; font-size: 0.9rem; margin-top: 8px; display: inline-block; }
     .tags-row { margin-bottom: 10px; }
-    .tag {
-      display: inline-block;
-      padding: 4px 10px;
-      margin: 2px 4px 2px 0;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      background: #e3f2fd;
-      color: #1565c0;
-    }
+    .tag { display: inline-block; padding: 4px 10px; margin: 2px 4px 2px 0; border-radius: 6px; font-size: 0.8rem; background: #e3f2fd; color: #1565c0; }
     .tag.agent { background: #e8f5e9; color: #2e7d32; }
     .tag.robotics { background: #fff3e0; color: #e65100; }
     .tag.hand { background: #f3e5f5; color: #7b1fa2; }
     .paper-actions { margin-top: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
-    .btn-save {
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      background: #e0e0e0;
-      color: #424242;
-    }
+    .btn-save { padding: 8px 14px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; background: #e0e0e0; color: #424242; }
     .btn-save.saved { background: #2e7d32; color: #fff; }
     .btn-save:hover { opacity: 0.9; }
     .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 20px; }
     .filter-bar { display: flex; gap: 8px; flex-wrap: wrap; }
-    .filter-bar button {
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border: 1px solid #ccc;
-      background: #fff;
-      color: #333;
-      cursor: pointer;
-    }
+    .filter-bar button { padding: 8px 14px; border-radius: 8px; font-size: 0.9rem; font-weight: 600; border: 1px solid #ccc; background: #fff; color: #333; cursor: pointer; }
     .filter-bar button.active { background: #1565c0; color: #fff; border-color: #1565c0; }
     .filter-bar button:hover:not(.active) { background: #f5f5f5; }
-    .filter-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px;}
-    .filter-tags .tag-btn {
-      padding: 6px 12px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      border: 1px solid #ccc;
-      background: #fff;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
+    .filter-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .filter-tags .tag-btn { padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; border: 1px solid #ccc; background: #fff; cursor: pointer; transition: all 0.2s ease; }
     .filter-tags .tag-btn.active { background: #1565c0; color: #fff; border-color: #1565c0; }
     .filter-tags .tag-btn:hover:not(.active) { background: #f0f0f0; }
     .sort-wrap { display: flex; align-items: center; gap: 6px; }
     .sort-wrap label { font-size: 0.9rem; color: #666; }
-    body.dark .sort-wrap label { color: #aaa; }
     .sort-wrap select { padding: 8px 10px; border-radius: 8px; border: 1px solid #ccc; background: #fff; font-size: 0.9rem; }
-    body.dark .sort-wrap select { background: #2d2d2d; border-color: #555; color: #e0e0e0; }
     #papers.loading { color: #666; font-size: 1rem; }
     #papers.empty { color: #666; }
     .skeleton { padding: 20px; margin-bottom: 20px; border-radius: 12px; background: #e8e8e8; }
@@ -213,47 +115,22 @@
     .skeleton-line.title { height: 18px; max-width: 70%; }
     .skeleton-line.short { max-width: 40%; }
     .back-to-top {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: #1565c0;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      font-size: 1.2rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.2s, visibility 0.2s;
+      position: fixed; bottom: 24px; right: 24px; width: 48px; height: 48px;
+      border-radius: 50%; background: #1565c0; color: #fff; border: none;
+      cursor: pointer; font-size: 1.2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s;
     }
     .back-to-top.visible { opacity: 1; visibility: visible; }
     .back-to-top:hover { background: #0d47a1; }
-    .settings-panel {
-      margin-bottom: 20px;
-      padding: 16px;
-      background: #fff;
-      border-radius: 12px;
-      border: 1px solid #e8e8e8;
-    }
+    .settings-panel { margin-bottom: 20px; padding: 16px; background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; }
     .settings-panel h2 { font-size: 1rem; margin: 0 0 10px; }
     .settings-panel p { margin: 0 0 10px; font-size: 0.9rem; color: #555; }
-    .settings-panel input {
-      display: block;
-      width: 100%;
-      max-width: 400px;
-      padding: 8px 10px;
-      margin-bottom: 8px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 0.9rem;
-    }
+    .settings-panel input { display: block; width: 100%; max-width: 400px; padding: 8px 10px; margin-bottom: 8px; border: 1px solid #ccc; border-radius: 6px; font-size: 0.9rem; }
     .settings-panel button { padding: 8px 14px; border-radius: 8px; font-weight: 600; cursor: pointer; border: 1px solid #1565c0; background: #1565c0; color: #fff; }
     .settings-panel button.secondary { background: #fff; color: #333; border-color: #ccc; }
     .settings-toggle { font-size: 0.9rem; color: #1565c0; cursor: pointer; margin-bottom: 12px; display: inline-block; }
-    .sync-hint { font-size: 0.85rem; color: #666; margin-top: 8px; }
+    .sync-hint { font-size: 0.85rem; color: #666; margin: -8px 0 12px; min-height: 0; }
+    .sync-hint:empty { margin: 0; }
     .sync-hint.error { color: #c62828; }
     .sync-hint.success { color: #2e7d32; }
     .error-msg { padding: 16px; border-radius: 12px; background: #ffebee; color: #c62828; margin-bottom: 20px; }
@@ -267,28 +144,36 @@
       <div>
         <h1>arXiv AI &amp; Robotics Digest</h1>
         <span id="unreadCount" style="margin-left:15px;font-weight:600;"></span>
-        <p class="last-update" id="lastUpdate"></p>
+        <p class="last-update" id="dbUpdate"></p>
+        <p class="last-update" id="lastSync"></p>
       </div>
       <div class="header-actions">
         <button type="button" class="btn-icon" id="darkModeBtn" aria-label="ダークモード">🌙</button>
-        <!-- ① 手動 Sync ボタン -->
         <button type="button" class="btn-sync" id="syncBtn" title="GitHubと手動同期">
           <span class="sync-icon">🔄</span> Sync
         </button>
-        <p class="settings-toggle" id="settingsToggle">⚙️ 設定</p>
+        <span class="settings-toggle" id="settingsToggle">⚙️ 設定</span>
       </div>
     </div>
+
+    <!-- Sync ステータス: 設定パネルの外・常に表示 -->
+    <p class="sync-hint" id="syncHint"></p>
+
     <div class="settings-panel" id="settingsPanel" style="display:none;">
       <h2>GitHub で保存を共有</h2>
-      <p>リポジトリとトークンを設定すると、Sync ボタンで saved.json / read.json を更新できます。別端末では Sync 後にページを再読み込みすると最新の状態が反映されます。</p>
-      <label>リポジトリ (例: ユーザー名/arxiv-ai-digest)</label>
+      <p>
+        リポジトリとトークン (repo スコープ) を設定すると、<strong>Sync ボタン</strong>で
+        saved.json / read.json を GitHub に書き込み、別端末でも同じ状態を共有できます。<br>
+        ページ読み込み時は GitHub から最新データを取得します。
+      </p>
+      <label>リポジトリ (例: owner/arxiv-ai-digest)</label>
       <input type="text" id="inputRepo" placeholder="owner/repo">
       <label>GitHub Token (repo スコープ)</label>
       <input type="password" id="inputToken" placeholder="ghp_...">
       <button type="button" id="btnSaveSettings">保存</button>
       <button type="button" class="secondary" id="btnClearSettings">クリア</button>
-      <p class="sync-hint" id="syncHint"></p>
     </div>
+
     <div id="errorBanner"></div>
     <div class="toolbar" id="toolbar" style="display:none;">
       <div class="filter-bar">
@@ -299,9 +184,9 @@
           <button type="button" id="filterSaved">Saved のみ</button>
         </div>
         <div class="filter-tags">
-          <button type="button" id="filterTagAgent">AIエージェント</button>
-          <button type="button" id="filterTagRobotics">Robotics</button>
-          <button type="button" id="filterTagHand">ハンド模倣学習</button>
+          <button type="button" id="filterTagAgent" class="tag-btn">AIエージェント</button>
+          <button type="button" id="filterTagRobotics" class="tag-btn">Robotics</button>
+          <button type="button" id="filterTagHand" class="tag-btn">ハンド模倣学習</button>
         </div>
       </div>
       <div class="sort-wrap">
@@ -313,6 +198,7 @@
         </select>
       </div>
     </div>
+
     <div id="papers" class="loading">
       <div class="skeleton"><div class="skeleton-line title"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
       <div class="skeleton"><div class="skeleton-line title"></div><div class="skeleton-line"></div><div class="skeleton-line short"></div></div>
@@ -321,421 +207,614 @@
   </div>
 
 <script>
-  var READ_KEY        = 'arxiv-digest-read';
-  var SAVED_KEY       = 'arxiv-digest-saved';
-  var GITHUB_REPO_KEY = 'arxiv-digest-github-repo';
-  var GITHUB_TOKEN_KEY= 'arxiv-digest-github-token';
-  var DARK_KEY        = 'arxiv-digest-dark';
+// ================================================================
+// 定数
+// ================================================================
+var READ_KEY         = 'arxiv-digest-read';
+var SAVED_KEY        = 'arxiv-digest-saved';
+var GITHUB_REPO_KEY  = 'arxiv-digest-github-repo';
+var GITHUB_TOKEN_KEY = 'arxiv-digest-github-token';
+var DARK_KEY         = 'arxiv-digest-dark';
+var LAST_SYNC_KEY    = 'arxiv-digest-last-sync'; // 最終 GitHub 同期日時（ISO文字列）
 
-  // ─── LocalStorage helpers ───────────────────────────────────────
-  function getSavedIdsFromStorage() {
-    try { var r = localStorage.getItem(SAVED_KEY); return r ? JSON.parse(r) : []; }
-    catch (_) { return []; }
+// ================================================================
+// 同期日時の表示
+// ================================================================
+function updateSyncDisplay() {
+  var raw = localStorage.getItem(LAST_SYNC_KEY);
+  var el  = document.getElementById('lastSync');
+  if (!el) return;
+  if (!raw) {
+    // GitHub設定があるときだけ「未同期」を表示
+    var hasGitHub = !!(localStorage.getItem(GITHUB_REPO_KEY) && localStorage.getItem(GITHUB_TOKEN_KEY));
+    el.textContent = hasGitHub ? '最終同期: 未同期' : '';
+    return;
   }
-  function setSavedIdsToStorage(ids) { localStorage.setItem(SAVED_KEY, JSON.stringify(ids)); }
-  function getReadIdsFromStorage() {
-    try { var r = localStorage.getItem(READ_KEY); return r ? JSON.parse(r) : []; }
-    catch (_) { return []; }
+  try {
+    var d = new Date(raw);
+    var str = d.toLocaleString('ja-JP', {
+      year: 'numeric', month: 'short', day: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    });
+    el.textContent = '最終同期: ' + str;
+  } catch (_) {
+    el.textContent = '最終同期: ' + raw;
   }
-  function setReadIdsToStorage(ids) { localStorage.setItem(READ_KEY, JSON.stringify(ids)); }
+}
 
-  // ─── ② Save / Read はローカルのみ（GitHub は叩かない）─────────────
-  function setSavedIds(ids, cb) {
-    setSavedIdsToStorage(ids);
-    if (cb) cb(null);
-  }
-  function setReadIds(ids, cb) {
-    setReadIdsToStorage(ids);
-    if (cb) cb(null);
-  }
+// ================================================================
+// ID 正規化
+// saved.json に 保存される ID を常に "http://arxiv.org/abs/XXXX" 形式に統一
+// ================================================================
+function normalizeId(id) {
+  if (!id) return id;
+  if (/^https?:\/\//.test(id)) return id;
+  // "abs/xxxx" 形式も対応
+  if (/^abs\//.test(id)) return 'http://arxiv.org/' + id;
+  // 数字始まり = pid のみ
+  return 'http://arxiv.org/abs/' + id;
+}
 
-  // ─── ページロード時の取得（pull は維持）───────────────────────────
-  function getSavedIds(cb) {
-    var repo = localStorage.getItem(GITHUB_REPO_KEY);
-    if (repo) {
-      fetch('saved.json?v=' + Date.now(), { cache: 'no-store' })
-        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
-        .then(function(arr) { cb(Array.isArray(arr) ? arr : []); })
-        .catch(function() { cb(getSavedIdsFromStorage()); });
-    } else {
-      cb(getSavedIdsFromStorage());
-    }
-  }
-  function getReadIds(cb) {
-    var repo = localStorage.getItem(GITHUB_REPO_KEY);
-    if (repo) {
-      fetch('read.json?v=' + Date.now(), { cache: 'no-store' })
-        .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
-        .then(function(arr) { cb(Array.isArray(arr) ? arr : []); })
-        .catch(function() { cb(getReadIdsFromStorage()); });
-    } else {
-      cb(getReadIdsFromStorage());
-    }
-  }
+function normalizeIds(arr) {
+  return (Array.isArray(arr) ? arr : []).map(normalizeId);
+}
 
-  // ─── ③ GitHub への push（Sync ボタン専用）────────────────────────
-  function pushFileToGitHub(repo, token, filename, ids, cb) {
-    var api = 'https://api.github.com/repos/' + repo + '/contents/' + filename;
-    var payload = {
-      message: 'Sync ' + filename,
-      content: btoa(unescape(encodeURIComponent(JSON.stringify(ids, null, 2))))
-    };
-    fetch(api, { headers: { 'Authorization': 'Bearer ' + token } })
-      .then(function(r) { return r.json(); })
-      .then(function(info) {
-        if (info.sha) payload.sha = info.sha;
-        return fetch(api, {
-          method: 'PUT',
-          headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-      })
-      .then(function(r) {
-        if (!r.ok) return r.json().then(function(e) { throw Object.assign(new Error(e.message || 'API error'), { status: r.status }); });
-        if (cb) cb(null);
-      })
-      .catch(function(e) { if (cb) cb(e); });
-  }
+// ================================================================
+// LocalStorage helpers
+// ================================================================
+function getSavedIdsFromStorage() {
+  try { var r = localStorage.getItem(SAVED_KEY); return r ? JSON.parse(r) : []; }
+  catch (_) { return []; }
+}
+function setSavedIdsToStorage(ids) { localStorage.setItem(SAVED_KEY, JSON.stringify(ids)); }
+function getReadIdsFromStorage() {
+  try { var r = localStorage.getItem(READ_KEY); return r ? JSON.parse(r) : []; }
+  catch (_) { return []; }
+}
+function setReadIdsToStorage(ids) { localStorage.setItem(READ_KEY, JSON.stringify(ids)); }
 
-  function syncToGitHub(savedIds, readIds, cb) {
-    var repo  = localStorage.getItem(GITHUB_REPO_KEY);
-    var token = localStorage.getItem(GITHUB_TOKEN_KEY);
-    if (!repo || !token) { if (cb) cb(new Error('GitHub設定が未完了です。⚙️ 設定からリポジトリとトークンを入力してください。')); return; }
-    var pending = 2, errors = [];
-    function done(err) {
-      if (err) errors.push(err);
-      if (--pending === 0) cb(errors.length ? errors[0] : null);
-    }
-    pushFileToGitHub(repo, token, 'saved.json', savedIds, done);
-    pushFileToGitHub(repo, token, 'read.json',  readIds,  done);
-  }
+// ================================================================
+// GitHub Contents API helpers
+// Pages URL はキャッシュ遅延あり → Contents API を使用
+// ================================================================
+function b64Decode(str) {
+  // GitHub API が返す base64 (改行付き) をデコードして UTF-8 文字列に
+  try {
+    return decodeURIComponent(
+      atob(str.replace(/\n/g, ''))
+        .split('')
+        .map(function(c) { return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2); })
+        .join('')
+    );
+  } catch (_) { return null; }
+}
 
-  // ─── Sync ボタン UI ────────────────────────────────────────────
-  var syncBtn  = document.getElementById('syncBtn');
-  var syncHint = document.getElementById('syncHint');
+function b64Encode(str) {
+  return btoa(unescape(encodeURIComponent(str)));
+}
 
-  function setSyncHint(msg, type) {
-    syncHint.textContent = msg;
-    syncHint.className = 'sync-hint' + (type ? ' ' + type : '');
-  }
+/**
+ * GitHub Contents API から JSON ファイルを取得
+ * 常に最新のコミット内容を返す（CDN キャッシュを受けない）
+ */
+function fetchFileFromGitHub(repo, token, filename, cb) {
+  var api = 'https://api.github.com/repos/' + repo + '/contents/' + filename;
+  fetch(api, { headers: { 'Authorization': 'Bearer ' + token }, cache: 'no-store' })
+    .then(function(r) { return r.json(); })
+    .then(function(info) {
+      if (!info.content) { cb(null, null, null); return; }
+      var decoded = b64Decode(info.content);
+      if (!decoded) { cb(new Error('decode failed'), null, null); return; }
+      cb(null, JSON.parse(decoded), info.sha);
+    })
+    .catch(function(e) { cb(e, null, null); });
+}
 
-  syncBtn.addEventListener('click', function() {
-    syncBtn.disabled = true;
-    syncBtn.classList.add('syncing');
-    setSyncHint('同期中...', '');
-    syncToGitHub(currentSavedIds, currentReadIds, function(err) {
-      syncBtn.disabled = false;
-      syncBtn.classList.remove('syncing');
-      if (err) {
-        var msg = (err.status === 401 || err.status === 403)
-          ? 'トークンの期限切れまたは権限不足です。設定でトークンを確認してください。'
-          : ('同期に失敗しました: ' + (err.message || err));
-        setSyncHint(msg, 'error');
-      } else {
-        setSyncHint('✓ 同期完了しました', 'success');
-        setTimeout(function() { setSyncHint('', ''); }, 3000);
+/**
+ * GitHub Contents API へ JSON ファイルを書き込み（PUT）
+ * - 現在の内容と差分がなければ push をスキップする
+ * - cb(err, skipped): skipped=true のときは push しなかった
+ */
+function pushFileToGitHub(repo, token, filename, data, cb) {
+  var api        = 'https://api.github.com/repos/' + repo + '/contents/' + filename;
+  var newJson    = JSON.stringify(data, null, 2);
+  var newContent = b64Encode(newJson);
+
+  // 現在のファイル情報（sha + content）を取得
+  fetch(api, { headers: { 'Authorization': 'Bearer ' + token }, cache: 'no-store' })
+    .then(function(r) { return r.json(); })
+    .then(function(info) {
+      // ── 差分チェック ──────────────────────────────────
+      // GitHub 上の content を decode して比較
+      // 配列の順序・フォーマットが同じなら skip
+      if (info.content) {
+        var remoteRaw = b64Decode(info.content);
+        if (remoteRaw !== null) {
+          try {
+            // JSON として正規化して比較（空白・改行の違いを吸収）
+            var remoteNorm = JSON.stringify(JSON.parse(remoteRaw));
+            var localNorm  = JSON.stringify(JSON.parse(newJson));
+            if (remoteNorm === localNorm) {
+              if (cb) cb(null, true); // skipped = true
+              return;
+            }
+          } catch (_) { /* parse 失敗時は差分ありとみなして push */ }
+        }
       }
+
+      // ── PUT ───────────────────────────────────────────
+      var payload = { message: 'Sync ' + filename, content: newContent };
+      if (info.sha) payload.sha = info.sha;
+
+      return fetch(api, {
+        method: 'PUT',
+        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function(r) {
+      if (!r.ok) {
+        return r.json().then(function(e) {
+          throw Object.assign(new Error(e.message || 'API error'), { status: r.status });
+        });
+      }
+        if (cb) cb(null, false); // skipped = false
+      });
+    })
+    .catch(function(e) { if (cb) cb(e, false); });
+}
+
+// ================================================================
+// saved / read の取得（ページロード時）
+// GitHub 設定があれば Contents API から取得 → localStorage に保存
+// なければ localStorage のみ
+// ================================================================
+function getSavedIds(cb) {
+  var repo  = localStorage.getItem(GITHUB_REPO_KEY);
+  var token = localStorage.getItem(GITHUB_TOKEN_KEY);
+  if (repo && token) {
+    fetchFileFromGitHub(repo, token, 'saved.json', function(err, arr) {
+      var ids = normalizeIds(Array.isArray(arr) ? arr : getSavedIdsFromStorage());
+      setSavedIdsToStorage(ids); // ローカルを最新に
+      cb(ids);
+    });
+  } else {
+    cb(normalizeIds(getSavedIdsFromStorage()));
+  }
+}
+
+function getReadIds(cb) {
+  var repo  = localStorage.getItem(GITHUB_REPO_KEY);
+  var token = localStorage.getItem(GITHUB_TOKEN_KEY);
+  if (repo && token) {
+    fetchFileFromGitHub(repo, token, 'read.json', function(err, arr) {
+      var ids = normalizeIds(Array.isArray(arr) ? arr : getReadIdsFromStorage());
+      setReadIdsToStorage(ids); // ローカルを最新に
+      cb(ids);
+    });
+  } else {
+    cb(normalizeIds(getReadIdsFromStorage()));
+  }
+}
+
+// ================================================================
+// saved / read の保存（ローカルのみ。GitHub は Sync ボタン専用）
+// ================================================================
+function setSavedIds(ids, cb) {
+  var normalized = normalizeIds(ids);
+  setSavedIdsToStorage(normalized);
+  if (cb) cb(null);
+}
+
+function setReadIds(ids, cb) {
+  var normalized = normalizeIds(ids);
+  setReadIdsToStorage(normalized);
+  if (cb) cb(null);
+}
+
+// ================================================================
+// Sync（手動）: saved → read の順で直列 push
+// 並列だと2回目以降に片方が stale SHA エラーになる → 直列に変更
+// cb(err, { savedSkipped, readSkipped })
+// ================================================================
+function syncToGitHub(savedIds, readIds, cb) {
+  var repo  = localStorage.getItem(GITHUB_REPO_KEY);
+  var token = localStorage.getItem(GITHUB_TOKEN_KEY);
+  if (!repo || !token) {
+    cb(new Error('GitHub 設定が未完了です。⚙️ 設定からリポジトリとトークンを入力してください。'), null);
+    return;
+  }
+
+  // saved.json を push してから read.json を push（直列）
+  pushFileToGitHub(repo, token, 'saved.json', normalizeIds(savedIds), function(err, savedSkipped) {
+    if (err) { cb(err, null); return; }
+    pushFileToGitHub(repo, token, 'read.json', normalizeIds(readIds), function(err2, readSkipped) {
+      if (err2) { cb(err2, null); return; }
+      cb(null, { savedSkipped: savedSkipped, readSkipped: readSkipped });
     });
   });
+}
 
-  // ─── 設定パネル ────────────────────────────────────────────────
-  document.getElementById('settingsToggle').addEventListener('click', function() {
-    var p = document.getElementById('settingsPanel');
-    p.style.display = p.style.display === 'none' ? 'block' : 'none';
-    if (p.style.display === 'block') {
-      document.getElementById('inputRepo').value  = localStorage.getItem(GITHUB_REPO_KEY)  || '';
-      document.getElementById('inputToken').value = localStorage.getItem(GITHUB_TOKEN_KEY) || '';
-    }
-  });
-  document.getElementById('btnSaveSettings').addEventListener('click', function() {
-    var repo  = document.getElementById('inputRepo').value.trim();
-    var token = document.getElementById('inputToken').value.trim();
-    if (repo) localStorage.setItem(GITHUB_REPO_KEY, repo); else localStorage.removeItem(GITHUB_REPO_KEY);
-    if (token) localStorage.setItem(GITHUB_TOKEN_KEY, token); else localStorage.removeItem(GITHUB_TOKEN_KEY);
-    setSyncHint(repo && token ? '設定を保存しました。Sync ボタンで GitHub に反映できます。' : '設定をクリアしました。', '');
-  });
-  document.getElementById('btnClearSettings').addEventListener('click', function() {
-    localStorage.removeItem(GITHUB_REPO_KEY);
-    localStorage.removeItem(GITHUB_TOKEN_KEY);
-    document.getElementById('inputRepo').value  = '';
-    document.getElementById('inputToken').value = '';
-    setSyncHint('設定をクリアしました。保存はこの端末のみになります。', '');
-  });
+// ================================================================
+// Sync ボタン UI
+// ================================================================
+var syncBtn      = document.getElementById('syncBtn');
+var syncHint     = document.getElementById('syncHint');
+var syncInProgress = false; // 二重実行防止ロック
 
-  // ─── ダークモード ──────────────────────────────────────────────
-  function initDarkMode() {
-    var dark = localStorage.getItem(DARK_KEY) === '1';
-    document.body.classList.toggle('dark', dark);
-    document.getElementById('darkModeBtn').textContent = dark ? '☀️' : '🌙';
-  }
-  document.getElementById('darkModeBtn').addEventListener('click', function() {
-    var dark = document.body.classList.toggle('dark');
-    localStorage.setItem(DARK_KEY, dark ? '1' : '0');
-    this.textContent = dark ? '☀️' : '🌙';
-  });
-  initDarkMode();
+function setSyncHint(msg, type) {
+  syncHint.textContent = msg;
+  syncHint.className = 'sync-hint' + (type ? ' ' + type : '');
+}
 
-  // ─── ユーティリティ ────────────────────────────────────────────
-  function escapeHtml(str) {
-    if (str == null) return '';
-    var d = document.createElement('div');
-    d.textContent = str;
-    return d.innerHTML;
-  }
+syncBtn.addEventListener('click', function() {
+  // ── 実行中ロック（多重クリック防止）─────────────────────────
+  if (syncInProgress) return;
+  syncInProgress = true;
+  syncBtn.disabled = true;
+  syncBtn.classList.add('syncing');
+  setSyncHint('確認中... GitHub のファイルと比較しています', '');
 
-  /**
-   * ④ 要約フォーマット改善
-   * 【セクション名】で分割し、ブロックごとに <div class="summary-section"> へ変換。
-   * 【】がない場合はプレーンテキストとして <p class="plain-text"> に入れる。
-   */
-  function formatSummary(text) {
-    if (!text) return '';
+  syncToGitHub(currentSavedIds, currentReadIds, function(err, result) {
+    syncInProgress = false;
+    syncBtn.disabled = false;
+    syncBtn.classList.remove('syncing');
 
-    // 【...】 で分割する
-    var parts = text.split(/(【[^】]+】)/);
-    // parts = ['前文', '【背景】', '本文...', '【提案】', '本文...', ...]
-
-    var html = '';
-
-    // 先頭の前文（セクションヘッダ前の文）
-    var pre = (parts[0] || '').trim();
-    if (pre) {
-      html += '<p class="plain-text">' + escapeHtml(pre).replace(/\n/g, '<br>') + '</p>';
-    }
-
-    // セクションがひとつもない場合はプレーンテキストのみ返す
-    if (parts.length <= 1) {
-      return '<p class="plain-text">' + escapeHtml(text).replace(/\n/g, '<br>') + '</p>';
-    }
-
-    for (var i = 1; i < parts.length; i += 2) {
-      var head = parts[i];                                          // 例: 【背景】
-      var body = (parts[i + 1] !== undefined ? parts[i + 1] : '').trim(); // セクション本文
-
-      html += '<div class="summary-section">';
-      html += '<span class="section-head">' + escapeHtml(head) + '</span>';
-      if (body) {
-        html += '<p class="section-body">' + escapeHtml(body).replace(/\n/g, '<br>') + '</p>';
-      }
-      html += '</div>';
-    }
-    return html;
-  }
-
-  function formatDate(iso) {
-    if (!iso) return '';
-    try {
-      var d = new Date(iso);
-      return isNaN(d) ? iso : d.toLocaleDateString('ja-JP', { year: 'numeric', month: 'short', day: 'numeric' });
-    } catch (_) { return iso; }
-  }
-
-  function tagClass(tag) {
-    if (tag === 'AIエージェント')  return 'tag agent';
-    if (tag === 'Robotics')        return 'tag robotics';
-    if (tag === 'ハンド模倣学習') return 'tag hand';
-    return 'tag';
-  }
-
-  // ─── 論文カード描画 ────────────────────────────────────────────
-  function renderPaper(paper, savedIds, readIds) {
-    var link  = paper.link && /^https?:\/\//.test(paper.link) ? paper.link : '#';
-    var saved = savedIds.indexOf(paper.id) >= 0;
-    var read  = readIds.indexOf(paper.id) >= 0;
-
-    var tagsHtml = '';
-    if (paper.tags && paper.tags.length) {
-      tagsHtml = paper.tags.map(function(t) {
-        return '<span class="' + tagClass(t) + '">' + escapeHtml(t) + '</span>';
-      }).join('');
-    }
-
-    var div = document.createElement('div');
-    div.className = 'paper' + (read ? ' read' : '');
-
-    div.innerHTML =
-      '<div class="title">' +
-        escapeHtml(paper.title) +
-        (read ? '' : ' <span class="new-badge">NEW</span>') +
-      '</div>' +
-      '<p class="meta">Published: ' + escapeHtml(formatDate(paper.published)) + '</p>' +
-      (tagsHtml ? '<div class="tags-row">' + tagsHtml + '</div>' : '') +
-      '<div class="summary">' + formatSummary(paper.summary_ja || '') + '</div>' +
-      '<div class="paper-actions">' +
-        '<label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;">' +
-          '<input type="checkbox" class="chk-read" data-id="' + escapeHtml(paper.id) + '"' + (read ? ' checked' : '') + '>既読' +
-        '</label>' +
-        '<a class="arxiv" href="' + escapeHtml(link) + '" target="_blank" rel="noopener">View on arXiv</a>' +
-        '<button type="button" class="btn-save' + (saved ? ' saved' : '') + '" data-id="' + escapeHtml(paper.id) + '">' +
-          (saved ? '★ Saved' : '☆ Save') +
-        '</button>' +
-      '</div>';
-
-    return div;
-  }
-
-  function applySort(list, sortValue, savedIds) {
-    var arr = list.slice();
-    if (sortValue === 'newest') {
-      arr.sort(function(a, b) { return (b.published || '').localeCompare(a.published || ''); });
-    } else if (sortValue === 'oldest') {
-      arr.sort(function(a, b) { return (a.published || '').localeCompare(b.published || ''); });
-    } else if (sortValue === 'savedFirst') {
-      arr.sort(function(a, b) {
-        var as = savedIds.indexOf(a.id) >= 0 ? 1 : 0;
-        var bs = savedIds.indexOf(b.id) >= 0 ? 1 : 0;
-        if (bs !== as) return bs - as;
-        return (b.published || '').localeCompare(a.published || '');
-      });
-    }
-    return arr;
-  }
-
-  function renderPapers(container, data, filterMode, sortValue, savedIds, readIds) {
-    container.innerHTML = '';
-    var list = data;
-    if      (filterMode === 'unread') { list = list.filter(function(p){ return readIds.indexOf(p.id)  === -1; }); }
-    else if (filterMode === 'read')   { list = list.filter(function(p){ return readIds.indexOf(p.id)  >= 0;  }); }
-    else if (filterMode === 'saved')  { list = list.filter(function(p){ return savedIds.indexOf(p.id) >= 0;  }); }
-    else if (filterMode === 'AIエージェント' || filterMode === 'Robotics' || filterMode === 'ハンド模倣学習') {
-      list = list.filter(function(p){ return p.tags && p.tags.indexOf(filterMode) >= 0; });
-    }
-    list = applySort(list, sortValue, savedIds);
-
-    if (list.length === 0) {
-      container.classList.add('empty');
-      container.textContent = filterMode === 'saved' ? 'Saved の論文はありません。' : (filterMode ? '該当する論文はありません。' : 'No papers yet.');
+    if (err) {
+      var msg = (err.status === 401 || err.status === 403)
+        ? 'トークンの期限切れまたは権限不足です。⚙️ 設定でトークンを確認してください。'
+        : '同期に失敗しました: ' + (err.message || String(err));
+      setSyncHint(msg, 'error');
       return;
     }
-    container.classList.remove('empty');
-    list.forEach(function(paper) { container.appendChild(renderPaper(paper, savedIds, readIds)); });
 
-    container.querySelectorAll('.btn-save').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var id = btn.getAttribute('data-id');
-        if (!id) return;
-        var newIds = currentSavedIds.slice();
-        var i = newIds.indexOf(id);
-        if (i >= 0) newIds.splice(i, 1); else newIds.push(id);
-        // ローカルのみ更新
-        setSavedIds(newIds, function() {
-          currentSavedIds = newIds;
-          btn.textContent = newIds.indexOf(id) >= 0 ? '★ Saved' : '☆ Save';
-          btn.classList.toggle('saved', newIds.indexOf(id) >= 0);
-        });
-      });
-    });
-
-    container.querySelectorAll('.chk-read').forEach(function(chk) {
-      chk.addEventListener('change', function() {
-        var id = chk.getAttribute('data-id');
-        var ids = currentReadIds.slice();
-        var i = ids.indexOf(id);
-        if (chk.checked && i === -1) ids.push(id);
-        if (!chk.checked && i >= 0) ids.splice(i, 1);
-        // ローカルのみ更新
-        setReadIds(ids, function() {
-          currentReadIds = ids;
-          update();
-        });
-      });
-    });
-  }
-
-  var currentSavedIds = [];
-  var currentReadIds  = [];
-
-  // ─── エラー表示 ────────────────────────────────────────────────
-  function showError(msg) {
-    document.getElementById('errorBanner').innerHTML =
-      '<div class="error-msg">' + escapeHtml(msg) + '</div>';
-  }
-  function clearError() { document.getElementById('errorBanner').innerHTML = ''; }
-
-  // ─── 上に戻るボタン ────────────────────────────────────────────
-  var backToTop = document.getElementById('backToTop');
-  window.addEventListener('scroll', function() {
-    backToTop.classList.toggle('visible', window.scrollY > 300);
+    // ── 差分なしの場合（両ファイルともスキップ）────────────────
+    if (result && result.savedSkipped && result.readSkipped) {
+      setSyncHint('変更なし — GitHub はすでに最新の状態です', 'success');
+    } else {
+      // どちらか一方でも更新があった場合 → 同期日時を記録して表示
+      var now = new Date().toISOString();
+      localStorage.setItem(LAST_SYNC_KEY, now);
+      updateSyncDisplay();
+      var updated = [];
+      if (result && !result.savedSkipped) updated.push('saved.json');
+      if (result && !result.readSkipped)  updated.push('read.json');
+      setSyncHint('✓ 同期完了 — ' + updated.join(' と ') + ' を更新しました', 'success');
+    }
+      setTimeout(function() { setSyncHint('', ''); }, 4000);
   });
-  backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+});
 
-  // ─── データ取得・初期化 ────────────────────────────────────────
-  fetch('papers_db.json?v=' + Date.now(), { cache: 'no-store' })
-    .then(function(res) {
-      if (!res.ok) throw new Error('論文データの取得に失敗しました。ネットワークまたは papers_db.json を確認してください。');
-      return res.json();
-    })
-    .then(function(data) {
-      var container = document.getElementById('papers');
-      var toolbar   = document.getElementById('toolbar');
-      container.classList.remove('loading');
-      clearError();
+// ================================================================
+// 設定パネル
+// ================================================================
+document.getElementById('settingsToggle').addEventListener('click', function() {
+  var p = document.getElementById('settingsPanel');
+  p.style.display = p.style.display === 'none' ? 'block' : 'none';
+  if (p.style.display === 'block') {
+    document.getElementById('inputRepo').value  = localStorage.getItem(GITHUB_REPO_KEY)  || '';
+    document.getElementById('inputToken').value = localStorage.getItem(GITHUB_TOKEN_KEY) || '';
+  }
+});
+document.getElementById('btnSaveSettings').addEventListener('click', function() {
+  var repo  = document.getElementById('inputRepo').value.trim();
+  var token = document.getElementById('inputToken').value.trim();
+  if (repo)  localStorage.setItem(GITHUB_REPO_KEY, repo);  else localStorage.removeItem(GITHUB_REPO_KEY);
+  if (token) localStorage.setItem(GITHUB_TOKEN_KEY, token); else localStorage.removeItem(GITHUB_TOKEN_KEY);
+  setSyncHint(repo && token ? '設定を保存しました。Sync ボタンで GitHub に反映できます。' : '設定をクリアしました。', '');
+  updateSyncDisplay();
+});
+document.getElementById('btnClearSettings').addEventListener('click', function() {
+  localStorage.removeItem(GITHUB_REPO_KEY);
+  localStorage.removeItem(GITHUB_TOKEN_KEY);
+  document.getElementById('inputRepo').value  = '';
+  document.getElementById('inputToken').value = '';
+  setSyncHint('設定をクリアしました。保存はこの端末のみになります。', '');
+  updateSyncDisplay();
+});
 
-      if (!Array.isArray(data) || data.length === 0) {
-        container.classList.add('empty');
-        container.innerHTML = 'No papers yet.<br><small style="color:#888;">リポジトリに論文がある場合はスーパーリロード (Ctrl+Shift+R) を試してください。</small>';
-        document.getElementById('lastUpdate').textContent = '';
-        return;
+// ================================================================
+// ダークモード
+// ================================================================
+function initDarkMode() {
+  var dark = localStorage.getItem(DARK_KEY) === '1';
+  document.body.classList.toggle('dark', dark);
+  document.getElementById('darkModeBtn').textContent = dark ? '☀️' : '🌙';
+}
+document.getElementById('darkModeBtn').addEventListener('click', function() {
+  var dark = document.body.classList.toggle('dark');
+  localStorage.setItem(DARK_KEY, dark ? '1' : '0');
+  this.textContent = dark ? '☀️' : '🌙';
+});
+initDarkMode();
+updateSyncDisplay(); // ページ読み込み時に前回同期日時を表示
+
+// ================================================================
+// ユーティリティ
+// ================================================================
+function escapeHtml(str) {
+  if (str == null) return '';
+  var d = document.createElement('div');
+  d.textContent = str;
+  return d.innerHTML;
+}
+
+/**
+ * 要約テキストを【セクション】単位でブロック分割してレンダリング
+ * 例) "【背景】\n説明文\n\n【提案】\n..." → セクションごとの div
+ */
+function formatSummary(text) {
+  if (!text) return '';
+  var parts = text.split(/(【[^】]+】)/);
+  var html = '';
+  var pre = (parts[0] || '').trim();
+  if (pre) {
+    html += '<p class="plain-text">' + escapeHtml(pre).replace(/\n/g, '<br>') + '</p>';
+  }
+  if (parts.length <= 1) {
+    return '<p class="plain-text">' + escapeHtml(text).replace(/\n/g, '<br>') + '</p>';
+  }
+  for (var i = 1; i < parts.length; i += 2) {
+    var head = parts[i];
+    var body = (parts[i + 1] !== undefined ? parts[i + 1] : '').trim();
+    html += '<div class="summary-section">';
+    html += '<span class="section-head">' + escapeHtml(head) + '</span>';
+    if (body) {
+      html += '<p class="section-body">' + escapeHtml(body).replace(/\n/g, '<br>') + '</p>';
+    }
+    html += '</div>';
+  }
+  return html;
+}
+
+function formatDate(iso) {
+  if (!iso) return '';
+  try {
+    var d = new Date(iso);
+    return isNaN(d) ? iso : d.toLocaleDateString('ja-JP', { year: 'numeric', month: 'short', day: 'numeric' });
+  } catch (_) { return iso; }
+}
+
+function tagClass(tag) {
+  if (tag === 'AIエージェント')  return 'tag agent';
+  if (tag === 'Robotics')        return 'tag robotics';
+  if (tag === 'ハンド模倣学習') return 'tag hand';
+  return 'tag';
+}
+
+// ================================================================
+// 論文カード描画
+// ================================================================
+function renderPaper(paper, savedIds, readIds) {
+  var link  = paper.link && /^https?:\/\//.test(paper.link) ? paper.link : '#';
+  // ID は正規化して比較
+  var pid   = normalizeId(paper.id);
+  var saved = savedIds.indexOf(pid) >= 0;
+  var read  = readIds.indexOf(pid) >= 0;
+
+  var tagsHtml = '';
+  if (paper.tags && paper.tags.length) {
+    tagsHtml = paper.tags.map(function(t) {
+      return '<span class="' + tagClass(t) + '">' + escapeHtml(t) + '</span>';
+    }).join('');
+  }
+
+  var div = document.createElement('div');
+  div.className = 'paper' + (read ? ' read' : '');
+  // data-id には正規化済み ID を使う
+  var safeId = escapeHtml(pid);
+
+  div.innerHTML =
+    '<div class="title">' +
+      escapeHtml(paper.title) +
+      (read ? '' : ' <span class="new-badge">NEW</span>') +
+    '</div>' +
+    '<p class="meta">Published: ' + escapeHtml(formatDate(paper.published)) + '</p>' +
+    (tagsHtml ? '<div class="tags-row">' + tagsHtml + '</div>' : '') +
+    '<div class="summary">' + formatSummary(paper.summary_ja || '') + '</div>' +
+    '<div class="paper-actions">' +
+      '<label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;">' +
+        '<input type="checkbox" class="chk-read" data-id="' + safeId + '"' + (read ? ' checked' : '') + '>既読' +
+      '</label>' +
+      '<a class="arxiv" href="' + escapeHtml(link) + '" target="_blank" rel="noopener">View on arXiv</a>' +
+      '<button type="button" class="btn-save' + (saved ? ' saved' : '') + '" data-id="' + safeId + '">' +
+        (saved ? '★ Saved' : '☆ Save') +
+      '</button>' +
+    '</div>';
+
+  return div;
+}
+
+function applySort(list, sortValue, savedIds) {
+  var arr = list.slice();
+  if (sortValue === 'newest') {
+    arr.sort(function(a, b) { return (b.published || '').localeCompare(a.published || ''); });
+  } else if (sortValue === 'oldest') {
+    arr.sort(function(a, b) { return (a.published || '').localeCompare(b.published || ''); });
+  } else if (sortValue === 'savedFirst') {
+    arr.sort(function(a, b) {
+      var as = savedIds.indexOf(normalizeId(a.id)) >= 0 ? 1 : 0;
+      var bs = savedIds.indexOf(normalizeId(b.id)) >= 0 ? 1 : 0;
+      if (bs !== as) return bs - as;
+      return (b.published || '').localeCompare(a.published || '');
+    });
+  }
+  return arr;
+}
+
+function renderPapers(container, data, filterMode, sortValue, savedIds, readIds) {
+  container.innerHTML = '';
+  var list = data;
+
+  if (filterMode === 'unread') {
+    list = list.filter(function(p) { return readIds.indexOf(normalizeId(p.id)) === -1; });
+  } else if (filterMode === 'read') {
+    list = list.filter(function(p) { return readIds.indexOf(normalizeId(p.id)) >= 0; });
+  } else if (filterMode === 'saved') {
+    list = list.filter(function(p) { return savedIds.indexOf(normalizeId(p.id)) >= 0; });
+  } else if (filterMode === 'AIエージェント' || filterMode === 'Robotics' || filterMode === 'ハンド模倣学習') {
+    list = list.filter(function(p) { return p.tags && p.tags.indexOf(filterMode) >= 0; });
+  }
+  list = applySort(list, sortValue, savedIds);
+
+  if (list.length === 0) {
+    container.classList.add('empty');
+    container.textContent = filterMode === 'saved'
+      ? 'Saved の論文はありません。'
+      : (filterMode ? '該当する論文はありません。' : 'No papers yet.');
+    return;
+  }
+  container.classList.remove('empty');
+  list.forEach(function(paper) { container.appendChild(renderPaper(paper, savedIds, readIds)); });
+
+  // Save ボタン
+  container.querySelectorAll('.btn-save').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var id = btn.getAttribute('data-id'); // 正規化済み
+      if (!id) return;
+      var newIds = currentSavedIds.slice();
+      var i = newIds.indexOf(id);
+      if (i >= 0) newIds.splice(i, 1); else newIds.push(id);
+      setSavedIds(newIds, function() {
+        currentSavedIds = normalizeIds(newIds);
+        btn.textContent = currentSavedIds.indexOf(id) >= 0 ? '★ Saved' : '☆ Save';
+        btn.classList.toggle('saved', currentSavedIds.indexOf(id) >= 0);
+      });
+    });
+  });
+
+  // 既読チェックボックス
+  container.querySelectorAll('.chk-read').forEach(function(chk) {
+    chk.addEventListener('change', function() {
+      var id = chk.getAttribute('data-id'); // 正規化済み
+      var ids = currentReadIds.slice();
+      var i = ids.indexOf(id);
+      if (chk.checked && i === -1) ids.push(id);
+      if (!chk.checked && i >= 0) ids.splice(i, 1);
+      setReadIds(ids, function() {
+        currentReadIds = normalizeIds(ids);
+        update();
+      });
+    });
+  });
+}
+
+// ================================================================
+// グローバル状態
+// ================================================================
+var currentSavedIds = [];
+var currentReadIds  = [];
+
+// ================================================================
+// エラー表示
+// ================================================================
+function showError(msg) {
+  document.getElementById('errorBanner').innerHTML =
+    '<div class="error-msg">' + escapeHtml(msg) + '</div>';
+}
+function clearError() { document.getElementById('errorBanner').innerHTML = ''; }
+
+// ================================================================
+// 上に戻るボタン
+// ================================================================
+var backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', function() {
+  backToTop.classList.toggle('visible', window.scrollY > 300);
+});
+backToTop.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+// ================================================================
+// メイン: データ取得 → 初期化
+// ================================================================
+fetch('papers_db.json?v=' + Date.now(), { cache: 'no-store' })
+  .then(function(res) {
+    if (!res.ok) throw new Error('論文データの取得に失敗しました (papers_db.json)');
+    return res.json();
+  })
+  .then(function(data) {
+    var container = document.getElementById('papers');
+    var toolbar   = document.getElementById('toolbar');
+    container.classList.remove('loading');
+    clearError();
+
+    if (!Array.isArray(data) || data.length === 0) {
+      container.classList.add('empty');
+      container.innerHTML = 'No papers yet.<br><small style="color:#888;">リポジトリに論文がある場合はスーパーリロード (Ctrl+Shift+R) を試してください。</small>';
+      return;
+    }
+
+    // papers_db は published 降順 (main.py が保証)、ただし古い順で push されている場合は再ソート
+    data = data.slice().sort(function(a, b) { return (b.published || '').localeCompare(a.published || ''); });
+
+    // ── 論文更新日（published の最大値 = DBに入っている最新論文のarXiv投稿日）
+    // created_at はワークフロー実行日のため論文の新しさを反映しない
+    var latestPublished = '';
+    data.forEach(function(p) {
+      if (p.published && p.published > latestPublished) latestPublished = p.published;
+    });
+    if (latestPublished) {
+      document.getElementById('dbUpdate').textContent = '論文更新: ' + formatDate(latestPublished);
+    }
+
+    // 既読・Saved を取得（GitHub 設定があれば Contents API、なければ localStorage）
+    getReadIds(function(readIds) {
+      currentReadIds = readIds;
+
+      // 初回訪問: 既存論文をすべて既読扱いにする
+      var firstVisit = !localStorage.getItem(READ_KEY);
+      if (firstVisit) {
+        currentReadIds = data.map(function(p) { return normalizeId(p.id); });
+        setReadIds(currentReadIds);
       }
 
-      data = data.slice().reverse();
-      var lastDate = '';
-      data.forEach(function(p) {
-        if (p.created_at && (!lastDate || p.created_at > lastDate)) lastDate = p.created_at;
-      });
-      if (lastDate) document.getElementById('lastUpdate').textContent = '最終更新: ' + lastDate;
+      getSavedIds(function(savedIds) {
+        currentSavedIds = savedIds;
+        toolbar.style.display = 'flex';
 
-      getReadIds(function(readIds) {
-        currentReadIds = readIds || [];
-        var firstVisit = !localStorage.getItem(READ_KEY);
-        if (firstVisit) {
-          currentReadIds = data.map(function(p){ return p.id; });
-          setReadIds(currentReadIds);
+        var filterMode = 'all';
+        var sortValue  = 'newest';
+
+        var filterMap = {
+          filterAll: 'all', filterUnread: 'unread', filterRead: 'read', filterSaved: 'saved',
+          filterTagAgent: 'AIエージェント', filterTagRobotics: 'Robotics', filterTagHand: 'ハンド模倣学習'
+        };
+
+        function setFilterActive() {
+          Object.keys(filterMap).forEach(function(id) {
+            var btn = document.getElementById(id);
+            if (btn) btn.classList.toggle('active', filterMap[id] === filterMode);
+          });
         }
 
-        getSavedIds(function(ids) {
-          currentSavedIds = Array.isArray(ids) ? ids : [];
-          toolbar.style.display = 'flex';
+        function update() {
+          renderPapers(container, data, filterMode, sortValue, currentSavedIds, currentReadIds);
+          var unread = data.filter(function(p) {
+            return currentReadIds.indexOf(normalizeId(p.id)) === -1;
+          }).length;
+          document.getElementById('unreadCount').textContent = unread > 0 ? '未読: ' + unread : '';
+        }
 
-          var filterMode = 'all';
-          var sortValue  = 'newest';
-
-          function setFilterActive() {
-            var map = {
-              filterAll: 'all', filterUnread: 'unread', filterRead: 'read', filterSaved: 'saved',
-              filterTagAgent: 'AIエージェント', filterTagRobotics: 'Robotics', filterTagHand: 'ハンド模倣学習'
-            };
-            Object.keys(map).forEach(function(id) {
-              var btn = document.getElementById(id);
-              if (btn) btn.classList.toggle('active', map[id] === filterMode);
-            });
-          }
-
-          function update() {
-            renderPapers(container, data, filterMode, sortValue, currentSavedIds, currentReadIds);
-            var unread = data.filter(function(p){ return currentReadIds.indexOf(p.id) === -1; }).length;
-            document.getElementById('unreadCount').textContent = unread > 0 ? '未読: ' + unread : '';
-          }
-
-          document.getElementById('filterAll').onclick       = function(){ filterMode='all';          setFilterActive(); update(); };
-          document.getElementById('filterUnread').onclick    = function(){ filterMode='unread';        setFilterActive(); update(); };
-          document.getElementById('filterRead').onclick      = function(){ filterMode='read';          setFilterActive(); update(); };
-          document.getElementById('filterSaved').onclick     = function(){ filterMode='saved';         setFilterActive(); update(); };
-          document.getElementById('filterTagAgent').onclick  = function(){ filterMode='AIエージェント'; setFilterActive(); update(); };
-          document.getElementById('filterTagRobotics').onclick = function(){ filterMode='Robotics';    setFilterActive(); update(); };
-          document.getElementById('filterTagHand').onclick   = function(){ filterMode='ハンド模倣学習'; setFilterActive(); update(); };
-          document.getElementById('sortSelect').onchange     = function(){ sortValue=this.value;       update(); };
-
-          setFilterActive();
+        Object.keys(filterMap).forEach(function(id) {
+          var btn = document.getElementById(id);
+          if (btn) btn.addEventListener('click', function() {
+            filterMode = filterMap[id];
+            setFilterActive();
+            update();
+          });
+        });
+        document.getElementById('sortSelect').addEventListener('change', function() {
+          sortValue = this.value;
           update();
         });
+
+        setFilterActive();
+        update();
       });
-    })
-    .catch(function(e) {
-      document.getElementById('papers').classList.remove('loading');
-      document.getElementById('papers').innerHTML = '';
-      showError(e.message || '論文データを読み込めませんでした。papers_db.json が利用可能か、ネットワークを確認してください。');
     });
+  })
+  .catch(function(e) {
+    document.getElementById('papers').classList.remove('loading');
+    document.getElementById('papers').innerHTML = '';
+    showError(e.message || '論文データを読み込めませんでした。');
+  });
 </script>
 </body>
 </html>
