@@ -20,7 +20,7 @@ ARXIV_QUERIES = [
     "search_query=(cat:cs.RO+OR+cat:cs.LG)+AND+(all:hand+OR+all:imitation+OR+all:dexterous+OR+all:manipulation)&sortBy=submittedDate&max_results=3",
 ]
 
-MAX_PAPERS_PER_RUN = 6
+MAX_PAPERS_PER_RUN = 4
 DB_FILE = "papers_db.json"
 
 # ==========================
