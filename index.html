@@ -135,6 +135,19 @@
     .sync-hint.success { color: #2e7d32; }
     .error-msg { padding: 16px; border-radius: 12px; background: #ffebee; color: #c62828; margin-bottom: 20px; }
     body.dark .error-msg { background: #4a1a1a; color: #ef9a9a; }
+    .info-msg {
+      padding: 12px 16px; border-radius: 12px; background: #fff8e1; color: #6d4c00;
+      margin-bottom: 16px; font-size: 0.9rem; display: flex; align-items: center;
+      justify-content: space-between; gap: 12px; border: 1px solid #ffe082;
+    }
+    body.dark .info-msg { background: #2a2000; color: #ffe082; border-color: #5a4a00; }
+    .info-msg button {
+      flex-shrink: 0; padding: 6px 12px; border-radius: 6px; font-size: 0.85rem;
+      font-weight: 600; border: 1px solid #f9a825; background: #fff; color: #6d4c00;
+      cursor: pointer; white-space: nowrap;
+    }
+    body.dark .info-msg button { background: #3a3000; color: #ffe082; border-color: #5a4a00; }
+    .info-msg button:hover { background: #fff3cd; }
   </style>
 </head>
 <body>
@@ -501,6 +514,7 @@ document.getElementById('btnSaveSettings').addEventListener('click', function() 
   if (token) localStorage.setItem(GITHUB_TOKEN_KEY, token); else localStorage.removeItem(GITHUB_TOKEN_KEY);
   setSyncHint(repo && token ? '設定を保存しました。Sync ボタンで GitHub に反映できます。' : '設定をクリアしました。', '');
   updateSyncDisplay();
+  renderSetupBanner();
 });
 document.getElementById('btnClearSettings').addEventListener('click', function() {
   localStorage.removeItem(GITHUB_REPO_KEY);
@@ -509,6 +523,7 @@ document.getElementById('btnClearSettings').addEventListener('click', function()
   document.getElementById('inputToken').value = '';
   setSyncHint('設定をクリアしました。保存はこの端末のみになります。', '');
   updateSyncDisplay();
+  renderSetupBanner();
 });
 
 // ================================================================
@@ -526,6 +541,40 @@ document.getElementById('darkModeBtn').addEventListener('click', function() {
 });
 initDarkMode();
 updateSyncDisplay(); // ページ読み込み時に前回同期日時を表示
+
+// ================================================================
+// GitHub 未設定バナー
+// GitHub設定がない端末でページを開いたときに案内を表示する
+// ================================================================
+function renderSetupBanner() {
+  var banner = document.getElementById('errorBanner');
+  var hasRepo  = !!localStorage.getItem(GITHUB_REPO_KEY);
+  var hasToken = !!localStorage.getItem(GITHUB_TOKEN_KEY);
+
+  if (hasRepo && hasToken) {
+    // 設定済み → バナー不要（案内バナーだけ消す。エラーは残す）
+    if (banner.querySelector('.info-msg')) banner.innerHTML = '';
+    return;
+  }
+
+  // 未設定 → 案内バナーを表示（エラーバナーが出ていない場合のみ）
+  if (banner.querySelector('.error-msg')) return;
+  banner.innerHTML =
+    '<div class="info-msg">' +
+      '<span>⚙️ この端末は GitHub と未連携です。Saved・既読を同期するには設定からリポジトリとトークンを入力してください。</span>' +
+      '<button type="button" id="bannerSettingsBtn">設定を開く</button>' +
+    '</div>';
+
+  document.getElementById('bannerSettingsBtn').addEventListener('click', function() {
+    var panel = document.getElementById('settingsPanel');
+    panel.style.display = 'block';
+    document.getElementById('inputRepo').value  = localStorage.getItem(GITHUB_REPO_KEY)  || '';
+    document.getElementById('inputToken').value = localStorage.getItem(GITHUB_TOKEN_KEY) || '';
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+}
+
+renderSetupBanner();
 
 // ================================================================
 // ユーティリティ
