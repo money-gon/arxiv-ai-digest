@@ -1,5 +1,74 @@
 [
   {
+    "id": "http://arxiv.org/abs/2603.25741v1",
+    "title": "Vega: Learning to Drive with Natural Language Instructions",
+    "summary_ja": "【背景】\n現在の自動運転技術では、ビジョンと言語の情報が組み込まれており、シーンの説明や推理に利用されています。しかし、多くの既存のパイプラインは、多様なユーザーアイナーチャクルに従う柔軟性が不足しており、個別化された運転を実現する能力が限られています。\n\n【提案】\nこの問題を解決するために、大量のドライブデータセット（InstructScene）を構築し、多様な運転指示と対応する軌跡が付随する約10万シーンを含みます。さらに、インストラクションに基づく生成と計画を行う統一的なビジョン-言語-世界-行動モデル（Vega）を提案します。\n\n【結果】\n実験では、当該モデルは優れた計画性能を達成するとともに、多様な指示に従う能力も示しました。これにより、より知能的で個別化されたドライブシステムの実現が可能になりました。\n\n【ポイント】\nVegaモデルは、ビジョンと言語の情報から未来の予測と軌跡を生成し、多様な指示に柔軟に対応する能力を有し、個別化された自動運転システムの実現に貢献しています。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "link": "https://arxiv.org/abs/2603.25741v1",
+    "published": "2026-03-26T17:59:56Z",
+    "created_at": "2026-03-28"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.25740v1",
+    "title": "Drive My Way: Preference Alignment of Vision-Language-Action Model for Personalized Driving",
+    "summary_ja": "【背景】\n人間の運転行動は個人差があり、長期間の習慣や短期的な意図によって形成されます。既存の端到端の自動運転システムは、一般的な目標を最適化するか、固定された運転モードに依存しており、個々人の好みに合わせて調整する能力や自然言語の意図を解釈する能力が不足しています。\n\n【提案】\nDrive My Way (DMW)という個別化されたビジョン-言語-行動（VLA）運転フレームワークを提案し、ユーザーの長期的な運転習慣に合わせて調整し、リアルタイムのユーザー指示に対応します。DMWは、複数の運転者と条件から収集した個別化された運転データセットを使用してユーザー埋め込みを学習し、計画時にこの埋め込みを条件付けます。また、自然言語指示は短期的なガイダンスを提供します。\n\n【結果】\nBench2Driveベンチマークでのクローズドループ評価では、DMWがスタイル指示の適応を改善することを示しました。ユーザー研究では、生成された行動が各ドライバーの独自のスタイルとして認識されることを確認しました。\n\n【ポイント】\n個別化された運転フレームワークが、人間中心の自動運転における重要な能力を示しました。",
+    "tags": [
+      "AIエージェント",
+      "ハンド模倣学習"
+    ],
+    "link": "https://arxiv.org/abs/2603.25740v1",
+    "published": "2026-03-26T17:59:54Z",
+    "created_at": "2026-03-28"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.25727v1",
+    "title": "Back to Basics: Revisiting ASR in the Age of Voice Agents",
+    "summary_ja": "【背景】\n自動音声認識（ASR）システムは、カスタムされたベンチマークでは人間レベルの精度を達成していますが、現在の評価がカバーしていない実世界の状況では音声エージェントでの性能が低下します。具体的な失敗要因を特定する診断ツールが不足しているため、実務家はどの状況、どの言語でどの程度の性能低下が起こるか予測できません。\n\n【提案】\nWildASRという多言語（4言語）の診断ベンチマークを導入し、環境の劣化、人口の変化、言語の多様性の3つの軸でASRの堅牢性を分解します。7つの広く使用されているASRシステムを評価し、モデルの性能が大幅に低下し、モデルは部分的または劣化した入力下で適切に言及されていない内容を虚構することが明らかになりました。\n\n【結果】\nモデルの堅牢性は言語や状況によって転移しないことがわかりました。特に、部分的または劣化した入力では、モデルは適切に言及されていない内容を虚構することが多く、ダウンストリームのエージェント動作に具体的な安全リスクを生む可能性があります。これらの結果は、生産システムにおけるASRの信頼性を理解し改善するためには、ターゲットを絞った、要因を分解した評価が不可欠であることを示しています。\n\n【ポイント】\n本研究は、生産システムにおけるASRの信頼性を理解し改善するための、要因を分解した評価の重要性を示しました。",
+    "tags": [
+      "AIエージェント"
+    ],
+    "link": "https://arxiv.org/abs/2603.25727v1",
+    "published": "2026-03-26T17:59:03Z",
+    "created_at": "2026-03-28"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.25725v1",
+    "title": "SoftMimicGen: A Data Generation System for Scalable Robot Learning in Deformable Object Manipulation",
+    "summary_ja": "【背景】\n柔軟物体の操作は実世界での操作の大部分を占め、現実世界のデータをシミュレーションデータに転換するための手法の進歩が重要です。しかし、柔軟物体の操作はシミュレーションで正確に再現するのが難しく、大量の人間の時間とコストが必要で、データの拡大が困難です。\n\n【提案】\nSoftMimicGenという自動データ生成パイプラインを提案し、柔軟物体の操作タスク向けの高精度シミュレーション環境を構築しました。このシステムは、 Stuffied Animal、Rope、Tissue、Towelなどの柔軟物体と、高精度のスレーブ、ダイナミックな Whip、折りたたみ、Pick-and-Placeなどの操作行為を含みます。\n\n【結果】\nSoftMimicGenを使用して、様々なタスクのデータセットを生成し、これらのデータから高性能なポリシーを学習しました。さらに、データ生成システムの評価を行い、その効果を系統的に分析しました。\n\n【ポイント】\n柔軟物体の操作タスク向けのシミュレーションデータ生成手法を提案し、実用的なデータセットを大量に生成することができた。",
+    "tags": [
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "link": "https://arxiv.org/abs/2603.25725v1",
+    "published": "2026-03-26T17:58:40Z",
+    "created_at": "2026-03-28"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.25723v1",
+    "title": "Natural-Language Agent Harnesses",
+    "summary_ja": "【背景】\nエージェントのパフォーマンスはハーネスエンジニアリングに大きく依存していますが、ハーネス設計は通常、コントローラコード内に埋め込まれており、ランタイム固有の規約と共に科学的な対象として転送、比較、研究することが困難です。\n\n【提案】\n高レベルの制御ロジックをハーネスエンジニアリングから外部化し、編集可能な自然言語でハーネスの動作を表現する方法を提案します。また、明確な契約、永続的なアーティファクト、軽量なアダプターを通じてこれらのハーネスを実行する共有ランタイムを導入します。\n\n【結果】\nコーディングとコンピュータ使用のベンチマークにおいて、操作可能性の評価、モジュールの削除、コードからテキストへのハーネスの移行を制御した評価を行いました。\n\n【ポイント】\n自然言語で表現されたハーネスが、ハーネスエンジニアリングの科学的な研究と比較の容易化に貢献します。",
+    "tags": [
+      "AIエージェント"
+    ],
+    "link": "https://arxiv.org/abs/2603.25723v1",
+    "published": "2026-03-26T17:58:15Z",
+    "created_at": "2026-03-28"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.25719v1",
+    "title": "Agent Factories for High Level Synthesis: How Far Can General-Purpose Coding Agents Go in Hardware Optimization?",
+    "summary_ja": "【背景】\nハードウェア設計の高度なアルゴリズム仕様からハードウェア設計を最適化する汎用コーディングエージェントの可能性が注目されている。しかし、これらのエージェントはハードウェア固有のトレーニングを必要としないため、その能力は限定されている可能性がある。\n\n【提案】\nこの論文では、複数の自律最適化エージェントを構築・協調するエージェントファクトリーを提案する。このファクトリーは二段階のパイプラインで構成され、設計をサブカーネルに分解し、各サブカーネルを個別に最適化し、整数線形計画法（ILP）を使用して領域制約内で最良の組み合わせを決定する。\n\n【結果】\n提案手法はHLS-EvalとRodinia-HLSの12のカーネルに対して評価され、1から10のエージェントにスケーリングすることで平均8.27倍の速度向上が確認された。特に、streamclusterでは20倍以上、kmeansでは約10倍の速度向上が達成された。エージェントは領域制約内で最良の組み合わせを見つけ出し、サブカーネル分解によって見落とされる可能性のある改善点を明らかにした。\n\n【ポイント】\nこの研究は、汎用コーディングエージェントをハードウェア最適化に適用することにより、高度なアルゴリズム仕様から効果的なハードウェア設計を生成するための新たなアプローチを示した。",
+    "tags": [
+      "AIエージェント"
+    ],
+    "link": "https://arxiv.org/abs/2603.25719v1",
+    "published": "2026-03-26T17:57:50Z",
+    "created_at": "2026-03-28"
+  },
+  {
     "id": "http://arxiv.org/abs/2603.24587v1",
     "title": "DreamerAD: Efficient Reinforcement Learning via Latent World Model for Autonomous Driving",
     "summary_ja": "【背景】\n実世界のドライビングデータを使用した強化学習（RL）のトレーニングは、コストと安全性の観点から困難である。既存のピクセルレベルの拡散世界モデルは、安全な想像ベースのトレーニングを可能にするが、多ステップの拡散推論遅延（2秒/フレーム）により、高頻度のRL相互作用が不可能となる。\n\n【提案】\nDreamerADは、100ステップの拡散サンプリングを1ステップに圧縮することで、80倍の速度向上を達成しながら視覚的解釈性を維持する最初の潜在世界モデルフレームワークを提案する。この方法は、短絡的なサンプリング強制、自動 regressiven 密集型報酬モデル、および GRPO でのガウス語彙サンプリングを通じて実現される。\n\n【結果】\nDreamerADはNavSim v2で87.7 EPDMSのパフォーマンスを達成し、最適な性能を確立。潜在空間のRLが自動運転に有効であることを示す。\n\n【ポイント】\n潜在空間のRLが自動運転に有効であることを証明し、高頻度のRL相互作用を可能にする高速な推論を達成した。",
@@ -1296,33 +1365,6 @@
     "created_at": "2026-02-27"
   },
   {
-    "id": "http://arxiv.org/abs/2602.21203v1",
-    "title": "Squint: Fast Visual Reinforcement Learning for Sim-to-Real Robotics",
-    "summary_en": "Visual reinforcement learning is appealing for robotics but expensive -- off-policy methods are sample-efficient yet slow; on-policy methods parallelize well but waste samples. Recent work has shown that off-policy methods can train faster than on-policy methods in wall-clock time for state-based control. Extending this to vision remains challenging, where high-dimensional input images complicate training dynamics and introduce substantial storage and encoding overhead. To address these challenges, we introduce Squint, a visual Soft Actor Critic method that achieves faster wall-clock training than prior visual off-policy and on-policy methods. Squint achieves this via parallel simulation, a distributional critic, resolution squinting, layer normalization, a tuned update-to-data ratio, and an optimized implementation. We evaluate on the SO-101 Task Set, a new suite of eight manipulation tasks in ManiSkill3 with heavy domain randomization, and demonstrate sim-to-real transfer to a real SO-101 robot. We train policies for 15 minutes on a single RTX 3090 GPU, with most tasks converging in under 6 minutes.",
-    "published": "2026-02-24T18:58:11Z",
-    "link": "https://arxiv.org/abs/2602.21203v1",
-    "summary_ja": "【背景】\n視覚強化学習（Visual Reinforcement Learning：画像入力を用いた強化学習）はロボット工学に魅力的だが、高次元の画像データを扱うために**計算コスト**や**記憶容量**が膨大になる問題がある。\n従来の手法では、**オフポリシー法**（過去の経験データから学習する手法）がサンプル効率が高いものの学習速度が遅く、**オンポリシー法**（最新の経験データのみで学習する手法）は並列化が容易だがサンプルの無駄が多いという Trade-off が存在した。\n\n---\n\n【提案】\n本研究では、**視覚 Soft Actor Critic（SAC）**（画像入力に対応したアクティブな探索と安定性を両立する強化学習アルゴリズム）を拡張した**Squint**という手法を提案する。\nSquint は以下の技術を組み合わせることで、従来手法よりも**壁時計時間での学習速度**を大幅に向上させた：\n- **並列シミュレーション**（複数の環境で同時に学習を行うこと）\n- **分布型クリティック**（報酬分布をモデル化し、不確実性に強い評価関数）\n- **解像度 Squinting**（入力画像の解像度を動的に低減し、計算負荷を軽減する手法）\n- **レイヤー正規化**（各層の出力を安定化させる技術）\n- **最適な更新対データ比**（効率的な学習のための更新頻度調整）\n- **高度に最適化された実装**\n\nさらに、実験用タスクセットとして**SO-101 Task Set**（ManiSkill3 上の8つの操作タスクで、多様な環境変化を模擬する）を新規に構築し、シミュレーションから実機への転移（sim-to-real transfer）も実証した。\n\n---\n\n【結果】\nSO-101 Task Set 上での実験では、Squint が**1枚の RTX 3090 GPU で15分以内に学習し、ほとんどのタスクが6分以内に収束**することを示した。\n従来の視覚強化学習手法（オフポリシー法やオンポリシー法）と比較して、**壁時計時間での学習速度が最速**であり、実機への転移性能も高いことを確認した。\n\n---\n\n【ポイント】\n**高次元画像入力下でも極めて効率的な視覚強化学習手法**を実現し、ロボット操作タスクの**短時間学習と実機転移性能**を飛躍的に向上させた。\n\n---",
-    "tags": [
-      "Robotics",
-      "ハンド模倣学習"
-    ],
-    "saved": false,
-    "created_at": "2026-02-25"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.21201v1",
-    "title": "Aletheia tackles FirstProof autonomously",
-    "summary_en": "We report the performance of Aletheia (Feng et al., 2026b), a mathematics research agent powered by Gemini 3 Deep Think, on the inaugural FirstProof challenge. Within the allowed timeframe of the challenge, Aletheia autonomously solved 6 problems (2, 5, 7, 8, 9, 10) out of 10 according to majority expert assessments; we note that experts were not unanimous on Problem 8 (only). For full transparency, we explain our interpretation of FirstProof and disclose details about our experiments as well as our evaluation. Raw prompts and outputs are available at https://github.com/google-deepmind/superhuman/tree/main/aletheia.",
-    "published": "2026-02-24T18:56:10Z",
-    "link": "https://arxiv.org/abs/2602.21201v1",
-    "summary_ja": "【背景】\n数学研究において、AIエージェント（自律的に問題を解決するAIシステム）の性能評価が求められている。\nしかし、従来のベンチマークでは、AIの解法過程や人間の研究者との互換性が十分に検証されていない。\nそこで、数学の証明問題に特化した「FirstProofチャレンジ」が登場し、AIエージェントの自律的な問題解決能力を評価する新たな基準となった。\n\n【提案】\nこの論文では、Google DeepMindが開発したGemini 3 Deep Think（数学的推論に特化したモデル）をベースとしたAIエージェント「Aletheia（アレテイア）」の性能を報告している。\nFirstProofチャレンジの制限時間内で、10問中6問（問題2、5、7、8、9、10）を自律的に解決した。\nなお、問題8のみ専門家の評価が一致しなかったため、透明性を確保するために実験詳細や評価基準を公開した。\n\n【結果】\nAletheiaは、専門家の多数評価により、6問を正解したことが確認された。\n問題8の解答については、専門家間で意見が分かれたものの、解法過程の説明や実験結果の開示により再現性と信頼性が向上した。\n論文では、チャレンジの解釈や実験条件、評価方法について詳細を明らかにしており、GitHubリポジトリにて生のプロンプト（入力）と出力を公開している。\n\n【ポイント】\nAIエージェントが数学研究の自律的な問題解決能力を実証し、特に解法過程の透明性を高めたことが貢献である。",
-    "tags": [
-      "AIエージェント"
-    ],
-    "saved": false,
-    "created_at": "2026-02-25"
-  },
-  {
     "id": "http://arxiv.org/abs/2602.21198v1",
     "title": "Learning from Trials and Errors: Reflective Test-Time Planning for Embodied LLMs",
     "summary_en": "Embodied LLMs endow robots with high-level task reasoning, but they cannot reflect on what went wrong or why, turning deployment into a sequence of independent trials where mistakes repeat rather than accumulate into experience. Drawing upon human reflective practitioners, we introduce Reflective Test-Time Planning, which integrates two modes of reflection: \\textit{reflection-in-action}, where the agent uses test-time scaling to generate and score multiple candidate actions using internal reflections before execution; and \\textit{reflection-on-action}, which uses test-time training to update both its internal reflection model and its action policy based on external reflections after execution. We also include retrospective reflection, allowing the agent to re-evaluate earlier decisions and perform model updates with hindsight for proper long-horizon credit assignment. Experiments on our newly-designed Long-Horizon Household benchmark and MuJoCo Cupboard Fitting benchmark show significant gains over baseline models, with ablative studies validating the complementary roles of reflection-in-action and reflection-on-action. Qualitative analyses, including real-robot trials, highlight behavioral correction through reflection.",
@@ -1338,35 +1380,6 @@
     "created_at": "2026-02-25"
   },
   {
-    "id": "http://arxiv.org/abs/2602.21161v1",
-    "title": "ActionReasoning: Robot Action Reasoning in 3D Space with LLM for Robotic Brick Stacking",
-    "summary_en": "Classical robotic systems typically rely on custom planners designed for constrained environments. While effective in restricted settings, these systems lack generalization capabilities, limiting the scalability of embodied AI and general-purpose robots. Recent data-driven Vision-Language-Action (VLA) approaches aim to learn policies from large-scale simulation and real-world data. However, the continuous action space of the physical world significantly exceeds the representational capacity of linguistic tokens, making it unclear if scaling data alone can yield general robotic intelligence. To address this gap, we propose ActionReasoning, an LLM-driven framework that performs explicit action reasoning to produce physics-consistent, prior-guided decisions for robotic manipulation. ActionReasoning leverages the physical priors and real-world knowledge already encoded in Large Language Models (LLMs) and structures them within a multi-agent architecture. We instantiate this framework on a tractable case study of brick stacking, where the environment states are assumed to be already accurately measured. The environmental states are then serialized and passed to a multi-agent LLM framework that generates physics-aware action plans. The experiments demonstrate that the proposed multi-agent LLM framework enables stable brick placement while shifting effort from low-level domain-specific coding to high-level tool invocation and prompting, highlighting its potential for broader generalization. This work introduces a promising approach to bridging perception and execution in robotic manipulation by integrating physical reasoning with LLMs.",
-    "published": "2026-02-24T18:07:06Z",
-    "link": "https://arxiv.org/abs/2602.21161v1",
-    "summary_ja": "【背景】\n従来のロボットシステムは、制限された環境に特化したカスタムプランナー（環境の物理制約に合わせて設計されたロボットの動作計画手法）に依存してきた。\nこれらのプランナーは、狭いタスク領域では有効だが、一般的な環境やタスクに対する**汎用性（広範な状況に適用できる能力）**が欠如している。\nそのため、AIロボットや汎用ロボットの**スケーラビリティ（拡張性）**が制限され、大規模なデータから学習するVision-Language-Action（VLA：視覚・言語・行動の統合モデル）手法の限界が浮き彫りになっていた。\n\n【提案】\n本論文では、LLM（Large Language Model：大規模言語モデル）を活用した**ActionReasoning**というフレームワークを提案する。\nこのフレームワークは、LLMに既にエンコード（組み込み）されている**物理的事前知識（物理法則や現実世界の常識）**と**多エージェントアーキテクチャ（複数のAIエージェントが協調して行動する設計）**を組み合わせ、ロボット操作における**物理的に一致した行動計画**を生成する。\n具体例として、ブリック積み（環境状態が正確に測定されている前提の下）のタスクを取り上げ、環境状態をシリアル化（言語化）してLLMに入力し、物理的な認識に基づいた行動プランを生成する。\n\n【結果】\n実験では、提案手法の**多エージェントLLMフレームワーク**が、安定したブリックの配置を実現した。\nまた、従来の手法で必要だった**低レベルのドメイン特化コーディング（具体的なタスクに依存したプログラムの詳細実装）**を、高レベルな**ツール呼び出しやプロンプティング（指示文の設計）**に置き換えることで、効率化が可能となった。\nこの結果は、本手法がより広範なタスクへの**汎用性**を持つことを示唆しており、視覚認識と実行の橋渡しとして有望である。\n\n【ポイント】\nLLMに物理的事前知識を組み込んだ多エージェントフレームワークにより、ロボット操作の**汎用性と安定性**を実現した。",
-    "tags": [
-      "AIエージェント",
-      "Robotics",
-      "ハンド模倣学習"
-    ],
-    "saved": false,
-    "created_at": "2026-02-25"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.20159v1",
-    "title": "A Very Big Video Reasoning Suite",
-    "summary_en": "Rapid progress in video models has largely focused on visual quality, leaving their reasoning capabilities underexplored. Video reasoning grounds intelligence in spatiotemporally consistent visual environments that go beyond what text can naturally capture, enabling intuitive reasoning over spatiotemporal structure such as continuity, interaction, and causality. However, systematically studying video reasoning and its scaling behavior is hindered by the lack of large-scale training data. To address this gap, we introduce the Very Big Video Reasoning (VBVR) Dataset, an unprecedentedly large-scale resource spanning 200 curated reasoning tasks following a principled taxonomy and over one million video clips, approximately three orders of magnitude larger than existing datasets. We further present VBVR-Bench, a verifiable evaluation framework that moves beyond model-based judging by incorporating rule-based, human-aligned scorers, enabling reproducible and interpretable diagnosis of video reasoning capabilities. Leveraging the VBVR suite, we conduct one of the first large-scale scaling studies of video reasoning and observe early signs of emergent generalization to unseen reasoning tasks. Together, VBVR lays a foundation for the next stage of research in generalizable video reasoning. The data, benchmark toolkit, and models are publicly available at https://video-reason.com/ .",
-    "published": "2026-02-23T18:59:41Z",
-    "link": "https://arxiv.org/abs/2602.20159v1",
-    "summary_ja": "【背景】\n近年の動画モデル（画像や動画を理解・生成するAIモデル）の進歩は主に**視覚的品質（生成画像の鮮明さやリアリティなど）**に焦点が当てられてきた。\nしかし、**動画における推論能力（空間・時間的な一貫性や因果関係を理解する能力）**は十分に研究されていない。\n動画はテキストよりも直感的に**空間時間構造（連続性、相互作用、因果関係など）**を捉えられるため、推論に適した環境を提供するが、大規模な動画データが不足していることが課題となっている。\n\n---\n\n【提案】\n本論文では、**動画推論能力の研究を加速するための2つの新しいデータセット**を提案した。\n1. **Very Big Video Reasoning (VBVR) Dataset**：200種類の**推論タスク（空間時間的な論理や因果関係を問う課題）**に基づく、約100万本の動画クリップを含む大規模データセット。\n   既存のデータセットより**3桁以上の規模拡大**を実現し、体系的な分類（taxonomy）に従って構築された。\n2. **VBVR-Bench**：動画モデルの推論能力を**再現性の高い評価**で診断可能にするフレームワーク。\n   モデルに依存した判定（model-based judging）ではなく、**ルールベースかつ人間の基準に合わせたスコアリング（rule-based, human-aligned scorers）**を採用し、解釈可能な評価を可能にした。\n\n---\n\n【結果】\nVBVRデータセットとベンチマークを用いた**大規模なスケーリング研究**で、以下の知見が得られた：\n- 動画モデルは、**未知の推論タスクにも一般化（emergent generalization）する兆候**を示した。\n  これは、モデルが単に訓練データを暗記するのではなく、空間時間構造を理解し適用できる能力を獲得している可能性を示唆する。\n- 既存の動画データセットでは困難だった**体系的な評価**が、VBVR-Benchにより初めて実現された。\n  ルールベースのスコアリングにより、モデルの推論能力が客観的に診断できるようになった。\n- 研究コミュニティへの貢献として、**データ、ベンチマークツールキット、およびモデル**が公開された（URL: https://video-reason.com/）。\n\n---\n\n【ポイント】\n動画推論能力の研究を**大規模データと再現性の高い評価フレームワーク**により体系化し、モデルの**一般化可能な推論力**の発見に道筋を示した。\n\n---",
-    "tags": [
-      "AIエージェント",
-      "Robotics"
-    ],
-    "saved": false,
-    "created_at": "2026-02-24"
-  },
-  {
     "id": "http://arxiv.org/abs/2602.20150v1",
     "title": "Simulation-Ready Cluttered Scene Estimation via Physics-aware Joint Shape and Pose Optimization",
     "summary_en": "Estimating simulation-ready scenes from real-world observations is crucial for downstream planning and policy learning tasks. Regretfully, existing methods struggle in cluttered environments, often exhibiting prohibitive computational cost, poor robustness, and restricted generality when scaling to multiple interacting objects. We propose a unified optimization-based formulation for real-to-sim scene estimation that jointly recovers the shapes and poses of multiple rigid objects under physical constraints. Our method is built on two key technical innovations. First, we leverage the recently introduced shape-differentiable contact model, whose global differentiability permits joint optimization over object geometry and pose while modeling inter-object contacts. Second, we exploit the structured sparsity of the augmented Lagrangian Hessian to derive an efficient linear system solver whose computational cost scales favorably with scene complexity. Building on this formulation, we develop an end-to-end real-to-sim scene estimation pipeline that integrates learning-based object initialization, physics-constrained joint shape-pose optimization, and differentiable texture refinement. Experiments on cluttered scenes with up to 5 objects and 22 convex hulls demonstrate that our approach robustly reconstructs physically valid, simulation-ready object shapes and poses.",
@@ -1374,35 +1387,6 @@
     "link": "https://arxiv.org/abs/2602.20150v1",
     "summary_ja": "【背景】\n現実世界の観測データから物理シミュレーションで利用可能なシーン（物体の形状と姿勢）を推定することは、ロボットの計画（プランニング）やポリシー学習（行動学習）に不可欠である。\nしかし、既存の手法は混雑した環境（クラッタード環境）で精度が低下しやすく、計算コストが高すぎたり、ロバスト性（外乱に対する頑健性）が悪かったり、複数の相互作用する物体への拡張が困難な場合が多い。\n\n【提案】\n本論文では、物理制約下での複数剛体物体の形状と姿勢を**統合最適化**により推定する、新たなフレームワークを提案する。\n具体的には、2つの技術革新に基づく：\n1. 最近導入された**形状微分可能な接触モデル**（物体の形状と接触状態を連続的に最適化できるモデル）を活用し、物体間の接触を考慮した**同時最適化**を可能にする。\n2. 拡張ラグランジュ法（制約付き最適化問題を解く手法）の**構造的稀疎性**（計算行列の多くがゼロで、効率的な解法が可能）を利用し、計算コストがシーンの複雑さに対して有利にスケールする**線形系ソルバー**を導出する。\nさらに、この最適化フレームワークに基づき、**エンドツーエンド（端末間）の実世界→シミュレーションシーン推定パイプライン**を開発する。これは、学習ベースの物体初期化（物体の初期推定）、物理制約付きの形状・姿勢同時最適化、微分可能なテクスチャ（表面質感）リファインメント（精緻化）を統合したものである。\n\n【結果】\n実験では、最大5物体・22凸多面体（凸状の物体形状）からなる混雑シーンで評価を行った。\n提案手法は、物理的に妥当でシミュレーション可能な物体の形状と姿勢を**頑健に**再構成できることが示された。また、計算コストが既存手法に比べて有利にスケールすることが確認された。\n\n【ポイント】\n**物理制約下での混雑シーンにおける複数物体の形状・姿勢推定を、高速かつ頑健に実現する統合最適化フレームワーク**を提案し、実世界観測データからシミュレーション準備シーンを効率的に構築可能であることを実証した。",
     "tags": [
-      "Robotics",
-      "ハンド模倣学習"
-    ],
-    "saved": false,
-    "created_at": "2026-02-24"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.20144v1",
-    "title": "Agentic AI for Scalable and Robust Optical Systems Control",
-    "summary_en": "We present AgentOptics, an agentic AI framework for high-fidelity, autonomous optical system control built on the Model Context Protocol (MCP). AgentOptics interprets natural language tasks and executes protocol-compliant actions on heterogeneous optical devices through a structured tool abstraction layer. We implement 64 standardized MCP tools across 8 representative optical devices and construct a 410-task benchmark to evaluate request understanding, role-aware responses, multi-step coordination, robustness to linguistic variation, and error handling. We assess two deployment configurations--commercial online LLMs and locally hosted open-source LLMs--and compare them with LLM-based code generation baselines. AgentOptics achieves 87.7%--99.0% average task success rates, significantly outperforming code-generation approaches, which reach up to 50% success. We further demonstrate broader applicability through five case studies extending beyond device-level control to system orchestration, monitoring, and closed-loop optimization. These include DWDM link provisioning and coordinated monitoring of coherent 400 GbE and analog radio-over-fiber (ARoF) channels; autonomous characterization and bias optimization of a wideband ARoF link carrying 5G fronthaul traffic; multi-span channel provisioning with launch power optimization; closed-loop fiber polarization stabilization; and distributed acoustic sensing (DAS)-based fiber monitoring with LLM-assisted event detection. These results establish AgentOptics as a scalable, robust paradigm for autonomous control and orchestration of heterogeneous optical systems.",
-    "published": "2026-02-23T18:54:32Z",
-    "link": "https://arxiv.org/abs/2602.20144v1",
-    "summary_ja": "【背景】\n光システムの自律制御は、複雑な多種多様な光デバイス間の協調を要し、高精度な操作が求められる。\n従来の手法では、プログラムやコード生成を介した制御が主流であったが、自然言語による直感的なタスク指示に対応できず、エラー処理や柔軟な応答が難しかった。\nこのため、光システムの自律制御を実現するための新たなフレームワークが必要とされていた。\n\n【提案】\nこの論文では、**AgentOptics**というAIエージェントフレームワークを提案する。\n**Model Context Protocol (MCP)**（モデルとデバイス間の標準化された通信プロトコル）を基盤とし、自然言語で記述されたタスクを解釈して、異種の光デバイスに対してプロトコル準拠の操作を実行する。\n具体的には、8種類の代表的な光デバイスに対応する64種類の標準化されたMCPツールを実装し、410タスクのベンチマークを構築した。\n\n【結果】\n・商用オンラインLLM（大規模言語モデル）とローカルでホストされるオープンソースLLMの2つの展開設定を評価した。\n・AgentOpticsは平均87.7%〜99.0%のタスク成功率を達成し、コード生成ベースの手法（最大50%成功）を大きく上回った。\n・5つのケーススタディ（光システム全体のオーケストレーション、監視、閉ループ最適化）を通じて、より広範な応用可能性を実証した。\n・例として、DWDMリンクのプロビジョニング、ARoF（アナログ無線信号を光ファイバーで伝送する技術）チャネルの協調監視、自律的なARoFリンクの特性評価とバイアス最適化、マルチスパンチャネルプロビジョニング、光ファイバーの偏波安定化、DAS（分散音響センサ）によるファイバー監視とLLM支援のイベント検出などが挙げられる。\n\n【ポイント】\nAgentOpticsは、自然言語による直感的な指示に対応しつつ、異種の光デバイスを自律的に制御・最適化する新たなパラダイムを確立した。",
-    "tags": [
-      "AIエージェント",
-      "Robotics"
-    ],
-    "saved": false,
-    "created_at": "2026-02-24"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.20141v1",
-    "title": "Recurrent Structural Policy Gradient for Partially Observable Mean Field Games",
-    "summary_en": "Mean Field Games (MFGs) provide a principled framework for modeling interactions in large population models: at scale, population dynamics become deterministic, with uncertainty entering only through aggregate shocks, or common noise. However, algorithmic progress has been limited since model-free methods are too high variance and exact methods scale poorly. Recent Hybrid Structural Methods (HSMs) use Monte Carlo rollouts for the common noise in combination with exact estimation of the expected return, conditioned on those samples. However, HSMs have not been scaled to Partially Observable settings. We propose Recurrent Structural Policy Gradient (RSPG), the first history-aware HSM for settings involving public information. We also introduce MFAX, our JAX-based framework for MFGs. By leveraging known transition dynamics, RSPG achieves state-of-the-art performance as well as an order-of-magnitude faster convergence and solves, for the first time, a macroeconomics MFG with heterogeneous agents, common noise and history-aware policies. MFAX is publicly available at: https://github.com/CWibault/mfax.",
-    "published": "2026-02-23T18:53:09Z",
-    "link": "https://arxiv.org/abs/2602.20141v1",
-    "summary_ja": "【背景】\n**平均場ゲーム理論（Mean Field Games, MFGs）**は、大規模な集団（人口）の相互作用を確率的なフレームワークでモデル化する手法である。\nこの理論では、集団の動態が**決定論的（deterministic）**となるが、不確実性は**集合的ショック（aggregate shocks）**や**共通ノイズ（common noise）**として導入される。\nしかし、従来のアルゴリズムでは、**モデルフリー法（model-free methods）**が高い分散を持ち、**正確な方法（exact methods）**が計算効率が悪いため、実用的な進展が限られていた。\n\n【提案】\n本論文では、**ハイブリッド構造的方法（Hybrid Structural Methods, HSMs）**を拡張し、**部分観測環境（Partially Observable settings）**に適用可能な新たな手法**再帰構造的ポリシー勾配法（Recurrent Structural Policy Gradient, RSPG）**を提案する。\nRSPGは、**共通ノイズに対するモンテカルロ展開（Monte Carlo rollouts）**と、**過去の履歴（history）を考慮したポリシー（policy）の精密な推定**を組み合わせたものであり、公共情報（public information）を含む設定に対応する。\nまた、**MFGsをJAXベースで実装するフレームワーク（MFAX）**も導入し、既知の遷移ダイナミクス（transition dynamics）を活用することで、高速な収束と実用性を実現した。\n\n【結果】\nRSPGは、**履歴を考慮したポリシー（history-aware policies）**を用いた初めてのMFGs解法であり、従来の手法と比較して**桁違いの収束速度（order-of-magnitude faster convergence）**を実現した。\nさらに、**異質なエージェント（heterogeneous agents）や共通ノイズを含むマクロ経済学のMFGs問題**を初めて解決し、最先端の性能を達成した。\nMFAXはオープンソースで公開されており、実験の再現性と拡張性を高めている。\n\n【ポイント】\n**履歴依存性と構造的知識を活用した平均場ゲーム理論の高速・高効率解法を初めて実現し、マクロ経済学への応用を可能にした。**",
-    "tags": [
-      "AIエージェント",
       "Robotics",
       "ハンド模倣学習"
     ],
@@ -1424,77 +1408,6 @@
     "created_at": "2026-02-24"
   },
   {
-    "id": "http://arxiv.org/abs/2602.20117v1",
-    "title": "ReSyn: Autonomously Scaling Synthetic Environments for Reasoning Models",
-    "summary_en": "Reinforcement learning with verifiable rewards (RLVR) has emerged as a promising approach for training reasoning language models (RLMs) by leveraging supervision from verifiers. Although verifier implementation is easier than solution annotation for many tasks, existing synthetic data generation methods remain largely solution-centric, while verifier-based methods rely on a few hand-crafted procedural environments. In this work, we scale RLVR by introducing ReSyn, a pipeline that generates diverse reasoning environments equipped with instance generators and verifiers, covering tasks such as constraint satisfaction, algorithmic puzzles, and spatial reasoning. A Qwen2.5-7B-Instruct model trained with RL on ReSyn data achieves consistent gains across reasoning benchmarks and out-of-domain math benchmarks, including a 27\\% relative improvement on the challenging BBEH benchmark. Ablations show that verifier-based supervision and increased task diversity both contribute significantly, providing empirical evidence that generating reasoning environments at scale can enhance reasoning abilities in RLMs",
-    "published": "2026-02-23T18:34:29Z",
-    "link": "https://arxiv.org/abs/2602.20117v1",
-    "summary_ja": "【背景】\n強化学習（Reinforcement Learning：RL）による推論言語モデル（Reasoning Language Models：RLM）の訓練は、検証者（verifier）からのフィードバックを利用する**RLVR（Reinforcement Learning with Verifiable Rewards）**によって注目されている。\nしかし、従来の合成データ生成手法は主に**解答中心的（solution-centric）**であり、検証者を活用した手法は手作業で設計された限られたプロシージャル環境に依存していた。\nそのため、多様な推論タスクを大規模に扱うための効率的な手法が求められていた。\n\n---\n\n【提案】\n本研究では、**ReSyn**というパイプラインを提案する。\nReSynは、インスタンス生成器（instance generator）と検証者（verifier）を備えた多様な推論環境を自動生成し、制約充足（constraint satisfaction）、アルゴリズムパズル（algorithmic puzzles）、空間推論（spatial reasoning）などのタスクを網羅する。\nこれにより、従来の手作業設計に依存せず、大規模で多様な推論タスクを訓練データとして利用できるようになった。\n\n---\n【結果】\n**Qwen2.5-7B-Instructモデル**をReSyn生成データで強化学習（RL）訓練したところ、推論ベンチマーク（reasoning benchmarks）および数学外領域のベンチマーク（out-of-domain math benchmarks）で一貫した性能向上が確認された。\n特に、難易度の高い**BBEHベンチマーク（BBEH：Bridging the Gap Between Human and Machine Reasoning）**では、27%の相対改善（relative improvement）を達成した。\nまた、アブレーション実験（ablations）により、検証者ベースの指導（verifier-based supervision）とタスク多様性（task diversity）の両方が有意義な貢献をしていることが明らかになった。\n\n---\n【ポイント】\n**大規模で多様な推論環境を自動生成することで、RLMの推論能力を効果的に向上させる手法を実証した。**\n\n---",
-    "tags": [
-      "AIエージェント",
-      "ハンド模倣学習"
-    ],
-    "saved": false,
-    "created_at": "2026-02-24"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.18424v1",
-    "title": "CapNav: Benchmarking Vision Language Models on Capability-conditioned Indoor Navigation",
-    "summary_en": "Vision-Language Models (VLMs) have shown remarkable progress in Vision-Language Navigation (VLN), offering new possibilities for navigation decision-making that could benefit both robotic platforms and human users. However, real-world navigation is inherently conditioned by the agent's mobility constraints. For example, a sweeping robot cannot traverse stairs, while a quadruped can. We introduce Capability-Conditioned Navigation (CapNav), a benchmark designed to evaluate how well VLMs can navigate complex indoor spaces given an agent's specific physical and operational capabilities. CapNav defines five representative human and robot agents, each described with physical dimensions, mobility capabilities, and environmental interaction abilities. CapNav provides 45 real-world indoor scenes, 473 navigation tasks, and 2365 QA pairs to test if VLMs can traverse indoor environments based on agent capabilities. We evaluate 13 modern VLMs and find that current VLM's navigation performance drops sharply as mobility constraints tighten, and that even state-of-the-art models struggle with obstacle types that require reasoning on spatial dimensions. We conclude by discussing the implications for capability-aware navigation and the opportunities for advancing embodied spatial reasoning in future VLMs. The benchmark is available at https://github.com/makeabilitylab/CapNav",
-    "published": "2026-02-20T18:46:27Z",
-    "link": "https://arxiv.org/abs/2602.18424v1",
-    "summary_ja": "【背景】\nVision-Language Models（VLM、視覚と言語の双方を理解・生成できるAIモデル）は、Vision-Language Navigation（VLN、環境認識と自然言語指示に基づく自律移動）において飛躍的な進歩を遂げている。\nしかし、現実世界でのナビゲーションは、エージェント（移動主体）の**物理的制約**によって大きく影響される。\n例えば、掃除ロボットは階段を登れないが、四足ロボットは可能である。\nこれらの制約を考慮したナビゲーション評価が欠如しているため、VLMの実用性に疑問が残る。\n\n【提案】\n本論文では、**Capability-Conditioned Navigation（CapNav）**というベンチマークを提案する。\nこれは、エージェントの**物理的・操作的能力**（移動可能な空間、障害物回避能力など）に応じて、VLMのナビゲーション性能を評価するためのデータセットである。\n具体的には、5種類の代表的な**人間とロボットエージェント**（物理寸法や移動制約を定義）と、45の実世界インドアシーン、473のナビゲーションタスク、2365の質問-回答（QA）ペアを用意した。\n\n【結果】\n13の現代的なVLMを評価した結果、以下が明らかになった。\n・エージェントの**移動制約が厳しくなるにつれて、ナビゲーション性能が急激に低下**する。\n・特に、**空間的推論（障害物の寸法や位置を理解する能力）**が要求される障害物では、最先端のモデルでも苦戦する。\n・これらの結果は、VLMが**能力に応じたナビゲーション**を実現するためには、さらなる進化が必要であることを示唆する。\n\n【ポイント】\nVLMのナビゲーション性能を、エージェントの物理的制約に基づいて評価する初めてのベンチマークを構築し、現行モデルの限界を明らかにした。",
-    "tags": [
-      "AIエージェント",
-      "Robotics"
-    ],
-    "saved": false,
-    "created_at": "2026-02-23"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.18421v1",
-    "title": "Snapping Actuators with Asymmetric and Sequenced Motion",
-    "summary_en": "Snapping instabilities in soft structures offer a powerful pathway to achieve rapid and energy-efficient actuation. In this study, an eccentric dome-shaped snapping actuator is developed to generate controllable asymmetric motion through geometry-induced instability. Finite element simulations and experiments reveal consistent asymmetric deformation and the corresponding pressure characteristics. By coupling four snapping actuators in a pneumatic network, a compact quadrupedal robot achieves coordinated wavelike locomotion using only a single pressure input. The robot exhibits frequency-dependent performance with a maximum speed of 72.78~mm/s at 7.5~Hz. These findings demonstrate the potential of asymmetric snapping mechanisms for physically controlled actuation and lay the groundwork for fully untethered and efficient soft robotic systems.",
-    "published": "2026-02-20T18:45:17Z",
-    "link": "https://arxiv.org/abs/2602.18421v1",
-    "summary_ja": "【背景】\nソフトロボット（柔軟な素材で構築されたロボット）では、スナップ不安定性（構造が急速に形状を変化させる非線形現象）を利用したアクチュエーション（駆動）が、高速かつ省エネルギーな動作を実現する有力な手法である。\nしかし、従来のスナップメカニズムは対称的な動きが主流であり、非対称（制御可能な不均衡）な運動を生み出すための設計手法が不足していた。\n\n【提案】\nこの研究では、幾何学誘起不安定性（形状設計により生じるスナップ現象）を利用した**非対称スナップアクチュエーター**を提案する。\n具体的には、偏心（中心がずれた）ドーム形状のスナップアクチュエーターを設計し、有限要素解析（構造の変形を数値的に予測する手法）と実験により、非対称な変形と圧力特性を確認した。\nさらに、4つのスナップアクチュエーターを**空気圧ネットワーク**（単一の圧力入力で動作を調整するシステム）に組み込むことで、コンパクトな四足歩行ロボットを実現した。\n\n【結果】\n実験では、提案したアクチュエーターが**一貫した非対称変形**を示し、圧力入力に応じた制御が可能であることを確認した。\n空気圧ネットワークを用いた四足ロボットは、**波動的な協調運動**（単一の圧力入力で波のように足を動かす）を実現し、最大速度72.78 mm/s（周波数7.5 Hz時）を達成した。\nこれらの結果は、非対称スナップメカニズムによる物理制御駆動の有効性を示し、完全にケーブルなし（自立型）かつ高効率なソフトロボットへの基礎を築いた。\n\n【ポイント】\n**非対称スナップアクチュエーター**を用いた単一圧力入力による高効率なソフトロボット駆動を実証し、自立型ロボットの実現に向けた新たな設計手法を提供した。",
-    "tags": [
-      "Robotics",
-      "ハンド模倣学習"
-    ],
-    "saved": false,
-    "created_at": "2026-02-23"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.18374v1",
-    "title": "Zero-shot Interactive Perception",
-    "summary_en": "Interactive perception (IP) enables robots to extract hidden information in their workspace and execute manipulation plans by physically interacting with objects and altering the state of the environment -- crucial for resolving occlusions and ambiguity in complex, partially observable scenarios. We present Zero-Shot IP (ZS-IP), a novel framework that couples multi-strategy manipulation (pushing and grasping) with a memory-driven Vision Language Model (VLM) to guide robotic interactions and resolve semantic queries. ZS-IP integrates three key components: (1) an Enhanced Observation (EO) module that augments the VLM's visual perception with both conventional keypoints and our proposed pushlines -- a novel 2D visual augmentation tailored to pushing actions, (2) a memory-guided action module that reinforces semantic reasoning through context lookup, and (3) a robotic controller that executes pushing, pulling, or grasping based on VLM output. Unlike grid-based augmentations optimized for pick-and-place, pushlines capture affordances for contact-rich actions, substantially improving pushing performance. We evaluate ZS-IP on a 7-DOF Franka Panda arm across diverse scenes with varying occlusions and task complexities. Our experiments demonstrate that ZS-IP outperforms passive and viewpoint-based perception techniques such as Mark-Based Visual Prompting (MOKA), particularly in pushing tasks, while preserving the integrity of non-target elements.",
-    "published": "2026-02-20T17:30:25Z",
-    "link": "https://arxiv.org/abs/2602.18374v1",
-    "summary_ja": "【背景】\nロボットが作業空間内の隠れた情報（例：物体の重なりや不明確な状態）を物理的な相互作用（押す、つかむなど）で解明し、操作計画を立案する**相互知覚（Interactive Perception, IP）**は、複雑で部分観測の環境において重要な能力である。\nしかし、従来のIP手法は**ゼロショット学習**（未知のタスクや物体に対しても事前学習なしで適応可能な手法）に対応せず、特定の操作（例：ピックアンドプレイス）に最適化された補助情報（例：グリッドベースの視覚的なプロンプト）を用いることが多かった。これにより、**接触が多い操作**（例：物体を押して移動させる）の性能が制限される問題があった。\n\n---\n\n【提案】\nこの論文では、**Zero-Shot IP（ZS-IP）**という新しいフレームワークを提案する。\nZS-IPは**マルチ戦略操作**（押す、つかむなど複数の手法を組み合わせた操作）と**メモリ駆動型のVision Language Model（VLM：画像と言語を統合的に理解するAIモデル）**を連携させ、ロボットの相互作用を指示し、意味的な不明確さ（例：物体の機能や操作方法）を解決する。\n具体的には、以下の3つのモジュールを統合した：\n1. **強化観測モジュール（Enhanced Observation, EO）**：VLMの視覚認識に、従来の**キーポイント**（物体の特徴点）に加え、**プッシュライン（pushlines）**と呼ばれる新しい2D視覚補助を追加。プッシュラインは**押す操作**に特化したアフォーダンス（物体が操作に適しているかどうかの情報）を捉え、接触が多い動作の性能を向上させる。\n2. **メモリガイド型アクションモジュール**：VLMが過去の相互作用経験（メモリ）を参照し、意味的な推論を強化する。これにより、不明確な状況でも適切な操作を選択できる。\n3. **ロボット制御モジュール**：VLMの出力に基づき、7自由度（7-DOF）のFranka Pandaアームを用いて**押す、引く、つかむ**などの操作を実行する。\n\n---\n\n【結果】\n実験では、ZS-IPを**Franka Pandaアーム**（7-DOFの高精度ロボットアーム）を用いて、様々なシーン（隠れ物体や複雑なタスクを含む）で評価した。\n結果として、**ZS-IPは従来の受動的な知覚手法（例：Mark-Based Visual Prompting, MOKA）や視点変更に依存した手法を上回り**、特に**押す操作**の性能が大幅に向上した。また、非ターゲット物体（操作対象外の物体）の状態を損なうことなく、目標物体の隠れた情報を効果的に解明できることが示された。\n\n---\n\n【ポイント】\nZS-IPは、**ゼロショット学習下での接触が多い操作（例：押す）を高精度に実行できるロボット知覚フレームワーク**として、従来手法の限界を克服した。\n\n---",
-    "tags": [
-      "Robotics",
-      "ハンド模倣学習"
-    ],
-    "saved": false,
-    "created_at": "2026-02-23"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.18319v1",
-    "title": "Robo-Saber: Generating and Simulating Virtual Reality Players",
-    "summary_en": "We present the first motion generation system for playtesting virtual reality (VR) games. Our player model generates VR headset and handheld controller movements from in-game object arrangements, guided by style exemplars and aligned to maximize simulated gameplay score. We train on the large BOXRR-23 dataset and apply our framework on the popular VR game Beat Saber. The resulting model Robo-Saber produces skilled gameplay and captures diverse player behaviors, mirroring the skill levels and movement patterns specified by input style exemplars. Robo-Saber demonstrates promise in synthesizing rich gameplay data for predictive applications and enabling a physics-based whole-body VR playtesting agent.",
-    "published": "2026-02-20T16:19:19Z",
-    "link": "https://arxiv.org/abs/2602.18319v1",
-    "summary_ja": "【背景】\n仮想現実（VR）ゲームのプレイテストは、人間のテスターが手動で行う必要があるため、時間や労力がかかり、多様なプレイスタイルを網羅できない課題がある。\n特に、VRでは**ヘッドセットの動き**や**ハンドコントローラー（手に持つ操作デバイス）の操作**がゲームの難易度や体験に大きく影響するため、これらを自動生成できるシステムが求められていた。\n\n【提案】\nこの論文では、**VRゲームのプレイテスト用動作生成システム**を初めて提案する。\nシステムは、ゲーム内のオブジェクト配置（例： Beat Saber のノーツの位置）から**ヘッドセットとコントローラーの動き**を生成し、入力されたスタイル例（style exemplars）に基づいてプレイを模倣する。\n生成された動作は、**シミュレートされたスコア**を最大化するよう最適化され、大規模データセット BOXRR-23 を用いた学習により実現された。\n\n【結果】\n提案手法を Beat Saber に適用した結果、**Robo-Saber** と呼ばれるモデルが生成され、高度なプレイ動作と多様なプレイスタイルを再現できることが示された。\n入力されたスタイル例に応じて、**スキルレベルや動きパターン**を正確に模倣し、予測的なゲーム分析や物理ベースの全身VRプレイテストエージェントとして有望な性能を発揮した。\n\n【ポイント】\nVRゲームのプレイテストを自動化し、多様なプレイスタイルを効率的にシミュレートできる動作生成システムを初めて実現した。",
-    "tags": [
-      "AIエージェント",
-      "Robotics",
-      "ハンド模倣学習"
-    ],
-    "saved": false,
-    "created_at": "2026-02-23"
-  },
-  {
     "id": "http://arxiv.org/abs/2602.18312v1",
     "title": "Learning Smooth Time-Varying Linear Policies with an Action Jacobian Penalty",
     "summary_en": "Reinforcement learning provides a framework for learning control policies that can reproduce diverse motions for simulated characters. However, such policies often exploit unnatural high-frequency signals that are unachievable by humans or physical robots, making them poor representations of real-world behaviors. Existing work addresses this issue by adding a reward term that penalizes a large change in actions over time. This term often requires substantial tuning efforts. We propose to use the action Jacobian penalty, which penalizes changes in action with respect to the changes in simulated state directly through auto differentiation. This effectively eliminates unrealistic high-frequency control signals without task specific tuning. While effective, the action Jacobian penalty introduces significant computational overhead when used with traditional fully connected neural network architectures. To mitigate this, we introduce a new architecture called a Linear Policy Net (LPN) that significantly reduces the computational burden for calculating the action Jacobian penalty during training. In addition, a LPN requires no parameter tuning, exhibits faster learning convergence compared to baseline methods, and can be more efficiently queried during inference time compared to a fully connected neural network. We demonstrate that a Linear Policy Net, combined with the action Jacobian penalty, is able to learn policies that generate smooth signals while solving a number of motion imitation tasks with different characteristics, including dynamic motions such as a backflip and various challenging parkour skills. Finally, we apply this approach to create policies for dynamic motions on a physical quadrupedal robot equipped with an arm.",
@@ -1505,19 +1418,6 @@
       "AIエージェント",
       "Robotics",
       "ハンド模倣学習"
-    ],
-    "saved": false,
-    "created_at": "2026-02-23"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.18291v1",
-    "title": "Diffusing to Coordinate: Efficient Online Multi-Agent Diffusion Policies",
-    "summary_en": "Online Multi-Agent Reinforcement Learning (MARL) is a prominent framework for efficient agent coordination. Crucially, enhancing policy expressiveness is pivotal for achieving superior performance. Diffusion-based generative models are well-positioned to meet this demand, having demonstrated remarkable expressiveness and multimodal representation in image generation and offline settings. Yet, their potential in online MARL remains largely under-explored. A major obstacle is that the intractable likelihoods of diffusion models impede entropy-based exploration and coordination. To tackle this challenge, we propose among the first \\underline{O}nline off-policy \\underline{MA}RL framework using \\underline{D}iffusion policies (\\textbf{OMAD}) to orchestrate coordination. Our key innovation is a relaxed policy objective that maximizes scaled joint entropy, facilitating effective exploration without relying on tractable likelihood. Complementing this, within the centralized training with decentralized execution (CTDE) paradigm, we employ a joint distributional value function to optimize decentralized diffusion policies. It leverages tractable entropy-augmented targets to guide the simultaneous updates of diffusion policies, thereby ensuring stable coordination. Extensive evaluations on MPE and MAMuJoCo establish our method as the new state-of-the-art across $10$ diverse tasks, demonstrating a remarkable $2.5\\times$ to $5\\times$ improvement in sample efficiency.",
-    "published": "2026-02-20T15:38:02Z",
-    "link": "https://arxiv.org/abs/2602.18291v1",
-    "summary_ja": "【背景】\nマルチエージェント強化学習（Multi-Agent Reinforcement Learning, MARL）は、複数のエージェントが協調してタスクを遂行するための効率的なフレームワークである。\nしかし、従来のMARLでは、エージェントの**ポリシー（行動決定モデル）の表現力（多様な行動を生成できる能力）**が限られており、高性能な協調を達成するための課題となっていた。\n特に、**拡散モデル（Diffusion models）**は画像生成やオフライン学習（事前収集されたデータのみを用いる学習）において高い表現力を示したものの、オンラインMARLへの応用はほとんど検討されていなかった。\n\n【提案】\nこの論文では、**オンライン・オフポリシーMARL**（Online off-policy MARL）における**拡散ポリシー（Diffusion policies）**を用いた協調制御フレームワーク「**OMAD**」を提案する。\n拡散モデルの**非解析的な尤度（likelihood, 確率密度の計算が困難な性質）**を克服するため、エントロピー（joint entropy, 協調行動の不確実性を測る指標）を最大化する**緩和型ポリシー目標（relaxed policy objective）**を導入した。\nさらに、**CTDE（Centralized Training with Decentralized Execution）**というパラダイムを採用し、拡散ポリシーを同時に最適化するための**共同分布値関数（joint distributional value function）**を用いることで、安定した協調を実現した。\n\n【結果】\n提案手法「OMAD」は、MPE（Multi-Agent Particle Environments）とMAMuJoCo（Multi-Agent MuJoCo）の10種類のタスクで、従来手法を大幅に上回る性能を示した。\n特に、**サンプル効率（sample efficiency, 学習に必要なデータ量）**が2.5倍から5倍向上し、新たな**State-of-the-Art（SOTA, 最先端の手法）**として確立した。\n拡散ポリシーの表現力とエントロピー最大化による探索効率の向上が、協調制御の安定性と高性能に寄与した。\n\n【ポイント】\n拡散モデルの高い表現力を活かしつつ、**非解析的な尤度の問題**をエントロピー最大化によって克服し、オンラインMARLにおける協調制御の**サンプル効率と性能を飛躍的に向上**させた。\n\n---",
-    "tags": [
-      "AIエージェント"
     ],
     "saved": false,
     "created_at": "2026-02-23"
@@ -1536,34 +1436,6 @@
     "created_at": "2026-02-23"
   },
   {
-    "id": "http://arxiv.org/abs/2602.17641v1",
-    "title": "FAMOSE: A ReAct Approach to Automated Feature Discovery",
-    "summary_en": "Feature engineering remains a critical yet challenging bottleneck in machine learning, particularly for tabular data, as identifying optimal features from an exponentially large feature space traditionally demands substantial domain expertise. To address this challenge, we introduce FAMOSE (Feature AugMentation and Optimal Selection agEnt), a novel framework that leverages the ReAct paradigm to autonomously explore, generate, and refine features while integrating feature selection and evaluation tools within an agent architecture. To our knowledge, FAMOSE represents the first application of an agentic ReAct framework to automated feature engineering, especially for both regression and classification tasks. Extensive experiments demonstrate that FAMOSE is at or near the state-of-the-art on classification tasks (especially tasks with more than 10K instances, where ROC-AUC increases 0.23% on average), and achieves the state-of-the-art for regression tasks by reducing RMSE by 2.0% on average, while remaining more robust to errors than other algorithms. We hypothesize that FAMOSE's strong performance is because ReAct allows the LLM context window to record (via iterative feature discovery and evaluation steps) what features did or did not work. This is similar to a few-shot prompt and guides the LLM to invent better, more innovative features. Our work offers evidence that AI agents are remarkably effective in solving problems that require highly inventive solutions, such as feature engineering.",
-    "published": "2026-02-19T18:53:15Z",
-    "link": "https://arxiv.org/abs/2602.17641v1",
-    "summary_ja": "【背景】\n機械学習（特にタブラーデータ*1の処理）における**特徴量エンジニアリング**（最適な特徴量を抽出する過程）は、指数関数的に広大な特徴量空間から最適なものを選定する難易度の高いボトルネック*2である。\n従来、この作業は専門的な知識や経験に依存しており、自動化が困難だった。\n\n---\n【提案】\n本研究では、**FAMOSE**（Feature AugMentation and Optimal Selection agEnt）という新しいフレームワークを提案する。\nこれは、**ReActパラダイム*3**（言語モデルが推論と行動を交互に行う手法）を用いて、特徴量の探索・生成・精錬を自律的に実行する。\n特徴量選定と評価ツールをエージェントアーキテクチャに統合し、分類*4と回帰*5タスクの両方に適用可能な初めての試みである。\n\n---\n【結果】\n広範な実験により、FAMOSEは**分類タスク**（特に10Kサンプル以上のデータセット）において現行手法と同等または近い性能を示し、平均で**ROC-AUC*6が0.23%向上**した。\nまた、**回帰タスク**では**RMSE*7を平均2.0%削減**し、他のアルゴリズムよりも誤りに対する**ロバスト性*8**が高かった。\nこの優れた性能は、ReActがLLMのコンテキストウィンドウに「どの特徴量が有効だったか」を逐次記録するためと推測される。\nこれは**ファーショットプロンプト*9**（少数の例から学習する手法）に類似し、LLMがより革新的な特徴量を生成する指針となる。\n\n---\n【ポイント】\nAIエージェントが**創造性の高い問題解決**（特徴量エンジニアリングなど）に驚異的な有効性を持つことを実証した。\n\n---\n*1: タブラーデータ: 表形式のデータ（列と行で構成される構造化データ）。\n*2: ボトルネック: システムのパフォーマンスを制限する難易度の高いステップ。\n*3: ReActパラダイム: 大言語モデル（LLM）が推論（Reasoning）と行動（Acting）を交互に行うことで、タスクを解決する手法。\n*4: 分類タスク: データをカテゴリに分類するタスク（例: スパムメール判定）。\n*5: 回帰タスク: データの連続値を予測するタスク（例: 住宅価格推定）。\n*6: ROC-AUC: 分類モデルの性能評価指標（受信者操作特性曲線下の面積）。\n*7: RMSE: 回帰モデルの誤差評価指標（平均二乗平方根誤差）。\n*8: ロバスト性: 外乱や誤りに対して安定した性能を維持する能力。\n*9: ファーショットプロンプト: 少数の例（ショット）を与えることでモデルの学習を誘導する手法。\n\n---",
-    "tags": [
-      "AIエージェント",
-      "ハンド模倣学習"
-    ],
-    "saved": false,
-    "created_at": "2026-02-23"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.17607v1",
-    "title": "AutoNumerics: An Autonomous, PDE-Agnostic Multi-Agent Pipeline for Scientific Computing",
-    "summary_en": "PDEs are central to scientific and engineering modeling, yet designing accurate numerical solvers typically requires substantial mathematical expertise and manual tuning. Recent neural network-based approaches improve flexibility but often demand high computational cost and suffer from limited interpretability. We introduce \\texttt{AutoNumerics}, a multi-agent framework that autonomously designs, implements, debugs, and verifies numerical solvers for general PDEs directly from natural language descriptions. Unlike black-box neural solvers, our framework generates transparent solvers grounded in classical numerical analysis. We introduce a coarse-to-fine execution strategy and a residual-based self-verification mechanism. Experiments on 24 canonical and real-world PDE problems demonstrate that \\texttt{AutoNumerics} achieves competitive or superior accuracy compared to existing neural and LLM-based baselines, and correctly selects numerical schemes based on PDE structural properties, suggesting its viability as an accessible paradigm for automated PDE solving.",
-    "published": "2026-02-19T18:31:52Z",
-    "link": "https://arxiv.org/abs/2602.17607v1",
-    "summary_ja": "【背景】\n偏微分方程式（PDEs: Partial Differential Equations）は科学や工学のモデル化において重要な役割を果たすが、高精度な数値ソルバー（解法）を設計するには専門的な数学知識と手動での調整が必要となる。\n近年のニューラルネットワーク（NN）を用いた手法は柔軟性を向上させたが、高い計算コストや解釈性の低さという課題が残っていた。\n\n【提案】\n本論文では、**AutoNumerics**という多エージェント（Multi-Agent）フレームワークを提案する。\nこのフレームワークは、自然言語（Natural Language）によるPDEの記述から自律的に**数値ソルバーの設計・実装・デバッグ・検証**を行う。\n従来のブラックボックス型（Black-Box）のニューラルソルバーとは異なり、**古典的な数値解析に基づいた透明性の高いソルバー**を生成する。\n具体的には、**粗い解から細かい解への逐次精緻化（Coarse-to-Fine Execution Strategy）**と**残差（Residual）に基づく自己検証メカニズム（Self-Verification Mechanism）**を導入している。\n\n【結果】\n実験では、**24種類の標準的（Canonical）および実世界（Real-World）のPDE問題**に適用した。\n**AutoNumerics**は既存のニューラルネットワークやLLM（Large Language Model）を用いたベースラインと比較して、**競争的または優越した精度**を達成した。\nさらに、PDEの構造的特性（Structural Properties）に基づいて数値スキーム（Numerical Schemes）を正しく選択する能力を示し、自動化されたPDE解法の**アクセスしやすい新たなパラダイム**としての有効性が確認された。\n\n【ポイント】\n**専門知識を要しない自然言語からのPDE数値ソルバー自動生成**を実現し、高精度かつ透明性のある解法を提供するフレームワークである。",
-    "tags": [
-      "AIエージェント",
-      "Robotics"
-    ],
-    "saved": false,
-    "created_at": "2026-02-23"
-  },
-  {
     "id": "http://arxiv.org/abs/2602.17601v1",
     "title": "Graph Neural Model Predictive Control for High-Dimensional Systems",
     "summary_en": "The control of high-dimensional systems, such as soft robots, requires models that faithfully capture complex dynamics while remaining computationally tractable. This work presents a framework that integrates Graph Neural Network (GNN)-based dynamics models with structure-exploiting Model Predictive Control to enable real-time control of high-dimensional systems. By representing the system as a graph with localized interactions, the GNN preserves sparsity, while a tailored condensing algorithm eliminates state variables from the control problem, ensuring efficient computation. The complexity of our condensing algorithm scales linearly with the number of system nodes, and leverages Graphics Processing Unit (GPU) parallelization to achieve real-time performance. The proposed approach is validated in simulation and experimentally on a physical soft robotic trunk. Results show that our method scales to systems with up to 1,000 nodes at 100 Hz in closed-loop, and demonstrates real-time reference tracking on hardware with sub-centimeter accuracy, outperforming baselines by 63.6%. Finally, we show the capability of our method to achieve effective full-body obstacle avoidance.",
@@ -1573,34 +1445,6 @@
     "tags": [
       "Robotics",
       "AIエージェント"
-    ],
-    "saved": false,
-    "created_at": "2026-02-23"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.17573v1",
-    "title": "FR-GESTURE: An RGBD Dataset For Gesture-based Human-Robot Interaction In First Responder Operations",
-    "summary_en": "The ever increasing intensity and number of disasters make even more difficult the work of First Responders (FRs). Artificial intelligence and robotics solutions could facilitate their operations, compensating these difficulties. To this end, we propose a dataset for gesture-based UGV control by FRs, introducing a set of 12 commands, drawing inspiration from existing gestures used by FRs and tactical hand signals and refined after incorporating feedback from experienced FRs. Then we proceed with the data collection itself, resulting in 3312 RGBD pairs captured from 2 viewpoints and 7 distances. To the best of our knowledge, this is the first dataset especially intended for gesture-based UGV guidance by FRs. Finally we define evaluation protocols for our RGBD dataset, termed FR-GESTURE, and we perform baseline experiments, which are put forward for improvement. We have made data publicly available to promote future research on the domain: https://doi.org/10.5281/zenodo.18131333.",
-    "published": "2026-02-19T17:31:08Z",
-    "link": "https://arxiv.org/abs/2602.17573v1",
-    "summary_ja": "【背景】\n災害の頻度や規模が増加する中、消防・救急隊員（First Responders: **FR** 災害初期対応者）の作業はより困難になっている。\n人工知能（AI）やロボット技術がこれらの課題を補完し、作業の効率化を支援できる可能性がある。\n\n【提案】\nこの論文では、**FR**がジェスチャー（手振り）で**UGV**（Unmanned Ground Vehicle: 無人地上車両）を操作するためのデータセットを提案した。\n既存の**FR**用ジェスチャーや戦術的手信号を参考に、12種類のコマンドを定義し、実務経験者からのフィードバックを取り入れて精緻化した。\nデータ収集では、2つの視点と7種類の距離から**RGBD**（RGB画像と深度情報の組み合わせ）データを取得し、計3,312組のペアを構築した。\n\n【結果】\n提案した**FR-GESTURE**と呼ばれる**RGBD**データセットは、災害現場におけるジェスチャー操作に特化した初のデータセットであることが確認された。\n定義した評価プロトコルを用いて基準実験（baseline experiments）を行い、今後の研究に向けた改善点を示した。\nデータセットは研究促進のために公開されている（DOI: [10.5281/zenodo.18131333](https://doi.org/10.5281/zenodo.18131333)）。\n\n【ポイント】\n災害現場における**FR**のジェスチャー操作を支援する**UGV**制御用データセットを初めて構築し、研究の基盤を提供した。",
-    "tags": [
-      "AIエージェント",
-      "Robotics"
-    ],
-    "saved": false,
-    "created_at": "2026-02-23"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.17537v1",
-    "title": "IRIS: Learning-Driven Task-Specific Cinema Robot Arm for Visuomotor Motion Control",
-    "summary_en": "Robotic camera systems enable dynamic, repeatable motion beyond human capabilities, yet their adoption remains limited by the high cost and operational complexity of industrial-grade platforms. We present the Intelligent Robotic Imaging System (IRIS), a task-specific 6-DOF manipulator designed for autonomous, learning-driven cinematic motion control. IRIS integrates a lightweight, fully 3D-printed hardware design with a goal-conditioned visuomotor imitation learning framework based on Action Chunking with Transformers (ACT). The system learns object-aware and perceptually smooth camera trajectories directly from human demonstrations, eliminating the need for explicit geometric programming. The complete platform costs under $1,000 USD, supports a 1.5 kg payload, and achieves approximately 1 mm repeatability. Real-world experiments demonstrate accurate trajectory tracking, reliable autonomous execution, and generalization across diverse cinematic motions.",
-    "published": "2026-02-19T16:50:31Z",
-    "link": "https://arxiv.org/abs/2602.17537v1",
-    "summary_ja": "【背景】\nロボットカメラシステムは、人間の能力を超えた動的かつ繰り返し可能な動きを実現できるが、高価な工業用プラットフォームの導入コストや操作の複雑さが普及を妨げている。\n低コストで簡便なカメラ制御ロボットが求められ、特に映画撮影（シネマティック動き）や自律的な動画撮影など、複雑な動作を学習駆動で実現する技術が重要視されている。\n\n---\n【提案】\n本論文では、**Intelligent Robotic Imaging System (IRIS)**という、映画撮影用の自律的な6軸（6-DOF）マニピュレータを提案する。\n軽量で完全3Dプリンティングによるハードウェア設計と、**目標条件付き視覚運動模倣学習フレームワーク（Goal-Conditioned Visuomotor Imitation Learning）**を統合し、人間のデモから直接カメラの軌道を学習する。\n具体的には、**アクションチャンキング（動作分割）とトランスフォーマー（ACT）**を用いた手法により、物体認識と視覚的に滑らかな軌道追従を実現し、明示的な幾何学的プログラミング（幾何学モデルを手動で設定する必要）を不要にした。\n\n---\n【結果】\n実験では、精度の高い軌道追従と信頼性のある自律実行が確認された。\nまた、多様な映画撮影動作への**汎用性（Generalization）**が示され、低コスト（1,000米ドル未満）かつ高精度（1mm程度の繰り返し精度）を実現した。\n1.5kgのペイロードをサポートする軽量設計にもかかわらず、実世界での動作が安定していることが明らかになった。\n\n---\n【ポイント】\n**低コストかつ高精度な自律カメラ制御ロボットを実現し、映画撮影などの複雑な動作を人間デモから直接学習できるフレームワークを提案した。**\n\n---",
-    "tags": [
-      "Robotics",
-      "ハンド模倣学習"
     ],
     "saved": false,
     "created_at": "2026-02-23"
