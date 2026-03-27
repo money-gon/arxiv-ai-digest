@@ -216,6 +216,87 @@ def fetch() -> List[dict]:
     return papers[:MAX_PAPERS_PER_RUN]
 
 # ==========================
+# DB クリーンアップ
+# ==========================
+
+# 保持期間（日数）。この日数を超えた論文のうち saved でないものを削除する
+RETENTION_DAYS = 30
+
+SAVED_FILE = "saved.json"
+
+def load_saved_ids() -> set:
+    """
+    リポジトリ内の saved.json から保存済み論文 ID を読み込む。
+    ファイルが存在しない・壊れている場合は空セットを返す（安全側に倒す）。
+    ID は正規化して比較するため、短形式・フルURL どちらでも一致させる。
+    """
+    if not os.path.exists(SAVED_FILE):
+        return set()
+    try:
+        with open(SAVED_FILE, "r", encoding="utf-8") as f:
+            raw = json.load(f)
+        if not isinstance(raw, list):
+            return set()
+        return set(normalize_id(i) for i in raw if i)
+    except (json.JSONDecodeError, TypeError):
+        print("WARNING: saved.json broken. Treating all as unsaved.")
+        return set()
+
+def normalize_id(paper_id: str) -> str:
+    """ID を 'http://arxiv.org/abs/XXXX' 形式に統一する。"""
+    if not paper_id:
+        return paper_id
+    if paper_id.startswith("http://") or paper_id.startswith("https://"):
+        return paper_id
+    if paper_id.startswith("abs/"):
+        return "http://arxiv.org/" + paper_id
+    return "http://arxiv.org/abs/" + paper_id
+
+def cleanup_db(db: list, saved_ids: set, retention_days: int, today: "date") -> tuple:
+    """
+    保持期間を超えた論文のうち、saved でないものを DB から削除する。
+
+    削除条件（AND）:
+      - published が retention_days 日以上前
+      - saved_ids に含まれていない
+
+    Returns:
+        (cleaned_db, removed_count)
+    """
+    from datetime import date as date_type
+    cutoff = today.toordinal() - retention_days  # ordinal で比較（タイムゾーン非依存）
+
+    kept    = []
+    removed = 0
+
+    for p in db:
+        pid = normalize_id(p.get("id", ""))
+
+        # Saved 論文は期間に関係なく保持
+        if pid in saved_ids:
+            kept.append(p)
+            continue
+
+        # published を日付に変換して比較
+        published_str = p.get("published", "")
+        try:
+            # arXiv の published 形式: "2026-03-13T12:34:56Z"
+            pub_date = datetime.fromisoformat(
+                published_str.replace("Z", "+00:00")
+            ).date()
+            if pub_date.toordinal() >= cutoff:
+                kept.append(p)   # 保持期間内 → 保持
+            else:
+                removed += 1
+                print(f"  remove (expired): {p.get('title', pid)[:60]}")
+        except (ValueError, AttributeError):
+            # 日付パースに失敗した論文は安全のため保持
+            kept.append(p)
+
+    return kept, removed
+
+
+# ==========================
 # メイン処理
 # ==========================
 def main():
@@ -223,14 +304,14 @@ def main():
         print("HF_TOKEN not set")
         return
 
-    db     = load_db()
-    db_map = {p["id"]: p for p in db}
-    papers = fetch()
+    db        = load_db()
+    db_map    = {p["id"]: p for p in db}
+    papers    = fetch()
     new_count = 0
 
-    # 不具合②: JST の日付を使用（UTC では1日ずれる場合がある）
-    today_jst = datetime.now(JST).date().isoformat()
+    today_jst = datetime.now(JST).date()
 
+    # ── 新規論文の追加 ────────────────────────────────────────────
     for p in papers:
         if p["id"] in db_map:
             continue
@@ -247,22 +328,34 @@ def main():
                 tags = infer_tags(p["title"], p["summary_en"])
 
         db_map[p["id"]] = {
-            "id":         p["id"],          # フル URL
+            "id":         p["id"],
             "title":      p["title"],
             "summary_ja": summary_clean,
             "tags":       tags,
             "link":       p["link"],
             "published":  p["published"],
-            "created_at": today_jst,        # JST 日付
+            "created_at": today_jst.isoformat(),
         }
         new_count += 1
 
-    if new_count > 0:
-        updated = sorted(db_map.values(), key=lambda x: x["published"], reverse=True)
+    # ── DB クリーンアップ ─────────────────────────────────────────
+    saved_ids  = load_saved_ids()
+    print(f"saved papers: {len(saved_ids)}")
+
+    current_db = list(db_map.values())
+    cleaned_db, removed_count = cleanup_db(current_db, saved_ids, RETENTION_DAYS, today_jst)
+
+    print(f"cleanup: {removed_count} paper(s) removed "
+          f"(older than {RETENTION_DAYS} days, not saved).")
+
+    # ── 保存（追加 or 削除があった場合のみ書き込み）─────────────────
+    if new_count > 0 or removed_count > 0:
+        updated = sorted(cleaned_db, key=lambda x: x["published"], reverse=True)
         save_db(updated)
-        print(f"added {new_count} new papers.")
+        print(f"DB updated: +{new_count} added, -{removed_count} removed. "
+              f"total={len(updated)}")
     else:
-        print("no new papers added.")
+        print("no changes to DB.")
 
 if __name__ == "__main__":
     main()
