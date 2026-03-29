@@ -1253,62 +1253,6 @@
     "created_at": "2026-03-03"
   },
   {
-    "id": "http://arxiv.org/abs/2602.24288v1",
-    "title": "DARE-bench: Evaluating Modeling and Instruction Fidelity of LLMs in Data Science",
-    "summary_en": "The fast-growing demands in using Large Language Models (LLMs) to tackle complex multi-step data science tasks create an emergent need for accurate benchmarking. There are two major gaps in existing benchmarks: (i) the lack of standardized, process-aware evaluation that captures instruction adherence and process fidelity, and (ii) the scarcity of accurately labeled training data. To bridge these gaps, we introduce DARE-bench, a benchmark designed for machine learning modeling and data science instruction following. Unlike many existing benchmarks that rely on human- or model-based judges, all tasks in DARE-bench have verifiable ground truth, ensuring objective and reproducible evaluation. To cover a broad range of tasks and support agentic tools, DARE-bench consists of 6,300 Kaggle-derived tasks and provides both large-scale training data and evaluation sets. Extensive evaluations show that even highly capable models such as gpt-o4-mini struggle to achieve good performance, especially in machine learning modeling tasks. Using DARE-bench training tasks for fine-tuning can substantially improve model performance. For example, supervised fine-tuning boosts Qwen3-32B's accuracy by 1.83x and reinforcement learning boosts Qwen3-4B's accuracy by more than 8x. These significant improvements verify the importance of DARE-bench both as an accurate evaluation benchmark and critical training data.",
-    "published": "2026-02-27T18:58:57Z",
-    "link": "https://arxiv.org/abs/2602.24288v1",
-    "summary_ja": "【背景】\nLLMs（Large Language Models）が複雑な多ステップのデータサイエンスタスクを処理する需要が増加しているが、現存のベンチマークには、指示の遵守とプロセスの正確性を捉える標準化された評価プロセスの欠如と、正確にラベル付けされたトレーニングデータの不足がある。これらのギャップを埋めるために、DARE-benchという新しいベンチマークを提案する。\n\n【提案】\nDARE-benchは、機械学習モデリングとデータサイエンス指示に従うためのベンチマークである。各タスクは信頼できる基準事実に基づいており、主観的な評価を排除し、客観的で再現可能な評価を可能にする。DARE-benchは6,300のKaggleから派生したタスクを含み、大量のトレーニングデータと評価セットを提供する。\n\n【結果】\n広範なタスクをカバーし、機動的なツールをサポートするために、DARE-benchが導入された。評価結果では、すら高能力のモデルであるgpt-o4-miniも機械学習モデリングタスクでは良好なパフォーマンスを達成することが困難であることが示された。DARE-benchのトレーニングタスクを使用して微調整を行うと、モデルのパフォーマンスが大幅に向上することが確認された。例えば、監督微調整はQwen3-32Bの精度を1.83倍に、強化学習はQwen3-4Bの精度を8倍以上に向上させた。\n\n【ポイント】\nDARE-benchは、正確な評価ベンチマークとしての重要性と、重要なトレーニングデータとしての役割を証明した。",
-    "tags": [
-      "AIエージェント",
-      "Robotics"
-    ],
-    "saved": false,
-    "created_at": "2026-03-02"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.24286v1",
-    "title": "CUDA Agent: Large-Scale Agentic RL for High-Performance CUDA Kernel Generation",
-    "summary_en": "GPU kernel optimization is fundamental to modern deep learning but remains a highly specialized task requiring deep hardware expertise. Despite strong performance in general programming, large language models (LLMs) remain uncompetitive with compiler-based systems such as torch.compile for CUDA kernel generation. Existing CUDA code generation approaches either rely on training-free refinement or fine-tune models within fixed multi-turn execution-feedback loops, but both paradigms fail to fundamentally improve the model's intrinsic CUDA optimization ability, resulting in limited performance gains. We present CUDA Agent, a large-scale agentic reinforcement learning system that develops CUDA kernel expertise through three components: a scalable data synthesis pipeline, a skill-augmented CUDA development environment with automated verification and profiling to provide reliable reward signals, and reinforcement learning algorithmic techniques enabling stable training. CUDA Agent achieves state-of-the-art results on KernelBench, delivering 100\\%, 100\\%, and 92\\% faster rate over torch.compile on KernelBench Level-1, Level-2, and Level-3 splits, outperforming the strongest proprietary models such as Claude Opus 4.5 and Gemini 3 Pro by about 40\\% on the hardest Level-3 setting.",
-    "published": "2026-02-27T18:58:05Z",
-    "link": "https://arxiv.org/abs/2602.24286v1",
-    "summary_ja": "【背景】\n現代の深層学習では、GPU kernelの最適化が基本的な課題だが、これは高度なハードウェアの専門知識を必要とする専門的なタスクである。大規模言語モデル（LLMs）は、コンパイラベースのシステム（例: torch.compile for CUDA kernel生成）と比較して、一般的なプログラミングでは優れたパフォーマンスを発揮するが、CUDAコード生成では未だに競争力を発揮できない。既存のCUDAコード生成手法は、トレーニングなしの改善手法や固定された多段階の実行フィードバックループによる微調整を採用しているが、これらはモデルの固有のCUDA最適化能力を根本的に改善することができず、限られたパフォーマンス向上しか達成できない。\n\n【提案】\n我々はCUDA Agentという大規模なアジェンティック強化学習システムを提案する。このシステムは、スケーラブルなデータ合成パイプライン、自動検証とプロファイリングを含むスキル強化されたCUDA開発環境、そして安定的なトレーニングを可能にする強化学習アルゴリズム技術の3つの要素から構成される。\n\n【結果】\nCUDA AgentはKernelBenchで最適化結果を達成し、KernelBench Level-1, Level-2, Level-3のスプリットにおいてtorch.compileに対して100%, 100%, 92%の速度向上を達成した。これは、Claude Opus 4.5やGemini 3 Proなどの最強のプロプライエタリモデルよりも、Level-3設定において約40%のパフォーマンス向上を達成した。\n\n【ポイント】\nCUDA Agentは、モデルの固有のCUDA最適化能力を根本的に改善し、最適化結果を大幅に向上させることが可能となった。",
-    "tags": [
-      "AIエージェント",
-      "Robotics"
-    ],
-    "saved": false,
-    "created_at": "2026-03-02"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.24235v1",
-    "title": "SafeGen-LLM: Enhancing Safety Generalization in Task Planning for Robotic Systems",
-    "summary_en": "Safety-critical task planning in robotic systems remains challenging: classical planners suffer from poor scalability, Reinforcement Learning (RL)-based methods generalize poorly, and base Large Language Models (LLMs) cannot guarantee safety. To address this gap, we propose safety-generalizable large language models, named SafeGen-LLM. SafeGen-LLM can not only enhance the safety satisfaction of task plans but also generalize well to novel safety properties in various domains. We first construct a multi-domain Planning Domain Definition Language 3 (PDDL3) benchmark with explicit safety constraints. Then, we introduce a two-stage post-training framework: Supervised Fine-Tuning (SFT) on a constraint-compliant planning dataset to learn planning syntax and semantics, and Group Relative Policy Optimization (GRPO) guided by fine-grained reward machines derived from formal verification to enforce safety alignment and by curriculum learning to better handle complex tasks. Extensive experiments show that SafeGen-LLM achieves strong safety generalization and outperforms frontier proprietary baselines across multi-domain planning tasks and multiple input formats (e.g., PDDLs and natural language).",
-    "published": "2026-02-27T18:06:10Z",
-    "link": "https://arxiv.org/abs/2602.24235v1",
-    "summary_ja": "【背景】安全クリティカルタスク計画はロボティクスシステムにおいて依然として困難な課題である。古典的なプランナーはスケーラビリティが悪く、リインフォースメントラーニング（RL）ベースの手法は汎化が不十分であり、基本的な大規模言語モデル（LLM）は安全を保証できない。これらの問題を解決するために、安全に汎化可能な大規模言語モデルを提案する。\n\n【提案】本論文では、安全に汎化可能な大規模言語モデルSafeGen-LLMを提案する。SafeGen-LLMは、タスク計画の安全性を向上させるとともに、多様なドメインにおける新しい安全性特性にも良好に汎化する能力がある。\n\n【結果】まず、明示的な安全性制約を含むマルチドメインのPlanning Domain Definition Language 3 (PDDL3) ベンチマークを構築する。次に、二段階の後訓練フレームワークを導入する：制約に準拠した計画データセットでの監督微調整（SFT）により計画の構文と意味を学習し、形式検証から派生した詳細な報酬マシンを用いたグループ相対ポリシーオプティマイゼーション（GRPO）により安全性の対応を強制し、学習曲線に基づくカリキュラム学習により複雑なタスクをより効果的に処理する。広範な実験結果から、SafeGen-LLMは強力な安全性の汎化を達成し、多ドメイン計画タスクと複数の入力形式（PDDLや自然言語など）において最前線の独自の基準を上回ることが確認された。\n\n【ポイント】SafeGen-LLMは安全性の強力な汎化と、複数のドメインと入力形式での優れたパフォーマンスを達成し、ロボティクスにおける安全な計画の新たなアプローチを提供する。",
-    "tags": [
-      "Robotics",
-      "AIエージェント"
-    ],
-    "saved": false,
-    "created_at": "2026-03-02"
-  },
-  {
-    "id": "http://arxiv.org/abs/2602.24202v1",
-    "title": "Evaluating Accuracy of Vine Robot Shape Sensing with Distributed Inertial Measurement Units",
-    "summary_en": "Soft, tip-extending vine robots are well suited for navigating tight, debris-filled environments, making them ideal for urban search and rescue. Sensing the full shape of a vine robot's body is helpful both for localizing information from other sensors placed along the robot body and for determining the robot's configuration within the space being explored. Prior approaches have localized vine robot tips using a single inertial measurement unit (IMU) combined with force sensing or length estimation, while one method demonstrated full-body shape sensing using distributed IMUs on a passively steered robot in controlled maze environments. However, the accuracy of distributed IMU-based shape sensing under active steering, varying robot lengths, and different sensor spacings has not been systematically quantified. In this work, we experimentally evaluate the accuracy of vine robot shape sensing using distributed IMUs along the robot body. We quantify IMU drift, measuring an average orientation drift rate of 1.33 degrees/min across 15 sensors. For passive steering, mean tip position error was 11% of robot length. For active steering, mean tip position error increased to 16%. During growth experiments across lengths from 30-175 cm, mean tip error was 8%, with a positive trend with increasing length. We also analyze the influence of sensor spacing and observe that intermediate spacings can minimize error for single-curvature shapes. These results demonstrate the feasibility of distributed IMU-based shape sensing for vine robots while highlighting key limitations and opportunities for improved modeling and algorithmic integration for field deployment.",
-    "published": "2026-02-27T17:28:42Z",
-    "link": "https://arxiv.org/abs/2602.24202v1",
-    "summary_ja": "【背景】\n狭い、破片が散乱した環境での移動に適したソフトで先端が延びる植物ロボットは、都市救出活動に最適です。これらのロボットの全形状を感知することは、他のセンサーやロボット体の他の部分からの情報をローカライズし、探索空間でのロボットの構成を決定するのに役立ちます。しかし、分布型IMU（インテリジェント・メソッド・ユニット）を使用した形状感知の精度は、アクティブな操縦、ロボットの長さの変化、異なるセンサースペシフィング下で系統的に評価されていません。\n\n【提案】\n本論文では、分布型IMUを使用した植物ロボットの形状感知精度を実験的に評価しました。IMUのドリフトを量化し、形状感知の精度を評価しました。\n\n【結果】\n15個のセンサーや平均向きドリフト率は1分間に1.33度でした。無作為操縦では、平均先端位置誤差はロボット長の11%でした。アクティブ操縦では、平均先端位置誤差は16%に増加しました。30-175cmの長さでの成長実験では、平均先端誤差は8%で、長さが増えるにつれて正の傾向が見られました。また、センサースペシフィングの影響を分析し、単一曲率形状では中間的なスペシフィングが誤差を最小限に抑えることがわかりました。\n\n【ポイント】\n分布型IMUを使用した植物ロボットの形状感知の実用可能性を示し、改善されたモデリングとアルゴリズムの統合の機会を指摘しました。",
-    "tags": [
-      "Robotics",
-      "AIエージェント"
-    ],
-    "saved": false,
-    "created_at": "2026-03-02"
-  },
-  {
     "id": "http://arxiv.org/abs/2602.21198v1",
     "title": "Learning from Trials and Errors: Reflective Test-Time Planning for Embodied LLMs",
     "summary_en": "Embodied LLMs endow robots with high-level task reasoning, but they cannot reflect on what went wrong or why, turning deployment into a sequence of independent trials where mistakes repeat rather than accumulate into experience. Drawing upon human reflective practitioners, we introduce Reflective Test-Time Planning, which integrates two modes of reflection: \\textit{reflection-in-action}, where the agent uses test-time scaling to generate and score multiple candidate actions using internal reflections before execution; and \\textit{reflection-on-action}, which uses test-time training to update both its internal reflection model and its action policy based on external reflections after execution. We also include retrospective reflection, allowing the agent to re-evaluate earlier decisions and perform model updates with hindsight for proper long-horizon credit assignment. Experiments on our newly-designed Long-Horizon Household benchmark and MuJoCo Cupboard Fitting benchmark show significant gains over baseline models, with ablative studies validating the complementary roles of reflection-in-action and reflection-on-action. Qualitative analyses, including real-robot trials, highlight behavioral correction through reflection.",
