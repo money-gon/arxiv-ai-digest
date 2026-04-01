@@ -1,5 +1,74 @@
 [
   {
+    "id": "http://arxiv.org/abs/2603.30042v1",
+    "title": "HapCompass: A Rotational Haptic Device for Contact-Rich Robotic Teleoperation",
+    "summary_ja": "【背景】\nロボット遠隔操作では、接触が頻繁に発生する操作が大きな課題である。特に触覚フィードバックは重要な役割を果たすが、ウェアラブル遠隔操作インターフェースにおいては、直感的な方向指示を提供することが難しく、現存のソリューションは制限がある。\n\n【提案】\n接触が頻繁な操作向けに、直感的な方向指示を提供するため、単一の線形共振アクチュエータ（LRA）を機械的に回転させる低コストなウェアラブル触覚デバイスHapCompassを提案する。\n\n【結果】\nHapCompassは、視覚のみと非方向的フィードバックの基準と比較して、遠隔操作での成功率を向上させ、完成時間と最大接触力を削減した。また、模倣学習の初期評価でも、HapCompassが提供する方向指示がデモンストレーションデータの品質を向上させ、訓練されたポリシーの品質も改善したことを示した。\n\n【ポイント】\nHapCompassは、低コストで効果的な触覚デバイスとして、遠隔操作における方向指示を改善する新たなアプローチを提供する。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "link": "https://arxiv.org/abs/2603.30042v1",
+    "published": "2026-03-31T17:57:52Z",
+    "created_at": "2026-04-02"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.30031v1",
+    "title": "The Triadic Cognitive Architecture: Bounding Autonomous Action via Spatio-Temporal and Epistemic Friction",
+    "summary_ja": "【背景】\n現在の大型言語モデル（LLMs）を駆動する自律AIエージェントは、ネットワークトポロジー、時間的なペース、知識の限界という内在的な感覚が欠如しており、これによりインタラクティブ環境での失敗モードが発生する可能性がある。例えば、 congested状態では過度なツール使用、time decay状態では長期的な議論、ambiguous evidence状態では脆い行動が見られる。\n\n【提案】\nこの論文では、物理的な制約を含む連続時間の物理学に基づく統一的な数学的枠組みであるトリアド認知アーキテクチャ（TCA）を提案する。TCAは、非線形フィルタリング理論、リーマニアンルーティング幾何学、最適制御を組み合わせることで、認知摩擦という概念を形式的に定義する。\n\n【結果】\nTCAは、情報取得が経路依存かつ物理的に制約された確率制御問題にエージェントの議論プロセスをマッピングする。実証的な検証では、latencyとcongestion costs状態ではgreedyベースラインが過度な議論を示すのに対し、トリアドポリシーは行動までの時間を短縮しつつ、診断精度を損なうことなく患者の生存率を改善した。\n\n【ポイント】\nTCAは、認知摩擦という概念を導入し、エージェントの議論プロセスを物理的な制約に従って制御することで、インタラクティブ環境での効率的な行動を達成する方法を提案する。",
+    "tags": [
+      "AIエージェント"
+    ],
+    "link": "https://arxiv.org/abs/2603.30031v1",
+    "published": "2026-03-31T17:30:25Z",
+    "created_at": "2026-04-02"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.30022v1",
+    "title": "Hybrid Framework for Robotic Manipulation: Integrating Reinforcement Learning and Large Language Models",
+    "summary_ja": "【背景】\nロボット操作タスクでは、低レベルの制御と高レベルの計画の間の連携が課題です。強化学習（RL）は低レベルの制御に有効ですが、自然言語の理解や高レベルの計画には限界があります。この問題を解決するために、大型言語モデル（LLM）を組み込むことが提案されています。\n\n【提案】\nこの論文では、RLとLLMを組み合わせたハイブリッドフレームワークを提案し、ロボット操作タスクにおける低レベルの実行と高レベルの推論の連携を改善することを目指しました。RLは低レベルの制御を、LLMは高レベルの計画と自然言語の理解を担います。\n\n【結果】\n提案されたフレームワークは、PyBulletベースのシミュレーション環境でFranka Emika Pandaロボットアームを使用して評価され、複数の操作シナリオが使用されました。結果として、RLのみを使用するシステムと比較して、タスク完了時間は33.5%短縮され、正確性と適応性はそれぞれ18.1%と36.4%向上しました。\n\n【ポイント】\nLLMを用いた強化学習フレームワークは、ロボット操作の効率性、適応性、そして人間との相互作用能力を向上させ、実用的な応用分野での可能性を示しました。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "link": "https://arxiv.org/abs/2603.30022v1",
+    "published": "2026-03-31T17:19:34Z",
+    "created_at": "2026-04-02"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.30016v1",
+    "title": "Architecting Secure AI Agents: Perspectives on System-Level Defenses Against Indirect Prompt Injection Attacks",
+    "summary_ja": "【背景】\nAIエージェントは、特に大規模言語モデル（LLMs）を使用している場合、不信任データに埋め込まれた悪意のある指示がエージェントの危険な行動を引き起こす可能性がある间接的なプロンプト注入攻撃に対して脆弱である。この問題は、動的なタスクや現実的な環境において特に重要である。\n\n【提案】\n本論文では、動的なタスクと現実的な環境に対する间接的なプロンプト注入攻撃に対するシステムレベルの防御策について提唱する。具体的には、動的な計画の動的更新とセキュリティポリシーの更新、特定のコンテキストに基づくセキュリティ決定におけるLLMの使用制限、そして不確定な状況における人間との相互作用の重要性を強調する。\n\n【結果】\n既存のベンチマークの制限性について指摘し、システムレベルの防御策の重要性を強調する。システムレベルの防御は、エージェントの行動を制御し、ルールベースとモデルベースのセキュリティチェックを統合し、モデルのrobustnessと人間との相互作用に関するよりターゲットの明確な研究を可能にする。\n\n【ポイント】\n本論文は、動的なタスクと現実的な環境に対する间接的なプロンプト注入攻撃に対する防御策の重要性を示し、システムレベルのアプローチの必要性を強調する。",
+    "tags": [
+      "AIエージェント"
+    ],
+    "link": "https://arxiv.org/abs/2603.30016v1",
+    "published": "2026-03-31T17:15:46Z",
+    "created_at": "2026-04-02"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.29999v1",
+    "title": "Phyelds: A Pythonic Framework for Aggregate Computing",
+    "summary_ja": "【背景】\nフィールドプログラミングは、センサーネットワークやロボティクス、IoTなど様々な分野で成功を収め、様々なプログラミング言語で実装されている。しかし、既存の実装はデータサイエンスの実践者向けでなく、Pythonが主流の言語であるにもかかわらず対応していない。Pythonはデータサイエンスや機械学習だけでなく、教育やロボティクス（例えばROSを通じて）でも優れた機能を提供する。\n\n【提案】\nこの問題を解決するために、PhyeldsというPythonライブラリを開発した。Phyeldsはフィールド計算モデルの完全な実装を提供し、Pythonの機械学習エコシステムとのシームレスな統合を可能にする。\n\n【結果】\nPhyeldsはフィールドプログラミングの主要なパターンから連邦学習の調整まで、様々な分野で versatility を示した。また、Pythonの機械学習エコシステムとの統合性も確認された。\n\n【ポイント】\nPhyeldsはPythonでフィールドプログラミングを実現し、データサイエンスの実践者向けの新しいアブストラクションを提供することで、機械学習とフィールドプログラミングの統合を促進した。",
+    "tags": [
+      "AIエージェント",
+      "Robotics"
+    ],
+    "link": "https://arxiv.org/abs/2603.29999v1",
+    "published": "2026-03-31T16:57:32Z",
+    "created_at": "2026-04-02"
+  },
+  {
+    "id": "http://arxiv.org/abs/2603.29957v1",
+    "title": "Think Anywhere in Code Generation",
+    "summary_ja": "【背景】\nコード生成において、事前に考えられた推論はコードの実装中に問題の全貌が明らかになる場合に限界がある。また、コード生成過程で難易度が大幅に変化する場面では推論の効率的な配分が困難である。\n\n【提案】\nThink-Anywhereという新しい推論メカニズムを提案し、LLMsがコード生成過程の任意のトークン位置で推論をオンデマンドで呼び出すことを可能にする。\n\n【結果】\nThink-AnywhereはLeetCode、LiveCodeBench、HumanEval、MBPPの4つの主流のコード生成ベンチマークにおいて、既存の推論方法や最近の後処理アプローチよりも優れたパフォーマンスを達成し、多様なLLMsに対して一貫した汎化能力を示した。\n\n【ポイント】\nThink-Anywhereは高エントロピー位置での推論の適応的な呼び出しを可能にし、モデルの解釈性を向上させる。",
+    "tags": [
+      "AIエージェント"
+    ],
+    "link": "https://arxiv.org/abs/2603.29957v1",
+    "published": "2026-03-31T16:24:03Z",
+    "created_at": "2026-04-02"
+  },
+  {
     "id": "http://arxiv.org/abs/2603.28760v1",
     "title": "SHOW3D: Capturing Scenes of 3D Hands and Objects in the Wild",
     "summary_ja": "【背景】\n人間の手と物体の操作中の正確な3次元理解は、自覚的なコンピュータビジョンにおいて重要な課題である。既存の手-物体相互作用データセットは、制御されたスタジオ環境で取得されており、環境の多様性とモデルの実世界への汎用性が制限されている。\n\n【提案】\nこの課題を解決するために、制約の少ない野外条件で動作可能なマルチカメラシステムを提案し、手と物体の正確な3次元注釈を生成する能力を維持する。このシステムは、ユーザーが装着するVRヘッドセットと同期・校正された軽量なバックマウントマルチカメラリグを採用している。\n\n【結果】\n提案したシステムを使用して、多様な実世界環境（特に屋外）で手が物体と相互作用する3次元注釈付きのデータセットSHOW3Dを作成した。さらに、このデータセットの品質を評価し、複数の下流タスクでの実験でその有効性を検証した。\n\n【ポイント】\n環境の現実性と3次元注釈の正確性の基本的なトレードオフを大幅に改善し、 SHOW3Dデータセットを初めて提供することで、実世界での手-物体相互作用の研究を促進する。",
@@ -1339,34 +1408,6 @@
     "tags": [
       "AIエージェント",
       "ハンド模倣学習"
-    ],
-    "saved": false,
-    "created_at": "2026-03-03"
-  },
-  {
-    "id": "http://arxiv.org/abs/2603.02194v1",
-    "title": "From Leaderboard to Deployment: Code Quality Challenges in AV Perception Repositories",
-    "summary_en": "Autonomous vehicle (AV) perception models are typically evaluated solely on benchmark performance metrics, with limited attention to code quality, production readiness and long-term maintainability. This creates a significant gap between research excellence and real-world deployment in safety-critical systems subject to international safety standards. To address this gap, we present the first large-scale empirical study of software quality in AV perception repositories, systematically analyzing 178 unique models from the KITTI and NuScenes 3D Object Detection leaderboards. Using static analysis tools (Pylint, Bandit, and Radon), we evaluated code errors, security vulnerabilities, maintainability, and development practices. Our findings revealed that only 7.3% of the studied repositories meet basic production-readiness criteria, defined as having zero critical errors and no high-severity security vulnerabilities. Security issues are highly concentrated, with the top five issues responsible for almost 80% of occurrences, which prompted us to develop a set of actionable guidelines to prevent them. Additionally, the adoption of Continuous Integration/Continuous Deployment pipelines was correlated with better code maintainability. Our findings highlight that leaderboard performance does not reflect production readiness and that targeted interventions could substantially improve the quality and safety of AV perception code.",
-    "published": "2026-03-02T18:54:28Z",
-    "link": "https://arxiv.org/abs/2603.02194v1",
-    "summary_ja": "【背景】\n自動運転車（AV）の感知モデルは、通常、ベンチマークの性能指標のみで評価され、コード品質や生産性、長期的な維持性についてはあまり考慮されていません。これは、国際的な安全基準に準拠する安全基準が適用されるシステムでの研究と実世界の展開間の大きなギャップを生み出します。\n\n【提案】\nこの論文では、AVの感知リポジトリにおけるソフトウェア品質の最初の大量の実証的研究を提示し、Pylint、Bandit、Radonなどの静的解析ツールを使用して、178のユニークなモデルを系統的に分析しました。\n\n【結果】\nコードエラー、セキュリティ脆弱性、維持性、開発実践を評価した結果、調査対象のリポジトリのうち、基本的な生産性基準を満たすものは7.3%に過ぎませんでした。セキュリティ問題は非常に集中しており、トップ5の問題が全体の80%を占めました。さらに、継続的インテグレーション/継続的デプロイメントパイプラインの導入は、コードの維持性と関連していました。\n\n【ポイント】\nリーダーボードの性能は生産性を反映していないため、ターゲット介入によりAVの感知コードの品質と安全性を大幅に改善することが可能であることを示しました。",
-    "tags": [
-      "AIエージェント",
-      "ハンド模倣学習"
-    ],
-    "saved": false,
-    "created_at": "2026-03-03"
-  },
-  {
-    "id": "http://arxiv.org/abs/2603.02190v1",
-    "title": "Sketch2Colab: Sketch-Conditioned Multi-Human Animation via Controllable Flow Distillation",
-    "summary_en": "We present Sketch2Colab, which turns storyboard-style 2D sketches into coherent, object-aware 3D multi-human motion with fine-grained control over agents, joints, timing, and contacts. Conventional diffusion-based motion generators have advanced realism; however, achieving precise adherence to rich interaction constraints typically demands extensive training and/or costly posterior guidance, and performance can degrade under strong multi-entity conditioning. Sketch2Colab instead first learns a sketch-driven diffusion prior and then distills it into an efficient rectified-flow student operating in latent space for fast, stable sampling. Differentiable energies over keyframes, trajectories, and physics-based constraints directly shape the student's transport field, steering samples toward motions that faithfully satisfy the storyboard while remaining physically plausible. To capture coordinated interaction, we augment the continuous flow with a continuous-time Markov chain (CTMC) planner that schedules discrete events such as touches, grasps, and handoffs, modulating the dynamics to produce crisp, well-phased human-object-human collaborations. Experiments on CORE4D and InterHuman show that Sketch2Colab achieves state-of-the-art constraint adherence and perceptual quality while offering significantly faster inference than diffusion-only baselines.",
-    "published": "2026-03-02T18:52:51Z",
-    "link": "https://arxiv.org/abs/2603.02190v1",
-    "summary_ja": "【背景】\n2D スケッチから3D多人数の連続的な動きを生成する手法が求められている。従来の拡散モデルはリアルさを向上させたが、複数のエージェント間の複雑な相互作用を正確に再現するためには、多くのトレーニングや高コストのポストerior制御が必要で、性能は多体条件の強い影響を受けやすい。\n\n【提案】\nSketch2Colabは、スケッチから3D多人数の動きを生成する新しい手法を提案する。まずスケッチに基づく拡散モデルの先駆的な知識を学習し、その後、効率的な直交フロー学生モデルを構築する。この学生モデルはラティン空間で動作し、高速かつ安定したサンプリングが可能になる。さらに、キーフレーム、軌跡、物理制約の差分エネルギーを使用して、学生モデルの輸送フィールドを直接形作る。\n\n【結果】\nCORE4DとInterHumanの実験では、Sketch2Colabは最適な制約遵守と感覚的品質を達成し、純粋な拡散モデルの基準よりも大幅に高速な推論が可能となった。\n\n【ポイント】\nSketch2Colabは、スケッチからリアルで物理的に可能な多人数の動きを高速に生成する新しい方法を提供し、複雑な相互作用を正確に再現する。",
-    "tags": [
-      "AIエージェント",
-      "Robotics"
     ],
     "saved": false,
     "created_at": "2026-03-03"
