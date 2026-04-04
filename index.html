@@ -273,6 +273,21 @@ function normalizeIds(arr) {
 }
 
 // ================================================================
+// トークンのサニタイズ
+// コピー時に混入した不可視文字・非ASCII文字を除去する
+// HTTPヘッダーは ISO-8859-1 のみ許可されるため必須
+// ================================================================
+function sanitizeToken(token) {
+  if (!token) return '';
+  // trim で前後の空白・改行を除去し、さらに printable ASCII (0x21-0x7E) のみ残す
+  return token.trim().replace(/[^\x21-\x7E]/g, '');
+}
+
+function getToken() {
+  return sanitizeToken(localStorage.getItem(GITHUB_TOKEN_KEY) || '');
+}
+
+// ================================================================
 // LocalStorage helpers
 // ================================================================
 function getSavedIdsFromStorage() {
@@ -382,7 +397,7 @@ function pushFileToGitHub(repo, token, filename, data, cb) {
 // ================================================================
 function getSavedIds(cb) {
   var repo  = localStorage.getItem(GITHUB_REPO_KEY);
-  var token = localStorage.getItem(GITHUB_TOKEN_KEY);
+  var token = getToken(); // サニタイズ済みトークンを使用
   if (repo && token) {
     fetchFileFromGitHub(repo, token, 'saved.json', function(err, arr) {
       var ids = normalizeIds(Array.isArray(arr) ? arr : getSavedIdsFromStorage());
@@ -396,7 +411,7 @@ function getSavedIds(cb) {
 
 function getReadIds(cb) {
   var repo  = localStorage.getItem(GITHUB_REPO_KEY);
-  var token = localStorage.getItem(GITHUB_TOKEN_KEY);
+  var token = getToken(); // サニタイズ済みトークンを使用
   if (repo && token) {
     fetchFileFromGitHub(repo, token, 'read.json', function(err, arr) {
       var ids = normalizeIds(Array.isArray(arr) ? arr : getReadIdsFromStorage());
@@ -430,7 +445,7 @@ function setReadIds(ids, cb) {
 // ================================================================
 function syncToGitHub(savedIds, readIds, cb) {
   var repo  = localStorage.getItem(GITHUB_REPO_KEY);
-  var token = localStorage.getItem(GITHUB_TOKEN_KEY);
+  var token = getToken(); // サニタイズ済みトークンを使用
   if (!repo || !token) {
     cb(new Error('GitHub 設定が未完了です。⚙️ 設定からリポジトリとトークンを入力してください。'), null);
     return;
@@ -508,11 +523,20 @@ document.getElementById('settingsToggle').addEventListener('click', function() {
   }
 });
 document.getElementById('btnSaveSettings').addEventListener('click', function() {
-  var repo  = document.getElementById('inputRepo').value.trim();
-  var token = document.getElementById('inputToken').value.trim();
-  if (repo)  localStorage.setItem(GITHUB_REPO_KEY, repo);  else localStorage.removeItem(GITHUB_REPO_KEY);
-  if (token) localStorage.setItem(GITHUB_TOKEN_KEY, token); else localStorage.removeItem(GITHUB_TOKEN_KEY);
-  setSyncHint(repo && token ? '設定を保存しました。Sync ボタンで GitHub に反映できます。' : '設定をクリアしました。', '');
+  var repo        = document.getElementById('inputRepo').value.trim();
+  var tokenRaw    = document.getElementById('inputToken').value;
+  var tokenClean  = sanitizeToken(tokenRaw);
+
+  // 非ASCII文字が除去されていた場合は警告
+  if (tokenRaw.trim() !== tokenClean) {
+    setSyncHint('⚠️ トークンに使用できない文字が含まれていたため自動除去しました。再度確認してください。', 'error');
+    document.getElementById('inputToken').value = tokenClean;
+    return; // 保存せず入力欄を修正版で上書きして確認を促す
+  }
+
+  if (repo)        localStorage.setItem(GITHUB_REPO_KEY, repo);        else localStorage.removeItem(GITHUB_REPO_KEY);
+  if (tokenClean)  localStorage.setItem(GITHUB_TOKEN_KEY, tokenClean); else localStorage.removeItem(GITHUB_TOKEN_KEY);
+  setSyncHint(repo && tokenClean ? '設定を保存しました。Sync ボタンで GitHub に反映できます。' : '設定をクリアしました。', '');
   updateSyncDisplay();
   renderSetupBanner();
 });
@@ -826,26 +850,47 @@ fetch('papers_db.json?v=' + Date.now(), { cache: 'no-store' })
           filterTagAgent: 'AIエージェント', filterTagRobotics: 'Robotics', filterTagHand: 'ハンド模倣学習'
         };
 
+        // 各フィルターの件数を返す
+        function countFor(mode) {
+          switch (mode) {
+            case 'all':    return data.length;
+            case 'unread': return data.filter(function(p) { return currentReadIds.indexOf(normalizeId(p.id)) === -1; }).length;
+            case 'read':   return data.filter(function(p) { return currentReadIds.indexOf(normalizeId(p.id)) >= 0; }).length;
+            case 'saved':  return data.filter(function(p) { return currentSavedIds.indexOf(normalizeId(p.id)) >= 0; }).length;
+            default:       return data.filter(function(p) { return p.tags && p.tags.indexOf(mode) >= 0; }).length;
+          }
+        }
+
+        // ボタンラベルの元テキスト定義
+        var filterLabels = {
+          filterAll: 'すべて', filterUnread: '未読のみ', filterRead: '既読のみ', filterSaved: 'Saved',
+          filterTagAgent: 'AIエージェント', filterTagRobotics: 'Robotics', filterTagHand: 'ハンド模倣学習'
+        };
+
         function setFilterActive() {
           Object.keys(filterMap).forEach(function(id) {
             var btn = document.getElementById(id);
-            if (btn) btn.classList.toggle('active', filterMap[id] === filterMode);
+            if (!btn) return;
+            var mode  = filterMap[id];
+            var count = countFor(mode);
+            btn.textContent = filterLabels[id] + ' (' + count + ')';
+            btn.classList.toggle('active', mode === filterMode);
           });
         }
 
         function update() {
           renderPapers(container, data, filterMode, sortValue, currentSavedIds, currentReadIds);
-          var unread = data.filter(function(p) {
-            return currentReadIds.indexOf(normalizeId(p.id)) === -1;
-          }).length;
+          // ヘッダーの未読数バッジ
+          var unread = countFor('unread');
           document.getElementById('unreadCount').textContent = unread > 0 ? '未読: ' + unread : '';
+          // 全ボタンの件数を更新
+          setFilterActive();
         }
 
         Object.keys(filterMap).forEach(function(id) {
           var btn = document.getElementById(id);
           if (btn) btn.addEventListener('click', function() {
             filterMode = filterMap[id];
-            setFilterActive();
             update();
           });
         });
@@ -854,8 +899,7 @@ fetch('papers_db.json?v=' + Date.now(), { cache: 'no-store' })
           update();
         });
 
-        setFilterActive();
-        update();
+        update(); // setFilterActive は update 内で呼ばれる
       });
     });
   })
