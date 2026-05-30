@@ -4,8 +4,8 @@ import os
 import re
 import requests
 import time
-from datetime import datetime, timezone, timedelta
-from typing import List, Tuple
+from datetime import datetime, timezone, timedelta, date
+from typing import List, Tuple, Optional
 
 # ==========================
 # arXiv設定
@@ -13,14 +13,13 @@ from typing import List, Tuple
 ARXIV_BASE = "http://export.arxiv.org/api/query?"
 ARXIV_QUERIES = [
     # AIエージェント: cs.AI × "agent"
-    "search_query=cat:cs.AI+AND+all:agent&sortBy=submittedDate&max_results=3",
+    "search_query=cat:cs.AI+AND+all:agent&sortBy=submittedDate&max_results=10",
     # Robotics: cs.RO
-    "search_query=cat:cs.RO&sortBy=submittedDate&max_results=3",
-    # ハンド模倣学習: cs.RO / cs.LG × 手・模倣・巧み・操作系キーワード
-    "search_query=(cat:cs.RO+OR+cat:cs.LG)+AND+(all:hand+OR+all:imitation+OR+all:dexterous+OR+all:manipulation)&sortBy=submittedDate&max_results=3",
+    "search_query=cat:cs.RO&sortBy=submittedDate&max_results=10",
+    # ハンド模倣学習: cs.RO / cs.LG × 手・模倣・巧み・操作系
+    "search_query=(cat:cs.RO+OR+cat:cs.LG)+AND+(all:hand+OR+all:imitation+OR+all:dexterous+OR+all:manipulation)&sortBy=submittedDate&max_results=10",
 ]
-
-MAX_PAPERS_PER_RUN = 6
+MAX_PAPERS_PER_RUN = 6   # 3クエリ × 最大2件ずつ
 DB_FILE = "papers_db.json"
 
 # ==========================
@@ -28,11 +27,24 @@ DB_FILE = "papers_db.json"
 # ==========================
 HF_TOKEN    = os.getenv("HF_TOKEN")
 HF_CHAT_URL = "https://router.huggingface.co/v1/chat/completions"
-HF_MODEL    = "Qwen/Qwen2.5-7B-Instruct"
+
+# --------------------------------------------------
+# モデル選定指針
+#
+# Qwen2.5-72B-Instruct  ← 推奨。日本語品質・指示追従が大幅に向上。
+#                          HF Router 経由で利用可。7B 比で要約の自然さが別格。
+#
+# Qwen2.5-7B-Instruct   ← 軽量フォールバック。
+#                          HF 無料枠での利用やコスト優先時に切り替え。
+#
+# 切り替え方法: 環境変数 HF_MODEL を設定するか、下記デフォルト値を変更する。
+#   export HF_MODEL="Qwen/Qwen2.5-7B-Instruct"
+# --------------------------------------------------
+HF_MODEL = os.getenv("HF_MODEL", "Qwen/Qwen2.5-72B-Instruct")
 
 ALLOWED_TAGS = {"AIエージェント", "Robotics", "ハンド模倣学習"}
 
-# JST タイムゾーン（不具合②: UTC date を使うと JST と1日ずれる）
+# JST タイムゾーン
 JST = timezone(timedelta(hours=9))
 
 # ==========================
@@ -53,6 +65,74 @@ def save_db(data: List[dict]):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 # ==========================
+# Semantic Scholar による論文情報の補強
+# ==========================
+# arXiv API は Abstract のみ返すが、S2 は TLDR・引用数なども提供する。
+# 論文の ID 部分（例: "2503.04392v1" → "2503.04392"）を使って検索する。
+# - 成功時: Abstract + TLDR（あれば）を結合してより豊かなコンテキストを得る
+# - 失敗時: arXiv API の Abstract のみで続行（フォールバック）
+# - Rate limit: 100 req/5min (未認証)。論文ごとに 1 回のみ呼ぶ。
+
+S2_API_BASE = "https://api.semanticscholar.org/graph/v1/paper"
+S2_FIELDS   = "abstract,tldr,citationCount,year"
+S2_HEADERS  = {"User-Agent": "ArXivDigestBot/1.0 (academic summarizer; github actions)"}
+
+def _arxiv_pid(full_id: str) -> str:
+    """'http://arxiv.org/abs/2503.04392v1' → '2503.04392' (バージョン除去)"""
+    pid = full_id.split("/")[-1]       # "2503.04392v1"
+    return re.sub(r"v\d+$", "", pid)   # "2503.04392"
+
+def fetch_s2_info(full_id: str) -> dict:
+    """
+    Semantic Scholar API から追加情報を取得する。
+    Returns dict with keys: abstract, tldr, citation_count (all optional)
+    失敗時は空 dict を返す。
+    """
+    pid = _arxiv_pid(full_id)
+    url = f"{S2_API_BASE}/arXiv:{pid}"
+    try:
+        r = requests.get(
+            url,
+            params={"fields": S2_FIELDS},
+            headers=S2_HEADERS,
+            timeout=15,
+        )
+        if r.status_code == 200:
+            d = r.json()
+            return {
+                "abstract":       d.get("abstract") or "",
+                "tldr":           (d.get("tldr") or {}).get("text") or "",
+                "citation_count": d.get("citationCount") or 0,
+            }
+        # 404: S2 にまだ登録されていない新しい論文 (正常系)
+        if r.status_code == 429:
+            print(f"  S2 rate limited for {pid}. Skipping S2 enrichment.")
+        elif r.status_code != 404:
+            print(f"  S2 API {r.status_code} for {pid}: {r.text[:100]}")
+    except requests.RequestException as e:
+        print(f"  S2 request error for {pid}: {e}")
+    return {}
+
+def build_context(summary_en: str, s2: dict) -> str:
+    """
+    arXiv Abstract と S2 情報を組み合わせて LLM への入力コンテキストを構築する。
+    S2 の Abstract が arXiv と異なる（より詳細な）場合は両方を使う。
+    TLDR がある場合は最初のヒントとして付加する。
+    """
+    parts: List[str] = []
+
+    # S2 TLDR（機械生成の英語要約）: LLM への先行ヒントとして利用
+    if s2.get("tldr"):
+        parts.append(f"[Key point (auto-generated): {s2['tldr']}]")
+
+    # Abstract: S2 版が arXiv 版より長ければ S2 を優先
+    s2_abstract  = s2.get("abstract", "")
+    use_abstract = s2_abstract if len(s2_abstract) > len(summary_en) else summary_en
+    parts.append(use_abstract)
+
+    return "\n\n".join(parts)
+
+# ==========================
 # 要約処理
 # ==========================
 def clean_abstract(text: str) -> str:
@@ -65,8 +145,8 @@ SYSTEM_PROMPT = (
     "最後の行にタグ行を1行だけ書いてください。"
 )
 
-def build_user_prompt(abstract: str) -> str:
-    return f"""以下の論文アブストラクトを、下記のフォーマットで要約してください。
+def build_user_prompt(context: str) -> str:
+    return f"""以下の論文情報を、下記のフォーマットで日本語要約してください。
 
 === フォーマット ===
 【背景】
@@ -96,11 +176,11 @@ def build_user_prompt(abstract: str) -> str:
 ・タグ行は最後に1行だけ書く（本文中に「タグ」という語を使わない）
 ・【ポイント】まで必ず書き切ること。途中で文を切らないこと。
 
-=== アブストラクト ===
-{abstract}
+=== 論文情報 ===
+{context}
 """
 
-def summarize_to_japanese(text: str) -> str:
+def summarize_to_japanese(context: str) -> str:
     headers = {
         "Authorization": f"Bearer {HF_TOKEN}",
         "Content-Type": "application/json",
@@ -109,7 +189,7 @@ def summarize_to_japanese(text: str) -> str:
         "model": HF_MODEL,
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
-            {"role": "user",   "content": build_user_prompt(text)},
+            {"role": "user",   "content": build_user_prompt(context)},
         ],
         "max_tokens": 1024,
         "temperature": 0.2,
@@ -118,22 +198,28 @@ def summarize_to_japanese(text: str) -> str:
 
     for attempt in range(3):
         try:
-            response = requests.post(HF_CHAT_URL, headers=headers, json=payload, timeout=60)
-            print(f"HF STATUS: {response.status_code} (attempt {attempt + 1})")
+            response = requests.post(HF_CHAT_URL, headers=headers, json=payload, timeout=90)
+            print(f"  HF STATUS: {response.status_code} (attempt {attempt + 1}, model={HF_MODEL})")
+
+            if response.status_code == 429:
+                wait = 30 * (attempt + 1)
+                print(f"  Rate limited. Waiting {wait}s...")
+                time.sleep(wait)
+                continue
 
             if response.status_code != 200:
-                print("HF ERROR:", response.status_code, response.text[:300])
+                print(f"  HF ERROR: {response.status_code} {response.text[:300]}")
                 time.sleep(5)
                 continue
 
             content = response.json()["choices"][0]["message"]["content"].strip()
             if not content:
-                print("HF BLANK CONTENT")
+                print("  HF BLANK CONTENT")
                 return "要約失敗"
             return content
 
         except requests.RequestException as e:
-            print(f"HF request error (attempt {attempt + 1}):", e)
+            print(f"  HF request error (attempt {attempt + 1}): {e}")
             time.sleep(5)
 
     return "要約失敗"
@@ -160,12 +246,10 @@ UNRELATED_DOMAINS = {
 def infer_tags(title: str, abstract: str) -> List[str]:
     """LLM タグ生成失敗時のフォールバック。厳格な共起チェックで誤タグを防ぐ。"""
     combined = (title + " " + abstract).lower()
-
     if any(d in combined for d in UNRELATED_DOMAINS):
         return []
 
     tags: List[str] = []
-
     agent_keywords = ["autonomous agent", "llm agent", "ai agent", "tool use",
                       "planning agent", "multi-agent", "language model agent"]
     if any(kw in combined for kw in agent_keywords):
@@ -188,7 +272,6 @@ def infer_tags(title: str, abstract: str) -> List[str]:
 
 # ==========================
 # arXiv取得
-# 不具合⑤: e.id（フルURL）をそのまま ID として使用し DB と一致させる
 # ==========================
 def fetch() -> List[dict]:
     seen: set = set()
@@ -198,31 +281,33 @@ def fetch() -> List[dict]:
         feed = feedparser.parse(ARXIV_BASE + q)
         time.sleep(1)
 
+        fetched_in_query = 0
         for e in feed.entries:
-            # e.id = "http://arxiv.org/abs/2603.04392v1" (フルURL)
             if e.id in seen:
                 continue
             seen.add(e.id)
-
+            fetched_in_query += 1
             papers.append({
-                "id":         e.id,           # ← フル URL を canonical ID として使用
+                "id":         e.id,
                 "title":      e.title.strip(),
                 "summary_en": clean_abstract(e.summary),
                 "published":  e.published,
                 "link":       e.link,
             })
 
+        label = q.split("&")[0][13:]
+        print(f"fetch: '{label[:50]}' got={fetched_in_query}")
+
     papers.sort(key=lambda x: x["published"], reverse=True)
-    return papers[:MAX_PAPERS_PER_RUN]
+    result = papers[:MAX_PAPERS_PER_RUN]
+    print(f"fetch total: {len(papers)} unique, using top {len(result)}")
+    return result
 
 # ==========================
 # DB クリーンアップ
 # ==========================
-
-# 保持期間（日数）。この日数を超えた論文のうち saved でないものを削除する
 RETENTION_DAYS = 30
-
-SAVED_FILE = "saved.json"
+SAVED_FILE     = "saved.json"
 
 def load_saved_ids() -> set:
     """
@@ -243,7 +328,6 @@ def load_saved_ids() -> set:
         return set()
 
 def normalize_id(paper_id: str) -> str:
-    """ID を 'http://arxiv.org/abs/XXXX' 形式に統一する。"""
     if not paper_id:
         return paper_id
     if paper_id.startswith("http://") or paper_id.startswith("https://"):
@@ -252,49 +336,30 @@ def normalize_id(paper_id: str) -> str:
         return "http://arxiv.org/" + paper_id
     return "http://arxiv.org/abs/" + paper_id
 
-def cleanup_db(db: list, saved_ids: set, retention_days: int, today: "date") -> tuple:
-    """
-    保持期間を超えた論文のうち、saved でないものを DB から削除する。
-
-    削除条件（AND）:
-      - published が retention_days 日以上前
-      - saved_ids に含まれていない
-
-    Returns:
-        (cleaned_db, removed_count)
-    """
-    from datetime import date as date_type
-    cutoff = today.toordinal() - retention_days  # ordinal で比較（タイムゾーン非依存）
-
+def cleanup_db(db: list, saved_ids: set, retention_days: int, today: date) -> Tuple[list, int]:
+    cutoff  = today.toordinal() - retention_days
     kept    = []
     removed = 0
 
     for p in db:
         pid = normalize_id(p.get("id", ""))
-
-        # Saved 論文は期間に関係なく保持
         if pid in saved_ids:
             kept.append(p)
             continue
-
-        # published を日付に変換して比較
         published_str = p.get("published", "")
         try:
-            # arXiv の published 形式: "2026-03-13T12:34:56Z"
             pub_date = datetime.fromisoformat(
                 published_str.replace("Z", "+00:00")
             ).date()
             if pub_date.toordinal() >= cutoff:
-                kept.append(p)   # 保持期間内 → 保持
+                kept.append(p)
             else:
                 removed += 1
                 print(f"  remove (expired): {p.get('title', pid)[:60]}")
         except (ValueError, AttributeError):
-            # 日付パースに失敗した論文は安全のため保持
             kept.append(p)
 
     return kept, removed
-
 
 # ==========================
 # メイン処理
@@ -304,20 +369,35 @@ def main():
         print("HF_TOKEN not set")
         return
 
+    print(f"Using model: {HF_MODEL}")
+
     db        = load_db()
     db_map    = {p["id"]: p for p in db}
     papers    = fetch()
     new_count = 0
-
     today_jst = datetime.now(JST).date()
 
-    # ── 新規論文の追加 ────────────────────────────────────────────
+    # ── 新規論文の処理 ────────────────────────────────────────────
     for p in papers:
         if p["id"] in db_map:
+            print(f"  skip (exists): {p['title'][:60]}")
             continue
 
-        print("summarizing:", p["title"])
-        summary_raw = summarize_to_japanese(p["summary_en"])
+        print(f"processing: {p['title'][:70]}")
+
+        # Semantic Scholar から追加情報を取得
+        s2  = fetch_s2_info(p["id"])
+        ctx = build_context(p["summary_en"], s2)
+
+        if s2.get("tldr"):
+            print(f"  S2 tldr found ({len(s2['tldr'])} chars)")
+        elif s2.get("abstract"):
+            print(f"  S2 abstract found ({len(s2['abstract'])} chars)")
+        else:
+            print("  S2 not available, using arXiv abstract only")
+
+        # 要約生成
+        summary_raw = summarize_to_japanese(ctx)
 
         if summary_raw == "要約失敗":
             summary_clean = "要約生成に失敗しました。"
@@ -327,7 +407,7 @@ def main():
             if not tags:
                 tags = infer_tags(p["title"], p["summary_en"])
 
-        db_map[p["id"]] = {
+        entry: dict = {
             "id":         p["id"],
             "title":      p["title"],
             "summary_ja": summary_clean,
@@ -336,7 +416,14 @@ def main():
             "published":  p["published"],
             "created_at": today_jst.isoformat(),
         }
+        if s2.get("citation_count"):
+            entry["citation_count"] = s2["citation_count"]
+
+        db_map[p["id"]] = entry
         new_count += 1
+
+        # arXiv 利用規約に配慮した待機
+        time.sleep(2)
 
     # ── DB クリーンアップ ─────────────────────────────────────────
     saved_ids  = load_saved_ids()
@@ -344,16 +431,13 @@ def main():
 
     current_db = list(db_map.values())
     cleaned_db, removed_count = cleanup_db(current_db, saved_ids, RETENTION_DAYS, today_jst)
+    print(f"cleanup: {removed_count} paper(s) removed (older than {RETENTION_DAYS} days, not saved).")
 
-    print(f"cleanup: {removed_count} paper(s) removed "
-          f"(older than {RETENTION_DAYS} days, not saved).")
-
-    # ── 保存（追加 or 削除があった場合のみ書き込み）─────────────────
+    # ── 書き込み（変更があった場合のみ）─────────────────────────────
     if new_count > 0 or removed_count > 0:
         updated = sorted(cleaned_db, key=lambda x: x["published"], reverse=True)
         save_db(updated)
-        print(f"DB updated: +{new_count} added, -{removed_count} removed. "
-              f"total={len(updated)}")
+        print(f"DB updated: +{new_count} added, -{removed_count} removed. total={len(updated)}")
     else:
         print("no changes to DB.")
 
