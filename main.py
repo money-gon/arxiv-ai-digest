@@ -37,10 +37,12 @@ HF_CHAT_URL = "https://router.huggingface.co/v1/chat/completions"
 # Qwen2.5-7B-Instruct   ← 軽量フォールバック。
 #                          HF 無料枠での利用やコスト優先時に切り替え。
 #
+# Qwen/Qwen3-8B         ← Llama 3.1 8B を上回り、多言語・指示追従が大幅に向上
+#
 # 切り替え方法: 環境変数 HF_MODEL を設定するか、下記デフォルト値を変更する。
 #   export HF_MODEL="Qwen/Qwen2.5-7B-Instruct"
 # --------------------------------------------------
-HF_MODEL = os.getenv("HF_MODEL", "Qwen/Qwen2.5-72B-Instruct")
+HF_MODEL = os.getenv("HF_MODEL", "Qwen/Qwen3-8B")
 
 ALLOWED_TAGS = {"AIエージェント", "Robotics", "ハンド模倣学習"}
 
@@ -142,7 +144,8 @@ SYSTEM_PROMPT = (
     "あなたは研究論文を日本語で要約する専門家です。\n"
     "回答は必ず日本語のみで書いてください。\n"
     "【背景】【提案】【結果】【ポイント】の4セクションをこの順番で必ず書き、"
-    "最後の行にタグ行を1行だけ書いてください。"
+    "最後の行にタグ行を1行だけ書いてください。\n"
+    "/no_think"   # ← Qwen3 の Thinking モードを無効化（余分なトークン節約）
 )
 
 def build_user_prompt(context: str) -> str:
@@ -180,6 +183,10 @@ def build_user_prompt(context: str) -> str:
 {context}
 """
 
+def remove_thinking_block(text: str) -> str:
+    """Qwen3 の <think>...</think> ブロックを除去する"""
+    return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
+
 def summarize_to_japanese(context: str) -> str:
     headers = {
         "Authorization": f"Bearer {HF_TOKEN}",
@@ -216,6 +223,8 @@ def summarize_to_japanese(context: str) -> str:
             if not content:
                 print("  HF BLANK CONTENT")
                 return "要約失敗"
+
+            content = remove_thinking_block(content)
             return content
 
         except requests.RequestException as e:
