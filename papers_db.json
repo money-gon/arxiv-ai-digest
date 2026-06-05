@@ -1,5 +1,68 @@
 [
   {
+    "id": "http://arxiv.org/abs/2606.06493v1",
+    "title": "HANDOFF: Humanoid Agentic Task-Space Whole-Body Control via Distilled Complementary Teachers",
+    "summary_ja": "要約生成に失敗しました。",
+    "tags": [
+      "Robotics",
+      "ハンド模倣学習"
+    ],
+    "link": "https://arxiv.org/abs/2606.06493v1",
+    "published": "2026-06-04T17:59:50Z",
+    "created_at": "2026-06-06"
+  },
+  {
+    "id": "http://arxiv.org/abs/2606.06491v1",
+    "title": "TempoVLA: Learning Speed-Controllable Vision-Language-Action Policies",
+    "summary_ja": "要約生成に失敗しました。",
+    "tags": [
+      "Robotics"
+    ],
+    "link": "https://arxiv.org/abs/2606.06491v1",
+    "published": "2026-06-04T17:59:40Z",
+    "created_at": "2026-06-06"
+  },
+  {
+    "id": "http://arxiv.org/abs/2606.06480v1",
+    "title": "DNQ: Deep Nash Q-Network for Partially Observable n-Player Games",
+    "summary_ja": "要約生成に失敗しました。",
+    "tags": [],
+    "link": "https://arxiv.org/abs/2606.06480v1",
+    "published": "2026-06-04T17:58:01Z",
+    "created_at": "2026-06-06"
+  },
+  {
+    "id": "http://arxiv.org/abs/2606.06473v1",
+    "title": "MLEvolve: A Self-Evolving Framework for Automated Machine Learning Algorithm Discovery",
+    "summary_ja": "要約生成に失敗しました。",
+    "tags": [
+      "AIエージェント"
+    ],
+    "link": "https://arxiv.org/abs/2606.06473v1",
+    "published": "2026-06-04T17:55:59Z",
+    "created_at": "2026-06-06"
+  },
+  {
+    "id": "http://arxiv.org/abs/2606.06468v1",
+    "title": "Goedel-Architect: Streamlining Formal Theorem Proving with Blueprint Generation and Refinement",
+    "summary_ja": "要約生成に失敗しました。",
+    "tags": [],
+    "link": "https://arxiv.org/abs/2606.06468v1",
+    "published": "2026-06-04T17:54:44Z",
+    "created_at": "2026-06-06"
+  },
+  {
+    "id": "http://arxiv.org/abs/2606.06462v1",
+    "title": "Benchmark Everything Everywhere All at Once",
+    "summary_ja": "要約生成に失敗しました。",
+    "tags": [
+      "AIエージェント"
+    ],
+    "link": "https://arxiv.org/abs/2606.06462v1",
+    "published": "2026-06-04T17:52:04Z",
+    "created_at": "2026-06-06"
+  },
+  {
     "id": "http://arxiv.org/abs/2606.03992v1",
     "title": "Exploring Easy Boosts for Lidar Semantic Scene Completion",
     "summary_ja": "要約生成に失敗しました。",
@@ -967,73 +1030,6 @@
     "link": "https://arxiv.org/abs/2605.06595v1",
     "published": "2026-05-07T17:20:34Z",
     "created_at": "2026-05-10"
-  },
-  {
-    "id": "http://arxiv.org/abs/2605.05191v1",
-    "title": "LongSeeker: Elastic Context Orchestration for Long-Horizon Search Agents",
-    "summary_ja": "【背景】\nロングハORIZンの検索エージェントは、推理やツール呼び出し、情報観察を行う中で急速に増大するワークコンテキストを管理する必要があります。しかし、すべての中途結果を無差別に蓄積するとエージェントが過負荷になり、コストが増大し、誤差のリスクも高まります。\n\n【提案】\n適応的なコンテキスト管理が必要であることを示し、Context-ReActという統一的なループで推理、コンテキスト管理、ツール使用を統合するための汎用エージェントパラダイムを提案します。Context-ReActは、スキップ、圧縮、ロールバック、スニペット、削除の5つの原子操作を提供し、エージェントが動的にワークコンテキストを再整形し、重要な証拠を保存し、解決した情報を要約し、助けのない分岐を削除し、コンテキストサイズを制御できます。\n\n【結果】\nContext-ReActの圧縮オペレータは表現的に完全であり、その他の専門的なオペレータは生成コストを削減し、幻覚リスクを低減する効率性と正確性の保証を提供します。このパラダイムに基づいて開発されたLongSeekerは、Qwen3-30B-A3Bから10,000の合成トラジェクトリでファインチューニングされたロングハORIZン検索エージェントで、4つの代表的な検索ベンチマークでBrowseCompとBrowseComp-ZHでそれぞれ61.5%と62.5%の性能を達成し、Tongyi DeepResearchとAgentFoldを大幅に上回っています。\n\n【ポイント】\n適応的なコンテキスト管理の可能性を示し、エージェントが動的にワークメモリを整形することでより信頼性が高く効率的なロングハORIZン推理を達成できることが証明されました。",
-    "tags": [
-      "AIエージェント"
-    ],
-    "link": "https://arxiv.org/abs/2605.05191v1",
-    "published": "2026-05-06T17:54:16Z",
-    "created_at": "2026-05-08"
-  },
-  {
-    "id": "http://arxiv.org/abs/2605.05182v1",
-    "title": "A Closed-Form Dual-Barrier CBF Safety Filter for Holonomic Robots on Incrementally Built Occupancy Grid Maps",
-    "summary_ja": "【背景】\n未知の環境を探索するホロニコスロボットでは、未探索領域への進入が衝突リスクを引き起こす可能性がある。特に前方センサーを用いる場合、未探索領域の障害物の形状は未知であり、この不確定性は安全を脅かす要因となる。\n\n【提案】\n探索領域の周囲でマッピングされた障害物を避けるとともに、未探索領域への進入を制限する2つの制約を導入する。これらの制約は、占有グリッドの符号付き距離フィールドから解析的に導き出され、各サイクルで小さな線形システム解きが必要な閉形式の安全フィルタを生成する。\n\n【結果】\n提案されたフィルタは、リソース制約のあるプラットフォーム（例：Raspberry Pi）でも低オーバーヘッドを維持し、SLAMや計画と競合しない。適応的なゲインスケジュールにより、情報が豊富な領域では制約が緩和され、よくマッピングされた領域では厳格になる。ハードウェア実験では、PX4制御のクアッドロータでの複数回の実験で衝突ゼロを達成した。\n\n【ポイント】\n低リソース制約下での実時間安全制御を実現し、探索効率と安全性の両立を達成した。",
-    "tags": [
-      "Robotics"
-    ],
-    "link": "https://arxiv.org/abs/2605.05182v1",
-    "published": "2026-05-06T17:49:17Z",
-    "created_at": "2026-05-08"
-  },
-  {
-    "id": "http://arxiv.org/abs/2605.05172v1",
-    "title": "When Life Gives You BC, Make Q-functions: Extracting Q-values from Behavior Cloning for On-Robot Reinforcement Learning",
-    "summary_ja": "【背景】\nロボットの学習において、Behavior Cloning (BC)は効果的な手法として注目されています。しかし、BCはデモンストレーション収集後も自己改善するメカニズムが不足しており、 Offline-to-Online 学習方法は、オフラインデータとオンライン学習間の分布ミスマッチにより、良い行動が置き換えられることもあります。\n\n【提案】\nこの論文では、Q-EstimationとQ-Gatingを用いたQ2RL (Q-Estimation and Q-Gating from BC for Reinforcement Learning)というアルゴリズムを提案します。Q-Estimationは少量の環境との相互作用でBCポリシーからQ関数を抽出し、Q-GatingはそれぞれのQ値に基づいてBCとRLの行動を切り替えて、RLポリシーの学習用サンプルを集める仕組みです。\n\n【結果】\nQ2RLは、D4RLとrobomimicのマニピュレーションタスクで、成功率と収束時間において現行の最適なOffline-to-Online学習手法を上回りました。接触が多いため精度が必要なパイプ組立やキーティングなどのタスクでは、1〜2時間のオンライン相互作用で100%の成功率を達成し、元のBCポリシーに対して最大3.75倍の改善を実現しました。\n\n【ポイント】\nQ2RLは、接触が多いため精度が必要なタスクでも効率的に学習でき、自己改善メカニズムを有する新しいOffline-to-Online学習手法を提供します。",
-    "tags": [
-      "Robotics",
-      "AIエージェント"
-    ],
-    "link": "https://arxiv.org/abs/2605.05172v1",
-    "published": "2026-05-06T17:40:11Z",
-    "created_at": "2026-05-08"
-  },
-  {
-    "id": "http://arxiv.org/abs/2605.05170v1",
-    "title": "Design Conductor 2.0: An agent builds a TurboQuant inference accelerator in 80 hours",
-    "summary_ja": "【背景】\nLLM（大型言語モデル）とその下流モデルの急速な進化により、LLMエージェントの性能は著しく向上しています。前回の研究では、Design Conductor（Conductor）というシステムが12時間で5段階のLinux対応RISC-V CPUを設計できることを示しました。\n\n【提案】\n本研究では、2026年4月に公開された先端モデルを使用した更新版のマルチエージェントハーネスを提案します。このハーネスは、前回のシステムよりも80倍の大きな設計を自動で処理し、より高い品質で自律的に動作します。\n\n【結果】\n更新版のDesign Conductorは、TurboQuantのarXiv論文からハードウェア化されたLLM推論加速器VerTQを設計しました。VerTQには5129のFP16/32ユニットが含まれ、125MHzで動作し、TSMC 16FFプロセスで5.7 mm²の面積を消費します。また、Design Conductorのトークン使用量やその他の実証的特性を分析しました。\n\n【ポイント】\nDesign Conductorは、先端モデルを活用して大幅に大きな設計を自動で処理し、より高度な性能を持つハードウェアを設計できることが示されました。",
-    "tags": [
-      "AIエージェント"
-    ],
-    "link": "https://arxiv.org/abs/2605.05170v1",
-    "published": "2026-05-06T17:40:03Z",
-    "created_at": "2026-05-08"
-  },
-  {
-    "id": "http://arxiv.org/abs/2605.05138v1",
-    "title": "Executable World Models for ARC-AGI-3 in the Era of Coding Agents",
-    "summary_ja": "【背景】\nARC-AGI-3のコンペティションにおいて、エージェントがゲームを解く能力を評価する必要がある。現行のエージェントシステムは、Pythonで実行可能な世界モデルを維持し、それを以前の観測と照合し、より単純な抽象化に改修することで、MDLのような単純化バイアスを実現しようとする。しかし、ゲーム固有のコードを使用せずに、エージェントがゲームを解くための手法を提案する必要がある。\n\n【提案】\nエージェントは、スクリプト化されたコントローラー、事前に定義された世界モデルインターフェース、検証プログラム、およびプランエグゼキューターを使用して動作する。エージェントは、ゲーム固有のロジックを手作業でコーディングせずに、世界モデルを介して計画し、行動する。\n\n【結果】\n25の公開されたARC-AGI-3のゲームに対して、エージェントは7つのゲームを完全に解き、6つのゲームでは相対的な人間の行動効率が75%以上を達成し、平均的なゲームごとのRHAEは32.58%となった。エージェントはゲーム固有のコードを使用せず、ARC-AGI-3のゲーム一般の基準として機能することが確認された。\n\n【ポイント】\nエージェントは、検証に基づく実行可能な世界モデルを使用することで、ARC-AGI-3のエージェントの有効性を示す初期の証拠を提供した。",
-    "tags": [
-      "AIエージェント"
-    ],
-    "link": "https://arxiv.org/abs/2605.05138v1",
-    "published": "2026-05-06T17:12:36Z",
-    "created_at": "2026-05-08"
-  },
-  {
-    "id": "http://arxiv.org/abs/2605.05126v1",
-    "title": "ConsisVLA-4D: Advancing Spatiotemporal Consistency in Efficient 3D-Perception and 4D-Reasoning for Robotic Manipulation",
-    "summary_ja": "【背景】\n現在のビジョン-ラグジュランス-アクション（VLA）モデルは、2D観測からアクションへのマッピングに焦点を当てていますが、空間的時間的認識において課題があります。具体的には、1) 空間表現が追加センサに依存することで計算負荷が増大し、2) 視覚的推理が未来フレームの予測に限定され、指示に基づくシーンと整合性が保たれず、時間的連続性が損なわれることが挙げられます。\n\n【提案】\nこれらの課題を解決するために、統一的で効率的なフレームワークであるConsisVLA-4Dを提案します。このフレームワークは、3D認識における時間的空間的連続性と、4D推論における時間的空間的連続性を強化します。具体的には、CV-Aligner、CO-Fuser、CS-Thinkerの3つのモ�を設計しました。\n\n【結果】\nConsisVLA-4Dは、CV-AlignerとCO-Fuserから得られた知識を用いて、効率的な視覚的推理を実現します。実験結果では、ConsisVLA-4DはLIBEROベンチマークと実世界プラットフォームでのOpenVLAと比較して、21.6%と41.5%の性能向上と、それぞれ2.3倍と2.4倍の推論速度向上を達成しました。\n\n【ポイント】\nConsisVLA-4Dは、時間的空間的連続性の設計により、効率的な視覚的推理を実現し、VLAモデルの性能と推論速度を大幅に向上させました。",
-    "tags": [
-      "AIエージェント"
-    ],
-    "link": "https://arxiv.org/abs/2605.05126v1",
-    "published": "2026-05-06T16:55:44Z",
-    "created_at": "2026-05-08"
   },
   {
     "id": "http://arxiv.org/abs/2605.02881v1",
