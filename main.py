@@ -418,7 +418,7 @@ def main():
 
         # S2 レート制限対策: 論文間に待機を入れる
         if new_count > 0:
-            time.sleep(3)
+            time.sleep(6)  # 3 → 6秒（S2の100req/5min制限に対して余裕を持たせる）
 
         s2  = fetch_s2_info(p["id"])
         ctx = build_context(p["summary_en"], s2)
