@@ -19,30 +19,47 @@ ARXIV_QUERIES = [
     # ハンド模倣学習: cs.RO / cs.LG × 手・模倣・巧み・操作系
     "search_query=(cat:cs.RO+OR+cat:cs.LG)+AND+(all:hand+OR+all:imitation+OR+all:dexterous+OR+all:manipulation)&sortBy=submittedDate&max_results=10",
 ]
-MAX_PAPERS_PER_RUN = 6   # 3クエリ × 最大2件ずつ
+MAX_SUMMARIZE_PER_RUN = 6  # 1回のワークフローで要約する最大件数（API コスト調整用）
 DB_FILE = "papers_db.json"
 
 # ==========================
-# Hugging Face設定
+# LLM プロバイダー設定
 # ==========================
+# ── プロバイダー選択 ────────────────────────────────────────────
+# 環境変数 LLM_PROVIDER で切り替え（デフォルト: groq）
+#
+# groq  : 無料枠 14,400 req/日・30 req/min。日本語品質◎。カード登録不要。
+#         GROQ_API_KEY を GitHub Secrets に登録する。
+#         https://console.groq.com/keys
+#
+# hf    : Hugging Face Router。無料枠が少なく 429 が頻発するため非推奨。
+#         HF_TOKEN を GitHub Secrets に登録する。
+# ─────────────────────────────────────────────────────────────────
+LLM_PROVIDER = os.getenv("LLM_PROVIDER", "groq")
+
+# Groq 設定
+GROQ_API_KEY  = os.getenv("GROQ_API_KEY")
+GROQ_CHAT_URL = "https://api.groq.com/openai/v1/chat/completions"
+# llama-3.3-70B: Groq 無料枠内で最高の日本語品質
+# 他の選択肢: llama-3.1-8b-instant（高速・軽量）、gemma2-9b-it（日本語もそこそこ）
+GROQ_MODEL    = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+
+# HF 設定（フォールバック用）
 HF_TOKEN    = os.getenv("HF_TOKEN")
 HF_CHAT_URL = "https://router.huggingface.co/v1/chat/completions"
+HF_MODEL    = os.getenv("HF_MODEL", "Qwen/Qwen3-8B")
 
-# --------------------------------------------------
-# モデル選定指針
-#
-# Qwen2.5-72B-Instruct  ← 推奨。日本語品質・指示追従が大幅に向上。
-#                          HF Router 経由で利用可。7B 比で要約の自然さが別格。
-#
-# Qwen2.5-7B-Instruct   ← 軽量フォールバック。
-#                          HF 無料枠での利用やコスト優先時に切り替え。
-#
-# Qwen/Qwen3-8B         ← Llama 3.1 8B を上回り、多言語・指示追従が大幅に向上
-#
-# 切り替え方法: 環境変数 HF_MODEL を設定するか、下記デフォルト値を変更する。
-#   export HF_MODEL="Qwen/Qwen2.5-7B-Instruct"
-# --------------------------------------------------
-HF_MODEL = os.getenv("HF_MODEL", "Qwen/Qwen3-8B")
+# 実行時に使うプロバイダー情報をまとめる
+def _get_provider() -> tuple:
+    """(api_key, url, model_name) を返す。キー未設定なら RuntimeError。"""
+    if LLM_PROVIDER == "groq":
+        if not GROQ_API_KEY:
+            raise RuntimeError("GROQ_API_KEY が設定されていません。GitHub Secrets を確認してください。")
+        return GROQ_API_KEY, GROQ_CHAT_URL, GROQ_MODEL
+    else:
+        if not HF_TOKEN:
+            raise RuntimeError("HF_TOKEN が設定されていません。")
+        return HF_TOKEN, HF_CHAT_URL, HF_MODEL
 
 ALLOWED_TAGS = {"AIエージェント", "Robotics", "ハンド模倣学習"}
 
@@ -144,8 +161,7 @@ SYSTEM_PROMPT = (
     "あなたは研究論文を日本語で要約する専門家です。\n"
     "回答は必ず日本語のみで書いてください。\n"
     "【背景】【提案】【結果】【ポイント】の4セクションをこの順番で必ず書き、"
-    "最後の行にタグ行を1行だけ書いてください。\n"
-    "/no_think"   # ← Qwen3 の Thinking モードを無効化（余分なトークン節約）
+    "最後の行にタグ行を1行だけ書いてください。"
 )
 
 def build_user_prompt(context: str) -> str:
@@ -188,12 +204,13 @@ def remove_thinking_block(text: str) -> str:
     return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
 
 def summarize_to_japanese(context: str) -> str:
+    api_key, chat_url, model_name = _get_provider()
     headers = {
-        "Authorization": f"Bearer {HF_TOKEN}",
+        "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
     }
     payload = {
-        "model": HF_MODEL,
+        "model": model_name,
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user",   "content": build_user_prompt(context)},
@@ -203,33 +220,38 @@ def summarize_to_japanese(context: str) -> str:
         "top_p": 0.95,
     }
 
+    # 429 のバックオフは指数的に伸ばす（30→120→300秒）
+    # 無料枠のレート制限は短時間待機では回復しないことが多い
+    backoff = [30, 120, 300]
+
     for attempt in range(3):
         try:
-            response = requests.post(HF_CHAT_URL, headers=headers, json=payload, timeout=90)
-            print(f"  HF STATUS: {response.status_code} (attempt {attempt + 1}, model={HF_MODEL})")
+            response = requests.post(chat_url, headers=headers, json=payload, timeout=90)
+            print(f"  LLM STATUS: {response.status_code} "
+                  f"(attempt {attempt + 1}, provider={LLM_PROVIDER}, model={model_name})")
 
             if response.status_code == 429:
-                wait = 30 * (attempt + 1)
+                wait = backoff[attempt]
                 print(f"  Rate limited. Waiting {wait}s...")
                 time.sleep(wait)
                 continue
 
             if response.status_code != 200:
-                print(f"  HF ERROR: {response.status_code} {response.text[:300]}")
-                time.sleep(5)
+                print(f"  LLM ERROR: {response.status_code} {response.text[:300]}")
+                time.sleep(10)
                 continue
 
             content = response.json()["choices"][0]["message"]["content"].strip()
             if not content:
-                print("  HF BLANK CONTENT")
+                print("  LLM BLANK CONTENT")
                 return "要約失敗"
 
-            content = remove_thinking_block(content)
+            content = remove_thinking_block(content)  # Qwen3 対応
             return content
 
         except requests.RequestException as e:
-            print(f"  HF request error (attempt {attempt + 1}): {e}")
-            time.sleep(5)
+            print(f"  LLM request error (attempt {attempt + 1}): {e}")
+            time.sleep(10)
 
     return "要約失敗"
 
@@ -283,6 +305,8 @@ def infer_tags(title: str, abstract: str) -> List[str]:
 # arXiv取得
 # ==========================
 def fetch() -> List[dict]:
+    """arXiv から論文を取得して返す。上限カットはせず全件返す。
+    新規かどうかの判定と件数制限は main() で行う。"""
     seen: set = set()
     papers: List[dict] = []
 
@@ -308,9 +332,8 @@ def fetch() -> List[dict]:
         print(f"fetch: '{label[:50]}' got={fetched_in_query}")
 
     papers.sort(key=lambda x: x["published"], reverse=True)
-    result = papers[:MAX_PAPERS_PER_RUN]
-    print(f"fetch total: {len(papers)} unique, using top {len(result)}")
-    return result
+    print(f"fetch total: {len(papers)} unique papers")
+    return papers  # ← 全件返す（上限カットなし）
 
 # ==========================
 # DB クリーンアップ
@@ -319,11 +342,6 @@ RETENTION_DAYS = 30
 SAVED_FILE     = "saved.json"
 
 def load_saved_ids() -> set:
-    """
-    リポジトリ内の saved.json から保存済み論文 ID を読み込む。
-    ファイルが存在しない・壊れている場合は空セットを返す（安全側に倒す）。
-    ID は正規化して比較するため、短形式・フルURL どちらでも一致させる。
-    """
     if not os.path.exists(SAVED_FILE):
         return set()
     try:
@@ -374,11 +392,13 @@ def cleanup_db(db: list, saved_ids: set, retention_days: int, today: date) -> Tu
 # メイン処理
 # ==========================
 def main():
-    if not HF_TOKEN:
-        print("HF_TOKEN not set")
+    try:
+        _, _, model_name = _get_provider()  # 起動時にAPIキー設定チェック
+    except RuntimeError as e:
+        print(f"ERROR: {e}")
         return
 
-    print(f"Using model: {HF_MODEL}")
+    print(f"Using model: {model_name} (provider={LLM_PROVIDER})")
 
     db        = load_db()
     db_map    = {p["id"]: p for p in db}
@@ -386,15 +406,20 @@ def main():
     new_count = 0
     today_jst = datetime.now(JST).date()
 
-    # ── 新規論文の処理 ────────────────────────────────────────────
-    for p in papers:
-        if p["id"] in db_map:
-            print(f"  skip (exists): {p['title'][:60]}")
-            continue
+    # ── 新規論文の抽出（全件チェック）──────────────────────────────
+    new_papers = [p for p in papers if p["id"] not in db_map]
+    skip_count = len(papers) - len(new_papers)
+    print(f"  existing={skip_count}, new={len(new_papers)}, "
+          f"will summarize up to {MAX_SUMMARIZE_PER_RUN}")
 
+    # ── 要約処理（上限件数まで）────────────────────────────────────
+    for p in new_papers[:MAX_SUMMARIZE_PER_RUN]:
         print(f"processing: {p['title'][:70]}")
 
-        # Semantic Scholar から追加情報を取得
+        # S2 レート制限対策: 論文間に待機を入れる
+        if new_count > 0:
+            time.sleep(3)
+
         s2  = fetch_s2_info(p["id"])
         ctx = build_context(p["summary_en"], s2)
 
@@ -405,7 +430,6 @@ def main():
         else:
             print("  S2 not available, using arXiv abstract only")
 
-        # 要約生成
         summary_raw = summarize_to_japanese(ctx)
 
         if summary_raw == "要約失敗":
