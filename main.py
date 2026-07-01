@@ -42,7 +42,9 @@ GROQ_API_KEY  = os.getenv("GROQ_API_KEY")
 GROQ_CHAT_URL = "https://api.groq.com/openai/v1/chat/completions"
 # llama-3.3-70B: Groq 無料枠内で最高の日本語品質
 # 他の選択肢: llama-3.1-8b-instant（高速・軽量）、gemma2-9b-it（日本語もそこそこ）
-GROQ_MODEL    = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+# GROQ_MODEL    = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")  # 2026/08で終了
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+
 
 # HF 設定（フォールバック用）
 HF_TOKEN    = os.getenv("HF_TOKEN")
