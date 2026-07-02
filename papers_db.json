@@ -1821,61 +1821,12 @@
     "created_at": "2026-06-08"
   },
   {
-    "id": "http://arxiv.org/abs/2606.03992v1",
-    "title": "Exploring Easy Boosts for Lidar Semantic Scene Completion",
-    "summary_ja": "要約生成に失敗しました。",
-    "tags": [],
-    "link": "https://arxiv.org/abs/2606.03992v1",
-    "published": "2026-06-02T17:59:59Z",
-    "created_at": "2026-06-04"
-  },
-  {
-    "id": "http://arxiv.org/abs/2606.03994v1",
-    "title": "SimuScene: Simulation-Ready Compositional 3D Scene Reconstruction from a Single Image",
-    "summary_ja": "要約生成に失敗しました。",
-    "tags": [
-      "Robotics"
-    ],
-    "link": "https://arxiv.org/abs/2606.03994v1",
-    "published": "2026-06-02T17:59:59Z",
-    "created_at": "2026-06-04"
-  },
-  {
     "id": "http://arxiv.org/abs/2606.03985v1",
     "title": "Humanoid-GPT: Scaling Data and Structure for Zero-Shot Motion Tracking",
     "summary_ja": "要約生成に失敗しました。",
     "tags": [],
     "link": "https://arxiv.org/abs/2606.03985v1",
     "published": "2026-06-02T17:59:05Z",
-    "created_at": "2026-06-04"
-  },
-  {
-    "id": "http://arxiv.org/abs/2606.03979v1",
-    "title": "Language Models Need Sleep: Learning to Self-Modify and Consolidate Memories",
-    "summary_ja": "要約生成に失敗しました。",
-    "tags": [],
-    "link": "https://arxiv.org/abs/2606.03979v1",
-    "published": "2026-06-02T17:56:55Z",
-    "created_at": "2026-06-04"
-  },
-  {
-    "id": "http://arxiv.org/abs/2606.03965v1",
-    "title": "Agentic Chain-of-Thought Steering for Efficient and Controllable LLM Reasoning",
-    "summary_ja": "要約生成に失敗しました。",
-    "tags": [],
-    "link": "https://arxiv.org/abs/2606.03965v1",
-    "published": "2026-06-02T17:51:30Z",
-    "created_at": "2026-06-04"
-  },
-  {
-    "id": "http://arxiv.org/abs/2606.03963v1",
-    "title": "Self-Refining Agentic Reinforcement Learning for Vision-Conditioned UAV Navigation",
-    "summary_ja": "要約生成に失敗しました。",
-    "tags": [
-      "Robotics"
-    ],
-    "link": "https://arxiv.org/abs/2606.03963v1",
-    "published": "2026-06-02T17:50:15Z",
     "created_at": "2026-06-04"
   },
   {
