@@ -163,11 +163,16 @@ SYSTEM_PROMPT = (
     "あなたは研究論文を日本語で要約する専門家です。\n"
     "回答は必ず日本語のみで書いてください。\n"
     "【背景】【提案】【結果】【ポイント】の4セクションをこの順番で必ず書き、"
-    "最後の行にタグ行を1行だけ書いてください。"
+    "最後の行にタグ行を1行だけ書いてください。\n"
+    "出力は必ず 4 セクション＋タグ行のみとし、それ以外の文章を絶対に書かないこと。\n"
+    "各セクションは 2〜3 文に収め、冗長な説明をしないこと。\n"
+    "抽象的な一般論ではなく、論文固有の内容に基づいて書くこと。\n"
 )
 
 def build_user_prompt(context: str) -> str:
     return f"""以下の論文情報を、下記のフォーマットで日本語要約してください。
+
+※もし論文情報が abstract のみの場合は、論理的に補完して背景・手法・結果を推定し、構造化して要約してください。
 
 === フォーマット ===
 【背景】
@@ -217,7 +222,7 @@ def summarize_to_japanese(context: str) -> str:
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user",   "content": build_user_prompt(context)},
         ],
-        "max_tokens": 1024,
+        "max_tokens": 4096,  # 1024
         "temperature": 0.2,
         "top_p": 0.95,
     }
@@ -420,7 +425,7 @@ def main():
 
         # S2 レート制限対策: 論文間に待機を入れる
         if new_count > 0:
-            time.sleep(6)  # 3 → 6秒（S2の100req/5min制限に対して余裕を持たせる）
+            time.sleep(12)  # 3 → 6 → 12秒（S2の100req/5min制限に対して余裕を持たせる）
 
         s2  = fetch_s2_info(p["id"])
         ctx = build_context(p["summary_en"], s2)
