@@ -2,8 +2,9 @@ name: daily arXiv summary
 
 on:
   schedule:
-    - cron: '0 22 * * *'  # UTC 22:00 = JST 07:00
-  workflow_dispatch: {}  # 手動実行
+    - cron: '30 1 * * *'  # JST 10:30
+    - cron: '0 9 * * *'   # JST 18:00
+  workflow_dispatch: {}   # 手動実行
 
 # 同時実行を防ぐ（前のジョブが完了するまで新しいジョブを待機させる）
 concurrency:
@@ -38,12 +39,12 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           LLM_PROVIDER: groq
-          
+
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           git add papers_db.json
           if git diff --staged --quiet; then
             echo "No changes to commit"
@@ -51,4 +52,3 @@ jobs:
             git commit -m "chore: update arXiv digest $(date -u +'%Y-%m-%d')"
             git push
           fi
-
