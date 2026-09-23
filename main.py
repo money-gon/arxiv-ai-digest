@@ -13,11 +13,11 @@ from typing import List, Tuple, Optional
 ARXIV_BASE = "http://export.arxiv.org/api/query?"
 ARXIV_QUERIES = [
     # AIエージェント: cs.AI × "agent"
-    "search_query=cat:cs.AI+AND+all:agent&sortBy=submittedDate&max_results=10",
+    "search_query=cat:cs.AI+AND+all:agent&sortBy=submittedDate&max_results=20",
     # Robotics: cs.RO
-    "search_query=cat:cs.RO&sortBy=submittedDate&max_results=10",
+    "search_query=cat:cs.RO&sortBy=submittedDate&max_results=20",
     # ハンド模倣学習: cs.RO / cs.LG × 手・模倣・巧み・操作系
-    "search_query=(cat:cs.RO+OR+cat:cs.LG)+AND+(all:hand+OR+all:imitation+OR+all:dexterous+OR+all:manipulation)&sortBy=submittedDate&max_results=10",
+    "search_query=(cat:cs.RO+OR+cat:cs.LG)+AND+(all:hand+OR+all:imitation+OR+all:dexterous+OR+all:manipulation)&sortBy=submittedDate&max_results=20",
 ]
 MAX_SUMMARIZE_PER_RUN = 6  # 1回のワークフローで要約する最大件数（API コスト調整用）
 DB_FILE = "papers_db.json"
