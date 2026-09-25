@@ -12,12 +12,14 @@ from typing import List, Tuple, Optional
 # ==========================
 ARXIV_BASE = "http://export.arxiv.org/api/query?"
 ARXIV_QUERIES = [
-    # AIエージェント: cs.AI × "agent"
-    "search_query=cat:cs.AI+AND+all:agent&sortBy=submittedDate&max_results=20",
-    # Robotics: cs.RO
-    "search_query=cat:cs.RO&sortBy=submittedDate&max_results=20",
-    # ハンド模倣学習: cs.RO / cs.LG × 手・模倣・巧み・操作系
-    "search_query=(cat:cs.RO+OR+cat:cs.LG)+AND+(all:hand+OR+all:imitation+OR+all:dexterous+OR+all:manipulation)&sortBy=submittedDate&max_results=20",
+    # AIエージェント系（LLM/VLM・自律エージェント・プランニング・RL）
+    "search_query=(cat:cs.AI)+AND+(all:agent+OR+all:autonomous+OR+all:multi-agent+OR+all:policy+OR+all:planning+OR+all:reinforcement+OR+all:language)&sortBy=submittedDate&max_results=30",
+
+    # Robotics（ロボット制御・操作・シミュレーション・UAV・動力学）
+    "search_query=(cat:cs.RO)+AND+(all:robot+OR+all:manipulation+OR+all:control+OR+all:planning+OR+all:dynamics+OR+all:trajectory+OR+all:simulation+OR+all:uav+OR+all:quadrotor+OR+all:learning)&sortBy=submittedDate&max_results=30",
+
+    # ハンド模倣学習（巧み操作・模倣・触覚・グラスプ・HOI）
+    "search_query=(cat:cs.RO+OR+cat:cs.LG)+AND+(all:hand+OR+all:imitation+OR+all:dexterous+OR+all:manipulation+OR+all:grasp+OR+all:tactile+OR+all:contact+OR+all:visuomotor+OR+all:hoi+OR+all:policy+OR+all:learning)&sortBy=submittedDate&max_results=30",
 ]
 MAX_SUMMARIZE_PER_RUN = 6  # 1回のワークフローで要約する最大件数（API コスト調整用）
 DB_FILE = "papers_db.json"
@@ -317,8 +319,10 @@ def fetch() -> List[dict]:
     seen: set = set()
     papers: List[dict] = []
 
+    import urllib.parse
     for q in ARXIV_QUERIES:
-        feed = feedparser.parse(ARXIV_BASE + q)
+        encoded_q = urllib.parse.quote(q, safe="=&")
+        feed = feedparser.parse(ARXIV_BASE + encoded_q)
         time.sleep(1)
 
         fetched_in_query = 0
