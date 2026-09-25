@@ -12,14 +12,12 @@ from typing import List, Tuple, Optional
 # ==========================
 ARXIV_BASE = "http://export.arxiv.org/api/query?"
 ARXIV_QUERIES = [
-    # AIエージェント系（LLM/VLM・自律エージェント・プランニング・RL）
-    "search_query=(cat:cs.AI)+AND+(all:agent+OR+all:autonomous+OR+all:multi-agent+OR+all:policy+OR+all:planning+OR+all:reinforcement+OR+all:language)&sortBy=submittedDate&max_results=30",
-
-    # Robotics（ロボット制御・操作・シミュレーション・UAV・動力学）
-    "search_query=(cat:cs.RO)+AND+(all:robot+OR+all:manipulation+OR+all:control+OR+all:planning+OR+all:dynamics+OR+all:trajectory+OR+all:simulation+OR+all:uav+OR+all:quadrotor+OR+all:learning)&sortBy=submittedDate&max_results=30",
-
-    # ハンド模倣学習（巧み操作・模倣・触覚・グラスプ・HOI）
-    "search_query=(cat:cs.RO+OR+cat:cs.LG)+AND+(all:hand+OR+all:imitation+OR+all:dexterous+OR+all:manipulation+OR+all:grasp+OR+all:tactile+OR+all:contact+OR+all:visuomotor+OR+all:hoi+OR+all:policy+OR+all:learning)&sortBy=submittedDate&max_results=30",
+    # AIエージェント系
+    "search_query=cat:cs.AI&sortBy=submittedDate&max_results=50",
+    # Robotics
+    "search_query=cat:cs.RO&sortBy=submittedDate&max_results=50",
+    # ハンド模倣学習
+    "search_query=cat:cs.LG&sortBy=submittedDate&max_results=50",
 ]
 MAX_SUMMARIZE_PER_RUN = 6  # 1回のワークフローで要約する最大件数（API コスト調整用）
 DB_FILE = "papers_db.json"
@@ -320,6 +318,7 @@ def fetch() -> List[dict]:
     papers: List[dict] = []
 
     import urllib.parse
+
     for q in ARXIV_QUERIES:
         encoded_q = urllib.parse.quote(q, safe="=&")
         feed = feedparser.parse(ARXIV_BASE + encoded_q)
@@ -345,6 +344,16 @@ def fetch() -> List[dict]:
     papers.sort(key=lambda x: x["published"], reverse=True)
     print(f"fetch total: {len(papers)} unique papers")
     return papers  # ← 全件返す（上限カットなし）
+
+def is_relevant(p):
+    text = (p["title"] + " " + p["summary_en"]).lower()
+    keywords = [
+        "agent", "autonomous", "multi-agent", "policy", "planning",
+        "robot", "manipulation", "control", "uav", "quadrotor",
+        "hand", "dexterous", "imitation", "grasp", "tactile", "hoi"
+    ]
+    return any(k in text for k in keywords)
+
 
 # ==========================
 # DB クリーンアップ
@@ -418,7 +427,7 @@ def main():
     today_jst = datetime.now(JST).date()
 
     # ── 新規論文の抽出（全件チェック）──────────────────────────────
-    new_papers = [p for p in papers if p["id"] not in db_map]
+    new_papers = [p for p in papers if p["id"] not in db_map and is_relevant(p)]
     skip_count = len(papers) - len(new_papers)
     print(f"  existing={skip_count}, new={len(new_papers)}, "
           f"will summarize up to {MAX_SUMMARIZE_PER_RUN}")
