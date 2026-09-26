@@ -7,6 +7,16 @@ import time
 from datetime import datetime, timezone, timedelta, date
 from typing import List, Tuple, Optional
 
+import requests
+
+def test_arxiv_connectivity():
+    try:
+        r = requests.get("http://export.arxiv.org/api/query?search_query=cat:cs.RO&max_results=1", timeout=10)
+        print("TEST arXiv status:", r.status_code)
+        print("TEST arXiv content:", r.text[:200])
+    except Exception as e:
+        print("TEST arXiv error:", e)
+
 # ==========================
 # arXiv設定
 # ==========================
@@ -412,6 +422,10 @@ def cleanup_db(db: list, saved_ids: set, retention_days: int, today: date) -> Tu
 # メイン処理
 # ==========================
 def main():
+    print("=== Testing arXiv connectivity ===")
+    test_arxiv_connectivity()
+    print("=== End test ===")
+
     try:
         _, _, model_name = _get_provider()  # 起動時にAPIキー設定チェック
     except RuntimeError as e:
