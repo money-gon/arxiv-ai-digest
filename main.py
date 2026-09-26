@@ -20,7 +20,7 @@ def test_arxiv_connectivity():
 # ==========================
 # arXiv設定
 # ==========================
-ARXIV_BASE = "http://export.arxiv.org/api/query?"
+ARXIV_BASE = "https://export.arxiv.org/api/query?"
 ARXIV_QUERIES = [
     # AIエージェント系
     "search_query=cat:cs.AI&sortBy=submittedDate&max_results=50",
@@ -322,38 +322,77 @@ def infer_tags(title: str, abstract: str) -> List[str]:
 # arXiv取得
 # ==========================
 def fetch() -> List[dict]:
-    """arXiv から論文を取得して返す。上限カットはせず全件返す。
-    新規かどうかの判定と件数制限は main() で行う。"""
-    seen: set = set()
-    papers: List[dict] = []
-
+    """
+    feedparser が GitHub Actions 上で Atom フィードを正しく読めないため、
+    requests + xml.etree.ElementTree によるパースへ切り替える。
+    """
     import urllib.parse
+    import xml.etree.ElementTree as ET
+    import requests
+
+    seen = set()
+    papers = []
 
     for q in ARXIV_QUERIES:
         encoded_q = urllib.parse.quote(q, safe="=&")
-        feed = feedparser.parse(ARXIV_BASE + encoded_q)
-        time.sleep(1)
+        url = ARXIV_BASE + encoded_q
+
+        try:
+            r = requests.get(
+                url,
+                headers={"User-Agent": "Mozilla/5.0 (arxiv-ai-digest)"},
+                timeout=15
+            )
+        except Exception as e:
+            print(f"arXiv request error: {e}")
+            continue
+
+        if r.status_code != 200:
+            print(f"arXiv API error {r.status_code}")
+            continue
+
+        try:
+            root = ET.fromstring(r.text)
+        except Exception as e:
+            print(f"XML parse error: {e}")
+            continue
 
         fetched_in_query = 0
-        for e in feed.entries:
-            if e.id in seen:
+
+        # Atom フィードの entry 要素を取得
+        for entry in root.findall("{http://www.w3.org/2005/Atom}entry"):
+            id_el = entry.find("{http://www.w3.org/2005/Atom}id")
+            title_el = entry.find("{http://www.w3.org/2005/Atom}title")
+            summary_el = entry.find("{http://www.w3.org/2005/Atom}summary")
+            published_el = entry.find("{http://www.w3.org/2005/Atom}published")
+            link_el = entry.find("{http://www.w3.org/2005/Atom}link")
+
+            if id_el is None:
                 continue
-            seen.add(e.id)
+
+            pid = id_el.text
+            if pid in seen:
+                continue
+            seen.add(pid)
+
             fetched_in_query += 1
+
             papers.append({
-                "id":         e.id,
-                "title":      e.title.strip(),
-                "summary_en": clean_abstract(e.summary),
-                "published":  e.published,
-                "link":       e.link,
+                "id": pid,
+                "title": (title_el.text if title_el is not None else "").strip(),
+                "summary_en": clean_abstract(summary_el.text if summary_el is not None else ""),
+                "published": published_el.text if published_el is not None else "",
+                "link": link_el.attrib.get("href") if link_el is not None else "",
             })
 
         label = q.split("&")[0][13:]
         print(f"fetch: '{label[:50]}' got={fetched_in_query}")
 
+        time.sleep(1)
+
     papers.sort(key=lambda x: x["published"], reverse=True)
     print(f"fetch total: {len(papers)} unique papers")
-    return papers  # ← 全件返す（上限カットなし）
+    return papers
 
 def is_relevant(p):
     text = (p["title"] + " " + p["summary_en"]).lower()
