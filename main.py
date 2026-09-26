@@ -9,6 +9,7 @@ from typing import List, Tuple, Optional
 
 import requests
 
+# arXiv アクセステスト
 def test_arxiv_connectivity():
     try:
         r = requests.get("http://export.arxiv.org/api/query?search_query=cat:cs.RO&max_results=1", timeout=10)
@@ -169,15 +170,47 @@ def build_context(summary_en: str, s2: dict) -> str:
 def clean_abstract(text: str) -> str:
     return " ".join(text.replace("\n", " ").split())
 
-SYSTEM_PROMPT = (
-    "あなたは研究論文を日本語で要約する専門家です。\n"
-    "回答は必ず日本語のみで書いてください。\n"
-    "【背景】【提案】【結果】【ポイント】の4セクションをこの順番で必ず書き、"
-    "最後の行にタグ行を1行だけ書いてください。\n"
-    "出力は必ず 4 セクション＋タグ行のみとし、それ以外の文章を絶対に書かないこと。\n"
-    "各セクションは 2〜3 文に収め、冗長な説明をしないこと。\n"
-    "抽象的な一般論ではなく、論文固有の内容に基づいて書くこと。\n"
-)
+# SYSTEM_PROMPT = (
+#     "あなたは研究論文を日本語で要約する専門家です。\n"
+#     "回答は必ず日本語のみで書いてください。\n"
+#     "【背景】【提案】【結果】【ポイント】の4セクションをこの順番で必ず書き、"
+#     "最後の行にタグ行を1行だけ書いてください。\n"
+#     "出力は必ず 4 セクション＋タグ行のみとし、それ以外の文章を絶対に書かないこと。\n"
+#     "各セクションは 2〜3 文に収め、冗長な説明をしないこと。\n"
+#     "抽象的な一般論ではなく、論文固有の内容に基づいて書くこと。\n"
+# )
+
+SYSTEM_PROMPT = """
+以下の論文を、研究者向けに構造化して要約してください。
+
+【何ができるようになったか（一言）】
+論文の核心を 1 行で述べる。abstract に明記されていない場合は、内容から推定して具体的に書く。
+
+【背景】
+実世界ロボットの課題、既存手法の限界、研究の重要性を簡潔に述べる。
+
+【提案手法】
+モデル構造（VLA / VLMA / Diffusion / Residual Policy / 多指ハンドなど）、
+状態遷移の扱い、実世界データの扱い、新規性を具体的に記述する。
+抽象的な一般論は禁止し、論文固有の内容に基づいて書く。
+
+【実験】
+ロボットの種類（Franka / Allegro / ShadowHand / Unitree など）、
+タスク内容（接触リッチ / 長期計画 / 多指操作）、
+データ規模（実世界データ数 / 模倣デモ数）を可能な限り具体的に記述する。
+実世界ロボットでの評価がある場合は最優先で書く。
+
+【結果】
+成功率、失敗率、長期タスクの安定性、実世界での再現性、
+ベースラインとの比較など、可能な限り数値を抽出して記述する。
+
+【ポイント】
+この研究の価値（実世界性能改善、状態遷移自動化、模倣学習の新規性、
+多指ハンドの新規性、大規模データの活用、汎用性）を簡潔にまとめる。
+
+【タグ】
+論文内容から 3〜6 個のタグを抽出して列挙する。
+"""
 
 def build_user_prompt(context: str) -> str:
     return f"""以下の論文情報を、下記のフォーマットで日本語要約してください。
@@ -458,6 +491,55 @@ def cleanup_db(db: list, saved_ids: set, retention_days: int, today: date) -> Tu
     return kept, removed
 
 # ==========================
+# 価値スコア関数
+# ==========================
+def score_paper(p):
+    text = (p["title"] + " " + p["summary_en"]).lower()
+    score = 0
+
+    # ① 実世界ロボットの性能改善（最優先：重み 5）
+    real_robot_keywords = [
+        "real robot", "real-world", "real world", "on real robots",
+        "hardware", "physical robot", "real robot experiments",
+        "success rate", "failure rate", "long-horizon", "contact-rich",
+        "closed-loop", "in the real world"
+    ]
+    score += sum(5 for k in real_robot_keywords if k in text)
+
+    # ② VLA / VLMA / 状態遷移自動化（重み 4）
+    vla_keywords = [
+        "vision-language-action", "vla", "vlm-a", "vlma",
+        "policy chaining", "state transitions", "residual policy",
+        "long-horizon planning", "agentic", "autonomous agent"
+    ]
+    score += sum(4 for k in vla_keywords if k in text)
+
+    # ③ 模倣学習の新手法（重み 3）
+    imitation_keywords = [
+        "imitation learning", "behavior cloning", "bc-rl",
+        "diffusion policy", "handitl", "teleoperation",
+        "human demonstrations", "interactive imitation"
+    ]
+    score += sum(3 for k in imitation_keywords if k in text)
+
+    # ④ 大規模ロボティクス / 多指ハンド（重み 2）
+    scale_keywords = [
+        "large-scale", "dataset", "10m", "100m", "1b",
+        "dexterous", "multi-finger", "high-dof", "byte-dexter",
+        "shadowhand", "allegro", "robot hand"
+    ]
+    score += sum(2 for k in scale_keywords if k in text)
+
+    # ⑤ 著名研究機関（重み 2）
+    org_keywords = [
+        "google", "deepmind", "meta", "openai", "microsoft",
+        "stanford", "mit", "cmu", "eth", "mpi", "tsinghua"
+    ]
+    score += sum(2 for k in org_keywords if k in text)
+
+    return score
+
+# ==========================
 # メイン処理
 # ==========================
 def main():
@@ -480,7 +562,10 @@ def main():
     today_jst = datetime.now(JST).date()
 
     # ── 新規論文の抽出（全件チェック）──────────────────────────────
-    new_papers = [p for p in papers if p["id"] not in db_map and is_relevant(p)]
+    new_papers = [
+        p for p in papers
+        if p["id"] not in db_map and score_paper(p) >= 6
+    ]
     skip_count = len(papers) - len(new_papers)
     print(f"  existing={skip_count}, new={len(new_papers)}, "
           f"will summarize up to {MAX_SUMMARIZE_PER_RUN}")
