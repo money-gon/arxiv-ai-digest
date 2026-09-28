@@ -562,9 +562,14 @@ def main():
     today_jst = datetime.now(JST).date()
 
     # ── 新規論文の抽出（全件チェック）──────────────────────────────
+    print("\n=== SCORE DEBUG ===")
+    for p in papers:
+        s = score_paper(p)
+        print(f"score={s:2d}  title={p['title'][:80]}")
+    print("=== END SCORE DEBUG ===\n")
     new_papers = [
         p for p in papers
-        if p["id"] not in db_map and score_paper(p) >= 6
+        if p["id"] not in db_map and score_paper(p) >= 8
     ]
     skip_count = len(papers) - len(new_papers)
     print(f"  existing={skip_count}, new={len(new_papers)}, "
